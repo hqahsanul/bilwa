@@ -1,0 +1,12 @@
+# Use with: docker compose -f docker-compose.yml -f docker-compose.ssl.yml ...
+# Requires nginx/ssl/origin.pem and nginx/ssl/origin.key (Cloudflare Origin Certificate)
+services:
+  nginx:
+    ports:
+      - "${HTTPS_PORT:-443}:443"
+    volumes:
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+      - ./nginx/conf.d.ssl/20-http-redirect.conf:/etc/nginx/conf.d/20-http-redirect.conf:ro
+      - ./nginx/conf.d.ssl/30-ssl.conf:/etc/nginx/conf.d/30-ssl.conf:ro
+      # Replace plain HTTP proxy with redirect when TLS is enabled (avoid duplicate :80 handlers)
+      - ./nginx/conf.d.ssl/00-disable-plain-http.conf:/etc/nginx/conf.d/default.conf:ro

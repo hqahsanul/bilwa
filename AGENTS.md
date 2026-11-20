@@ -1,0 +1,2 @@
+- Keep Reply Radar as a frontend-only marketing experience until persistent signup, billing, or account features are explicitly requested; this prevents mock infrastructure from becoming product behavior.
+- Keep reusable button style variants in a separate module from the Button component so non-component consumers do not depend on its hot-reload lifecycle.

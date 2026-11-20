@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bilwa – A legacy of trust</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #e0b252;
+    --gold-line: #c9a04a;
+    --serif: "Newsreader", Georgia, "Times New Roman", serif;
+    --sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #faf6f0; font-family: var(--sans); padding: 2vw; }
+  button { font: inherit; cursor: pointer; }
+  button:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+
+  .story { container-type: inline-size; max-width: 1200px; margin: 0 auto; color: #fff; overflow: hidden; }
+
+  /* ---------- top: photo + copy ---------- */
+  .top { display: grid; grid-template-columns: minmax(0, 44.7fr) minmax(0, 55.3fr); }
+
+  /* The photo fills the whole panel. No fades, masks or blur; that is what washed the old one out. */
+  /* .media is the positioning box; .photo clips the image and is sized by the row height, never by an aspect ratio. */
+  .media { position: relative; z-index: 2; min-width: 0; background: #3a2412; }
+  .photo { position: absolute; inset: 0; overflow: hidden; }
+  .photo > svg, .photo > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+  /* Gold frame, measured from the Figma export (photo = 393 x 450). Four separate lines:
+       left    solid, full height, 6% in from the photo's left edge
+       top     solid, runs across the photo and ~4.1% into the green panel
+       bottom  solid until ~43% of the photo width, then fades to nothing by ~64%
+       right   in the green panel (~4.1% past the photo edge), solid until ~20% of the
+               photo height, then fades to nothing by ~33.5%
+     So the bottom-right corner dissolves instead of ending in a hard cut. */
+  .fl { position: absolute; z-index: 2; pointer-events: none; --gold: #e0b252; }
+  .fl-left   { left: 6%; top: 5.3%; bottom: 3.8%; width: 1px; background: var(--gold); }
+  .fl-top    { left: 6%; right: -4.1%; top: 5.3%; height: 1px; background: var(--gold); }
+  .fl-bottom { left: 6%; right: 0; bottom: 3.8%; height: 1px;
+               background: linear-gradient(90deg, var(--gold) 0, var(--gold) 39%, rgba(224,178,82,0) 62%); }
+  .fl-right  { left: 104.1%; margin-left: -1px; top: 5.3%; height: 28.2%; width: 1px;
+               background: linear-gradient(180deg, var(--gold) 0, var(--gold) 52%, rgba(224,178,82,0) 100%); }
+  .badge {
+    position: absolute; z-index: 3; left: 3.8%; top: 9.5%;
+    padding: 1.7cqw 4cqw 1.7cqw 2.3cqw;
+    background: linear-gradient(90deg, rgba(8,58,44,.96) 0%, rgba(8,58,44,.9) 65%, rgba(8,58,44,0) 100%);
+    font-family: var(--serif); font-style: italic; font-size: clamp(1rem, 2.45cqw, 1.9rem); line-height: 1.12;
+  }
+
+  .copy {
+    padding: 4.4cqw 3cqw 3cqw 6cqw; position: relative; z-index: 1; min-width: 0;
+    background:
+      radial-gradient(60cqw 40cqw at 100% 0, rgba(30,110,84,.55), transparent 60%),
+      linear-gradient(160deg, #06382b 0%, #03261d 100%);
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .eyebrow { font-family: var(--serif); font-weight: 400; font-size: clamp(.7rem, 1.5cqw, 1.1rem); letter-spacing: .26em; text-transform: uppercase; color: var(--gold); }
+  h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(2rem, 4.7cqw, 3.7rem); line-height: 1.04; letter-spacing: -.01em; margin: 2.2cqw 0 2.2cqw; }
+  .lead { font-size: clamp(.85rem, 1.72cqw, 1.25rem); line-height: 1.55; color: #f1f4f1; max-width: 29em; }
+
+  .stats { display: grid; grid-template-columns: .9fr .95fr 1.25fr; margin: 3.2cqw 0 3.4cqw; align-items: start; }
+  .stat { padding: 0 1.5cqw; }
+  .stat:first-child { padding-left: 0; }
+  .stat + .stat { border-left: 1.5px solid var(--gold-line); padding-bottom: .3cqw; }
+  .stat b { display: block; min-height: 2.2em; white-space: normal; font-family: var(--serif); font-weight: 400; font-size: clamp(1.1rem, 2.75cqw, 2rem); line-height: 1.1; }
+  .stat span { display: block; margin-top: .3cqw; text-wrap: balance; font-size: clamp(.68rem, 1.38cqw, 1rem); line-height: 1.4; color: #eef2ee; }
+
+  .btn {
+    align-self: flex-start; padding: 1.5cqw 2.2cqw; border: 0; border-radius: .7cqw;
+    background: linear-gradient(180deg, #f2d686 0%, #d9a845 100%);
+    color: #162318; font-family: var(--serif); font-weight: 500; font-size: clamp(1rem, 2.1cqw, 1.5rem);
+    box-shadow: 0 .6cqw 1.8cqw rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.5);
+  }
+  .btn:hover { filter: brightness(1.06); }
+
+  /* ---------- bottom band ---------- */
+  .bottom { background: linear-gradient(180deg, #0a4636 0%, #083c2f 100%); text-align: center; padding: 2.2cqw 3cqw 2.5cqw; border-top: 1px solid rgba(0,0,0,.25); }
+  .orn { display: flex; align-items: center; justify-content: center; gap: 1.6cqw; }
+  .orn::before, .orn::after { content: ""; width: 14cqw; height: 1px; background: var(--gold-line); }
+  .orn svg { width: 3.4cqw; min-width: 24px; height: auto; }
+  .bottom h3 { font-family: var(--serif); font-weight: 400; font-size: clamp(1.5rem, 3.6cqw, 2.8rem); margin-top: .6cqw; }
+  .bottom p { font-size: clamp(.78rem, 1.5cqw, 1.1rem); color: #f1f4f1; margin-top: .4cqw; }
+
+  /* ---------- mobile ---------- */
+  @media (max-width: 760px) {
+    body { padding: 0; }
+    .top { grid-template-columns: 1fr; }
+    .media { aspect-ratio: 4 / 3.4; }
+    .fl-right { display: none; }
+    .fl-top { right: 0; }
+    .badge { padding: 12px 40px 12px 16px; font-size: 1.15rem; }
+    .copy { padding: 28px 22px 32px; }
+    .eyebrow { font-size: .78rem; }
+    h2 { font-size: 2.3rem; margin: 14px 0; }
+    .lead { font-size: 1rem; }
+    .stats { grid-template-columns: 1fr; gap: 18px; margin: 26px 0; }
+    .stat, .stat:first-child { padding: 0 0 0 14px; border-left: 1.5px solid var(--gold-line); }
+    .stat b { font-size: 1.35rem; min-height: 0; } .stat span { font-size: .9rem; margin-top: 6px; }
+    .btn { padding: 14px 22px; font-size: 1.1rem; border-radius: 6px; }
+    .bottom { padding: 22px 18px 26px; }
+    .orn::before, .orn::after { width: 18%; }
+    .bottom h3 { font-size: 1.6rem; } .bottom p { font-size: .9rem; }
+  }
+</style>
+</head>
+<body>
+
+<section class="story">
+  <div class="top">
+
+    <div class="media">
+      <div class="photo">
+      <!-- Placeholder artwork. For your real photo, delete this <svg> and use:
+           <img src="workshop.jpg" alt="Hands examining a gold coin with a loupe"> -->
+      <svg viewBox="0 0 400 450" preserveAspectRatio="xMidYMid slice" role="img" aria-label="A jeweller examining a gold coin through a loupe on a workshop bench">
+        <defs>
+          <radialGradient id="bg" cx="55%" cy="45%" r="75%"><stop offset="0" stop-color="#9a6a3a"/><stop offset=".6" stop-color="#5a3a1e"/><stop offset="1" stop-color="#26160a"/></radialGradient>
+          <linearGradient id="wood" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a8774a"/><stop offset="1" stop-color="#6b4526"/></linearGradient>
+          <linearGradient id="skin" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c58552"/><stop offset=".6" stop-color="#9a5e33"/><stop offset="1" stop-color="#6e4020"/></linearGradient>
+          <linearGradient id="skin2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b97a49"/><stop offset="1" stop-color="#7a4725"/></linearGradient>
+          <linearGradient id="bronze" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#6e4a26"/><stop offset=".45" stop-color="#b98b52"/><stop offset="1" stop-color="#5a3a1c"/></linearGradient>
+          <linearGradient id="steel" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8a8378"/><stop offset="1" stop-color="#3f3a33"/></linearGradient>
+          <radialGradient id="coinG" cx="35%" cy="30%" r="80%"><stop offset="0" stop-color="#fff0a8"/><stop offset=".5" stop-color="#e6b648"/><stop offset="1" stop-color="#a8731c"/></radialGradient>
+          <radialGradient id="glow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ffd978" stop-opacity=".85"/><stop offset="1" stop-color="#ffd978" stop-opacity="0"/></radialGradient>
+          <radialGradient id="glass" cx="40%" cy="35%" r="70%"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#d8c9a8" stop-opacity=".25"/></radialGradient>
+          <filter id="soft"><feGaussianBlur stdDeviation="5"/></filter>
+        </defs>
+
+        <rect width="400" height="450" fill="url(#bg)"/>
+        <!-- background bokeh -->
+        <g filter="url(#soft)" opacity=".55"><circle cx="90" cy="40" r="22" fill="#e0a45c"/><circle cx="210" cy="25" r="16" fill="#c98a45"/><circle cx="330" cy="60" r="20" fill="#d9a05a"/><circle cx="150" cy="95" r="14" fill="#b77a3b"/></g>
+        <!-- bench -->
+        <path d="M0 210 L400 170 V450 H0Z" fill="url(#wood)"/>
+        <g stroke="#4a2d14" stroke-opacity=".35" stroke-width="1.4" fill="none">
+          <path d="M0 250 L400 214"/><path d="M0 300 L400 268"/><path d="M0 350 L400 326"/><path d="M0 400 L400 384"/>
+          <path d="M120 215 L150 450"/><path d="M260 195 L300 450"/>
+        </g>
+        <!-- hammer -->
+        <g transform="rotate(-22 300 90)"><rect x="245" y="82" width="150" height="26" rx="4" fill="url(#steel)"/><rect x="238" y="62" width="52" height="66" rx="6" fill="url(#steel)"/></g>
+        <!-- bronze weight -->
+        <g><ellipse cx="205" cy="190" rx="62" ry="16" fill="#3b2410"/><path d="M143 150V190A62 16 0 0 0 267 190V150Z" fill="url(#bronze)"/><ellipse cx="205" cy="150" rx="62" ry="16" fill="#c39a60"/><ellipse cx="205" cy="128" rx="22" ry="7" fill="#a67c44"/><rect x="183" y="128" width="44" height="20" fill="#8a6430"/></g>
+        <!-- pen cup + tools -->
+        <g>
+          <g stroke="#cdb48a" stroke-width="5" stroke-linecap="round"><path d="M22 150L34 235"/><path d="M38 140L46 235"/><path d="M54 150L58 235"/><path d="M70 160L68 235"/></g>
+          <path d="M8 215H90L84 340Q50 352 14 340Z" fill="url(#bronze)"/>
+          <ellipse cx="49" cy="215" rx="41" ry="9" fill="#2a180a"/>
+          <path d="M14 260Q50 272 84 258" stroke="#3a2410" stroke-opacity=".5" fill="none"/>
+        </g>
+        <!-- left hand (holding coin) -->
+        <path d="M70 450 C70 380 110 330 170 315 C200 308 225 318 238 300 L262 312 C262 335 240 352 215 362 C240 378 290 366 312 390 C330 410 320 450 320 450Z" fill="url(#skin)"/>
+        <path d="M225 300 C240 280 262 280 272 296 C282 318 268 346 244 352 C228 340 220 318 225 300Z" fill="url(#skin2)"/>
+        <path d="M150 330 C190 330 215 350 235 380" stroke="#5a3016" stroke-opacity=".5" stroke-width="3" fill="none"/>
+        <!-- coin -->
+        <ellipse cx="262" cy="262" rx="78" ry="78" fill="url(#glow)"/>
+        <g transform="rotate(-18 262 262)">
+          <ellipse cx="262" cy="262" rx="40" ry="52" fill="#b58420"/>
+          <ellipse cx="262" cy="262" rx="36" ry="48" fill="url(#coinG)"/>
+          <ellipse cx="262" cy="262" rx="29" ry="40" fill="none" stroke="#9a6a14" stroke-opacity=".6"/>
+          <g fill="#a8741a" opacity=".85">
+            <path d="M262 232 C252 244 252 258 262 270 C272 258 272 244 262 232Z"/>
+            <path d="M262 270 C246 268 236 256 238 244 C250 246 260 256 262 270Z"/>
+            <path d="M262 270 C278 268 288 256 286 244 C274 246 264 256 262 270Z"/>
+            <path d="M246 276 H278 L270 286 H254Z"/>
+          </g>
+        </g>
+        <!-- right hand + loupe -->
+        <path d="M400 450V250 C380 235 352 240 340 262 C334 276 340 290 352 292 C330 300 322 330 326 360 C330 400 350 440 360 450Z" fill="url(#skin2)"/>
+        <path d="M400 300 C380 280 350 296 346 320 C344 340 360 350 380 346 L400 340Z" fill="url(#skin)"/>
+        <g>
+          <ellipse cx="338" cy="214" rx="32" ry="38" fill="#1c1208"/>
+          <ellipse cx="340" cy="212" rx="27" ry="33" fill="#6f6556"/>
+          <ellipse cx="341" cy="211" rx="23" ry="29" fill="url(#glass)"/>
+          <path d="M320 236 L290 262" stroke="#5a5144" stroke-width="14" stroke-linecap="round"/>
+          <path d="M360 190 C372 200 376 220 368 236" stroke="#fff" stroke-opacity=".5" stroke-width="2" fill="none"/>
+        </g>
+        <!-- bowl of gold beads -->
+        <ellipse cx="338" cy="412" rx="62" ry="20" fill="#3a2410"/>
+        <path d="M276 404 A62 24 0 0 0 400 404 V420 A62 26 0 0 1 276 420Z" fill="url(#bronze)"/>
+        <ellipse cx="338" cy="404" rx="62" ry="22" fill="#1e1208"/>
+        <g fill="#f0c25a">
+          <circle cx="318" cy="402" r="4.5"/><circle cx="330" cy="398" r="4.5"/><circle cx="342" cy="402" r="4.5"/><circle cx="354" cy="398" r="4.5"/>
+          <circle cx="324" cy="410" r="4.5"/><circle cx="336" cy="408" r="4.5"/><circle cx="348" cy="410" r="4.5"/><circle cx="360" cy="406" r="4.5"/><circle cx="342" cy="395" r="4"/>
+        </g>
+        <!-- tweezers -->
+        <path d="M290 372 L400 392" stroke="#b9b2a4" stroke-width="3" stroke-linecap="round"/>
+        <path d="M290 380 L400 396" stroke="#8d867a" stroke-width="2" stroke-linecap="round"/>
+        <!-- vignette -->
+        <rect width="400" height="450" fill="url(#bg)" opacity="0"/>
+      </svg>
+      </div>
+      <i class="fl fl-left" aria-hidden="true"></i><i class="fl fl-top" aria-hidden="true"></i><i class="fl fl-bottom" aria-hidden="true"></i><i class="fl fl-right" aria-hidden="true"></i>
+      <div class="badge">A century in<br>precious metals</div>
+    </div>
+
+    <div class="copy">
+      <p class="eyebrow">Rooted in experience</p>
+      <h2>A legacy of trust.<br>A new way to treasure.</h2>
+      <p class="lead">Bilwa brings generations of bullion experience into a thoughtful online experience &mdash; combining trusted sourcing with more expressive coins, bars and gifts.</p>
+
+      <div class="stats">
+        <div class="stat"><b>100 years</b><span>of family experience in the bullion trade</span></div>
+        <div class="stat"><b>Thoughtful design</b><span>Beyond ordinary coins and bars</span></div>
+        <div class="stat"><b>Clear information</b><span>Know the purity, weight and price before you buy</span></div>
+      </div>
+
+      <button class="btn" type="button">Discover our story &rarr;</button>
+    </div>
+  </div>
+
+  <div class="bottom">
+    <div class="orn" aria-hidden="true">
+      <svg viewBox="0 0 40 28" fill="none" stroke="#e0b252" stroke-width="1.4" stroke-linejoin="round"><path d="M20 3C14 9 14 18 20 24C26 18 26 9 20 3Z"/><path d="M19 24C12 24 6 19 5 11C12 11 18 16 19 24Z"/><path d="M21 24C28 24 34 19 35 11C28 11 22 16 21 24Z"/><path d="M12 25H28" stroke-linecap="round"/></svg>
+    </div>
+    <h3>Every purchase deserves clarity.</h3>
+    <p>Product details and purchase documents should be easy to find, understand and revisit.</p>
+  </div>
+</section>
+
+</body>
+</html>

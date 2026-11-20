@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bilwa – A considered way to buy precious</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #faf6f0;
+    --green: #0f3d33;
+    --green-btn: #1b5e48;
+    --gold: #b8893a;
+    --gold-num: #c29b47;
+    --gray: #555;
+    --mint: #e3efe8;
+    --card: #f8f3ea;
+    --font: "Newsreader", "Iowan Old Style", Georgia, "Times New Roman", serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); font-family: var(--font); color: var(--gray); }
+
+  /* Everything scales from --u (1% of the stage width) so the design keeps its proportions */
+  .stage {
+    --u: 1cqw;
+    container-type: inline-size;
+    position: relative;
+    width: 100%;
+    max-width: 1500px;
+    margin: 0 auto;
+    aspect-ratio: 1487 / 1058;
+  }
+  .abs { position: absolute; }
+
+  /* Header */
+  .eyebrow {
+    left: 4.03%; top: 4%;
+    font-size: calc(var(--u) * 1.5);
+    letter-spacing: .14em; text-transform: uppercase;
+    color: var(--gold); font-weight: 500;
+  }
+  h1 {
+    left: 3.8%; top: 7.3%;
+    font-size: calc(var(--u) * 4.55);
+    line-height: 1.1; font-weight: 500;
+    letter-spacing: -.01em; color: var(--green);
+    white-space: nowrap;
+  }
+  .sub { left: 4.03%; top: 15.6%; font-size: calc(var(--u) * 1.9); color: var(--gray); }
+  .how {
+    right: 3.7%; top: 9.2%;
+    font-size: calc(var(--u) * 2);
+    color: var(--green); text-decoration: none;
+    border-bottom: calc(var(--u) * .13) solid var(--gold);
+    padding-bottom: calc(var(--u) * .3);
+  }
+
+  /* Steps */
+  .step { width: 21%; }
+  .step .n { font-size: calc(var(--u) * 3.85); line-height: 1; color: var(--gold-num); font-weight: 400; }
+  .step h2 {
+    font-size: calc(var(--u) * 2.55); line-height: 1.12; font-weight: 500;
+    color: var(--green); margin: calc(var(--u) * .5) 0 calc(var(--u) * .7);
+  }
+  .step p { font-size: calc(var(--u) * 1.5); line-height: 1.32; color: var(--gray); }
+  .s1 { left: 4.03%; top: 24.8%; }
+  .s2 { left: 4.03%; top: 51.2%; }
+  .s3 { left: 80.0%; top: 24.8%; width: 17%; }
+  .s4 { left: 80.0%; top: 51.2%; width: 17%; }
+
+  .lines { left: 0; top: 24.57%; width: 100%; height: 51.98%; overflow: visible; pointer-events: none; }
+  .lines path { fill: none; stroke: var(--gold); stroke-width: 1.8; }
+  .lines circle { fill: var(--gold); }
+
+  /* Product card */
+  .card {
+    left: 27.24%; top: 27.6%; width: 45.07%; height: 46.9%;
+    display: flex; overflow: hidden;
+    background: var(--card);
+    border-radius: calc(var(--u) * 1.8);
+    box-shadow: 0 0 0 1px rgba(184,137,58,.12), 0 calc(var(--u) * 1) calc(var(--u) * 3) rgba(80,60,20,.12);
+  }
+  .photo {
+    flex: 0 0 49.7%; position: relative; overflow: hidden;
+    background: linear-gradient(135deg, #e4d6c6 0%, #f0e7db 55%, #ece2d5 100%);
+  }
+  .photo::before { /* soft light streaks */
+    content: ""; position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 70% 10%, rgba(255,255,255,.55), transparent 55%);
+  }
+  .ledge {
+    position: absolute; left: 0; right: 0; bottom: 0; height: 29%;
+    background: linear-gradient(180deg, #f3e9dc 0 14%, #e6d8c6 14% 100%);
+    border-top: 1px solid rgba(255,255,255,.7);
+  }
+  .ledge::after { /* marble veins */
+    content: ""; position: absolute; inset: 14% 0 0 0;
+    background:
+      linear-gradient(115deg, transparent 40%, rgba(214,170,110,.35) 41%, transparent 43%),
+      linear-gradient(80deg, transparent 20%, rgba(214,170,110,.25) 21%, transparent 23%);
+  }
+  .coin {
+    position: absolute; left: 10%; top: 21%; width: 80%;
+    filter: drop-shadow(0 calc(var(--u) * 1) calc(var(--u) * 1.2) rgba(90,60,10,.35));
+  }
+  /* To use a real photo: delete .ledge and .coin, then add <img src="coin.jpg" style="width:100%;height:100%;object-fit:cover"> */
+
+  .info { flex: 1; padding: calc(var(--u) * 2.35) calc(var(--u) * 2.3) calc(var(--u) * 2.4); display: flex; flex-direction: column; }
+  .brand { font-size: calc(var(--u) * 1.45); letter-spacing: .28em; color: var(--green); font-weight: 500; margin-top: calc(var(--u) * .5); }
+  .title { font-size: calc(var(--u) * 2.75); font-weight: 500; color: var(--green); line-height: 1.15; margin: calc(var(--u) * .3) 0 calc(var(--u) * 1.6); white-space: nowrap; }
+  .specs { display: flex; padding-bottom: calc(var(--u) * 1.5); border-bottom: 1px solid rgba(15,61,51,.15); }
+  .spec { font-size: calc(var(--u) * 1.3); color: var(--gray); }
+  .spec b { display: block; font-size: calc(var(--u) * 1.65); font-weight: 500; color: var(--green); margin-top: calc(var(--u) * .35); }
+  .spec + .spec { margin-left: calc(var(--u) * 1.9); padding-left: calc(var(--u) * 1.9); border-left: 1px solid rgba(15,61,51,.2); }
+  .price-label { font-size: calc(var(--u) * 1.3); margin-top: calc(var(--u) * 1.5); }
+  .price { font-size: calc(var(--u) * 3.4); font-weight: 500; color: var(--green); line-height: 1.15; margin-top: calc(var(--u) * .2); }
+  .price-note { font-size: calc(var(--u) * 1.1); margin-top: calc(var(--u) * .5); }
+  .add {
+    margin-top: auto; width: 100%; padding: calc(var(--u) * 1.25) 0;
+    background: var(--green-btn); color: #fff; border: 0; border-radius: calc(var(--u) * .4);
+    font: 500 calc(var(--u) * 1.55) var(--font); cursor: pointer;
+  }
+  .add:hover { background: #164d3a; }
+
+  /* Footer strip */
+  .strip {
+    left: 2.9%; top: 82.05%; width: 94.2%; height: 13.9%;
+    background: var(--mint); border-radius: calc(var(--u) * 1.9);
+    display: flex; align-items: center; padding: 0 calc(var(--u) * 2.2) 0 calc(var(--u) * 3.6);
+  }
+  .perk { display: flex; align-items: center; gap: calc(var(--u) * 1.3); font-size: calc(var(--u) * 1.72); line-height: 1.18; color: var(--green); }
+  .perk svg { width: calc(var(--u) * 2.7); height: calc(var(--u) * 2.7); flex: none; }
+  .perk + .perk { margin-left: calc(var(--u) * 2.3); padding-left: calc(var(--u) * 2.3); border-left: 1px solid rgba(15,61,51,.22); }
+  .perk.first { padding-right: calc(var(--u) * 0.3); }
+  .explore {
+    margin-left: auto; font: 500 calc(var(--u) * 1.85) var(--font); color: var(--green);
+    background: transparent; border: 1px solid var(--gold); border-radius: calc(var(--u) * .5);
+    padding: calc(var(--u) * 1.35) calc(var(--u) * 2) ; cursor: pointer; white-space: nowrap;
+  }
+  .explore:hover { background: rgba(184,137,58,.08); }
+
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--green-btn); outline-offset: 3px; }
+
+  /* Mobile: stack everything, drop the connectors */
+  @media (max-width: 760px) {
+    .stage { --u: .56rem; aspect-ratio: auto; display: flex; flex-direction: column; gap: 1.6rem; padding: 1.6rem 1.25rem 2rem; container-type: normal; }
+    .abs { position: static; }
+    h1 { white-space: normal; font-size: 2.3rem; }
+    .eyebrow { font-size: .8rem; }
+    .sub { font-size: 1.05rem; }
+    .how { align-self: flex-start; font-size: 1.05rem; }
+    .step, .s3, .s4 { width: auto; }
+    .step .n { font-size: 2.1rem; }
+    .step h2 { font-size: 1.45rem; }
+    .step p { font-size: 1rem; }
+    .lines { display: none; }
+    .card { flex-direction: column; height: auto; border-radius: 1rem; }
+    .photo { flex: none; aspect-ratio: 4 / 3; }
+    .info { padding: 1.4rem; }
+    .brand { font-size: .8rem; } .title { font-size: 1.6rem; }
+    .spec { font-size: .8rem; } .spec b { font-size: 1rem; }
+    .price-label { font-size: .8rem; } .price { font-size: 2.1rem; } .price-note { font-size: .7rem; }
+    .add { margin-top: 1.4rem; padding: .9rem 0; font-size: 1rem; }
+    .strip { flex-direction: column; align-items: flex-start; gap: 1rem; height: auto; padding: 1.4rem; border-radius: 1.2rem; }
+    .perk { font-size: 1rem; gap: .8rem; } .perk svg { width: 1.6rem; height: 1.6rem; }
+    .perk + .perk { margin: 0; padding: 0; border: 0; }
+    .explore { margin: .4rem 0 0; width: 100%; font-size: 1.05rem; padding: .8rem; }
+  }
+</style>
+</head>
+<body>
+<main class="stage">
+
+  <p class="abs eyebrow">Confidence at every step</p>
+  <h1 class="abs">A considered way to buy precious.</h1>
+  <p class="abs sub">Understand the piece, know the price, and stay informed after purchase.</p>
+  <a class="abs how" href="#how-it-works">How it works &rarr;</a>
+
+  <!-- Curved connectors (drawn in a 1487 x 550 coordinate space) -->
+  <svg class="abs lines" viewBox="0 0 1487 550" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M312 97 H335 Q355 97 355 120 V190 Q355 210 375 210 H397"/>
+    <path d="M397 342 H377 Q357 342 357 362 V408 Q357 428 337 428 H312"/>
+    <path d="M1170 97 H1145 Q1125 97 1125 120 V190 Q1125 210 1105 210 H1083"/>
+    <path d="M1083 342 H1103 Q1125 342 1125 362 V408 Q1125 428 1145 428 H1170"/>
+    <circle cx="397" cy="210" r="4.5"/><circle cx="397" cy="342" r="4.5"/>
+    <circle cx="1083" cy="210" r="4.5"/><circle cx="1083" cy="342" r="4.5"/>
+  </svg>
+
+  <section class="abs step s1">
+    <div class="n">01</div>
+    <h2>Explore with confidence</h2>
+    <p>Discover weight, purity and product details.</p>
+  </section>
+  <section class="abs step s2">
+    <div class="n">02</div>
+    <h2>Review your price</h2>
+    <p>See the price breakdown before checkout.</p>
+  </section>
+  <section class="abs step s3">
+    <div class="n">03</div>
+    <h2>Place your order</h2>
+    <p>Review your details and complete payment.</p>
+  </section>
+  <section class="abs step s4">
+    <div class="n">04</div>
+    <h2>Follow your purchase</h2>
+    <p>Track order status and access documents in your account.</p>
+  </section>
+
+  <article class="abs card" id="how-it-works">
+    <div class="photo">
+      <div class="ledge"></div>
+      <svg class="coin" viewBox="0 0 200 200" role="img" aria-label="Bilwa 1 gram gold coin">
+        <defs>
+          <radialGradient id="g" cx="38%" cy="30%" r="80%">
+            <stop offset="0" stop-color="#fbe08a"/><stop offset=".45" stop-color="#e8b53f"/>
+            <stop offset="1" stop-color="#b9821a"/>
+          </radialGradient>
+          <linearGradient id="gr" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#f6d675"/><stop offset="1" stop-color="#c8921f"/>
+          </linearGradient>
+        </defs>
+        <circle cx="100" cy="100" r="98" fill="url(#gr)"/>
+        <circle cx="100" cy="100" r="95" fill="none" stroke="#b9821a" stroke-width="3" stroke-dasharray="1.6 2.6"/>
+        <circle cx="100" cy="100" r="88" fill="url(#g)" stroke="#d9a22f" stroke-width="2"/>
+        <g fill="none" stroke="#fdeaa0" stroke-width="2" stroke-linecap="round">
+          <path d="M100 66 V44"/><path d="M100 60 C88 58 82 52 80 44 C90 44 98 50 100 58"/>
+          <path d="M100 60 C112 58 118 52 120 44 C110 44 102 50 100 58"/>
+          <path d="M100 50 C92 48 90 40 92 34 C98 36 100 42 100 50"/>
+          <path d="M100 50 C108 48 110 40 108 34 C102 36 100 42 100 50"/>
+          <path d="M84 62 C92 66 108 66 116 62"/>
+        </g>
+        <text x="100" y="112" text-anchor="middle" font-family="Newsreader, Georgia, serif" font-size="30" fill="#fdeaa0" stroke="#b9821a" stroke-width=".6" letter-spacing="2">BILWA</text>
+        <text x="100" y="138" text-anchor="middle" font-family="Newsreader, Georgia, serif" font-size="24" fill="#fdeaa0" stroke="#b9821a" stroke-width=".5">1g</text>
+        <g fill="none" stroke="#fdeaa0" stroke-width="2.2" stroke-linecap="round">
+          <path d="M52 150 C64 166 82 172 100 172 C118 172 136 166 148 150"/>
+          <path d="M60 152 l-6 -8 M70 160 l-7 -7 M82 166 l-5 -9 M118 166 l5 -9 M130 160 l7 -7 M140 152 l6 -8"/>
+        </g>
+      </svg>
+    </div>
+    <div class="info">
+      <div class="brand">BILWA</div>
+      <h3 class="title">Gold Coin – 1g</h3>
+      <div class="specs">
+        <div class="spec">Purity<b>24K (999)</b></div>
+        <div class="spec">Weight<b>1g</b></div>
+      </div>
+      <div class="price-label">Price (sample)</div>
+      <div class="price">&#8377;12,450</div>
+      <div class="price-note">(Illustrative sample price for clarity)</div>
+      <button class="add" type="button">Add to cart</button>
+    </div>
+  </article>
+
+  <div class="abs strip">
+    <div class="perk first">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#1b5e48" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12.5l6 6L21 5.5"/></svg>
+      <span>Clear product<br>specifications</span>
+    </div>
+    <div class="perk">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#1b5e48" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12.5l6 6L21 5.5"/></svg>
+      <span>Transparent<br>checkout summary</span>
+    </div>
+    <div class="perk">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#1b5e48" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12.5l6 6L21 5.5"/></svg>
+      <span>Order updates<br>and documents</span>
+    </div>
+    <button class="explore" type="button">Explore products &rarr;</button>
+  </div>
+
+</main>
+</body>
+</html>

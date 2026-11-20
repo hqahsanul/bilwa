@@ -1,0 +1,10 @@
+node_modules/
+.next/
+.output/
+.git/
+.env*
+coverage/
+npm-debug.log*
+assets/
+agent-transcripts/
+terminals/

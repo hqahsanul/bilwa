@@ -1,0 +1,21 @@
+# App only — e.g. put host nginx (./nginx) in front manually on port 3000
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: bilwa-landing-page:local
+    container_name: bilwa-landing-app
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: "3000"
+      HOSTNAME: 0.0.0.0
+    ports:
+      - "${APP_PORT:-3000}:3000"
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:3000/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 40s
