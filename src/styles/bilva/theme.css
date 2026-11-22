@@ -1,0 +1,23 @@
+/**
+ * Expose Bilwa tokens to Tailwind v4 utilities (bg-bilva-cream, text-bilva-ink, …).
+ */
+@theme inline {
+  --color-bilva-cream: var(--bilva-cream);
+  --color-bilva-cream-deep: var(--bilva-cream-deep);
+  --color-bilva-paper: var(--bilva-paper);
+  --color-bilva-white: var(--bilva-white);
+  --color-bilva-ink: var(--bilva-ink);
+  --color-bilva-ink-soft: var(--bilva-ink-soft);
+  --color-bilva-muted: var(--bilva-muted);
+  --color-bilva-muted-strong: var(--bilva-muted-strong);
+  --color-bilva-emerald: var(--bilva-emerald);
+  --color-bilva-emerald-deep: var(--bilva-emerald-deep);
+  --color-bilva-emerald-mid: var(--bilva-emerald-mid);
+  --color-bilva-gold: var(--bilva-gold);
+  --color-bilva-gold-deep: var(--bilva-gold-deep);
+  --color-bilva-gold-mid: var(--bilva-gold-mid);
+  --color-bilva-border: var(--bilva-border);
+  --font-bilva-serif: var(--bilva-font-serif);
+  --font-bilva-sans: var(--bilva-font-sans);
+  --max-width-bilva-shell: var(--bilva-shell-max);
+}

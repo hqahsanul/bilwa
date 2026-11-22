@@ -15,7 +15,7 @@ import { BilvaFooter } from "@/components/bilva/bilva-footer";
 
 export default function BilvaLandingPage() {
   return (
-    <main className="relative min-h-screen w-full bg-[#FAF7F2] text-[#0E3D30] selection:bg-[#0E3D30] selection:text-[#FAF7F2] overflow-x-hidden font-sans">
+    <main className="bilva-page">
       {/* 1. Top Announcement Bar & Main Navigation Header */}
       <BilvaNavbar />
 

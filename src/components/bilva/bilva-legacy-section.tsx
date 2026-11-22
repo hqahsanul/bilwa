@@ -3,18 +3,16 @@
 import Image from "next/image";
 import Link from "next/link";
 
-const STORY_SERIF = '"Newsreader", Georgia, "Times New Roman", serif';
-const STORY_SANS = '"Inter", system-ui, -apple-system, "Segoe UI", sans-serif';
-const STORY_GOLD = "#e0b252";
-const STORY_GOLD_LINE = "#c9a04a";
+import { LEGACY_STATS } from "@/data/bilva/legacy";
+import { BILVA_SITE_FRAME_CLASS } from "@/lib/bilva-site-shell";
+import { cn } from "@/lib/utils";
 
-const STATS = [
-  { title: "100 years", body: "of family experience in the bullion trade" },
-  { title: "Thoughtful design", body: "Beyond ordinary coins and bars" },
-  { title: "Clear information", body: "Know the purity, weight and price before you buy" },
-] as const;
+import styles from "./bilva-legacy-section.module.css";
 
-const FRAME_RIGHT_GRADIENT = `linear-gradient(180deg, ${STORY_GOLD} 0, ${STORY_GOLD} 52%, rgba(224,178,82,0) 100%)`;
+const STORY_GOLD = "var(--story-gold, #e0b252)";
+const STORY_GOLD_LINE = "var(--story-gold-line, #c9a04a)";
+const FRAME_RIGHT_GRADIENT =
+  "linear-gradient(180deg, var(--story-gold) 0, var(--story-gold) 52%, rgba(224,178,82,0) 100%)";
 
 /** Frame on the photo column (bilwa-story-section.html .fl-* on .media) */
 function StoryGoldFrameOnPhoto({
@@ -134,12 +132,12 @@ export function BilvaLegacySection() {
   return (
     <section
       id="legacy-trust"
-      className="w-full bg-[#faf6f0] px-[2vw] py-[2vw] max-md:px-0 max-md:py-0"
+      className={cn(styles['root'], "px-[2vw] py-[2vw] max-md:px-0 max-md:py-0")}
       aria-labelledby="legacy-trust-heading"
     >
       <div
-        className="story mx-auto max-w-[1200px] overflow-hidden text-white"
-        style={{ containerType: "inline-size", fontFamily: STORY_SANS }}
+        className={cn(BILVA_SITE_FRAME_CLASS, styles['story'], styles['sans'])}
+        style={{ containerType: "inline-size" }}
       >
         <div className="top relative grid grid-cols-1 items-stretch overflow-visible md:grid-cols-[minmax(0,44.7fr)_minmax(0,55.3fr)]">
           {/* Photo panel — full bleed, no wash */}
@@ -163,7 +161,7 @@ export function BilvaLegacySection() {
               style={{
                 left: "3.8%",
                 top: "9.5%",
-                fontFamily: STORY_SERIF,
+                fontFamily: "var(--bilva-font-serif)",
                 fontSize: "clamp(1rem, 2.45cqw, 1.9rem)",
                 padding: "max(1.7cqw, 12px) max(4cqw, 40px) max(1.7cqw, 12px) max(2.3cqw, 16px)",
                 background:
@@ -191,7 +189,7 @@ export function BilvaLegacySection() {
             <p
               className="uppercase font-normal tracking-[0.26em] text-[#e0b252]"
               style={{
-                fontFamily: STORY_SERIF,
+                fontFamily: "var(--bilva-font-serif)",
                 fontSize: "clamp(0.7rem, 1.5cqw, 1.1rem)",
               }}
             >
@@ -202,7 +200,7 @@ export function BilvaLegacySection() {
               id="legacy-trust-heading"
               className="font-normal leading-[1.04] tracking-[-0.01em]"
               style={{
-                fontFamily: STORY_SERIF,
+                fontFamily: "var(--bilva-font-serif)",
                 fontSize: "clamp(2rem, 4.7cqw, 3.7rem)",
                 margin: "2.2cqw 0",
               }}
@@ -223,7 +221,7 @@ export function BilvaLegacySection() {
               className="stats grid items-start max-md:gap-[18px] md:grid-cols-[0.9fr_0.95fr_1.25fr]"
               style={{ margin: "3.2cqw 0 3.4cqw" }}
             >
-              {STATS.map((stat, index) => (
+              {LEGACY_STATS.map((stat, index) => (
                 <div
                   key={stat.title}
                   className={[
@@ -238,7 +236,7 @@ export function BilvaLegacySection() {
                   <b
                     className="block min-h-[2.2em] whitespace-normal font-normal leading-[1.1] max-md:min-h-0"
                     style={{
-                      fontFamily: STORY_SERIF,
+                      fontFamily: "var(--bilva-font-serif)",
                       fontSize: "clamp(1.1rem, 2.75cqw, 2rem)",
                     }}
                   >
@@ -262,7 +260,7 @@ export function BilvaLegacySection() {
                 borderRadius: "max(0.7cqw, 6px)",
                 background: "linear-gradient(180deg, #f2d686 0%, #d9a845 100%)",
                 color: "#162318",
-                fontFamily: STORY_SERIF,
+                fontFamily: "var(--bilva-font-serif)",
                 fontWeight: 500,
                 fontSize: "clamp(1rem, 2.1cqw, 1.5rem)",
                 boxShadow:
@@ -297,7 +295,7 @@ export function BilvaLegacySection() {
           <h3
             className="mt-[0.6cqw] font-normal"
             style={{
-              fontFamily: STORY_SERIF,
+              fontFamily: "var(--bilva-font-serif)",
               fontSize: "clamp(1.5rem, 3.6cqw, 2.8rem)",
             }}
           >

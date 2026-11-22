@@ -1,0 +1,71 @@
+/**
+ * Bilwa type scale — section chrome shared across home + catalogue.
+ */
+
+.bilva-eyebrow {
+  display: block;
+  font-family: var(--bilva-font-sans);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--bilva-gold-deep);
+}
+
+@media (min-width: 640px) {
+  .bilva-eyebrow {
+    font-size: 0.75rem;
+  }
+}
+
+.bilva-eyebrow-rule {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.bilva-eyebrow-rule::after {
+  content: "";
+  display: inline-block;
+  width: 3.5rem;
+  height: 1px;
+  background-color: color-mix(in srgb, var(--bilva-gold) 70%, transparent);
+}
+
+@media (min-width: 640px) {
+  .bilva-eyebrow-rule::after {
+    width: 5rem;
+  }
+}
+
+.bilva-headline {
+  font-family: var(--bilva-font-serif);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.12;
+  color: var(--bilva-ink);
+  font-size: clamp(2rem, 4vw, 2.875rem);
+}
+
+.bilva-subcopy {
+  font-family: var(--bilva-font-sans);
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--bilva-muted-strong);
+  margin-top: 0.25rem;
+}
+
+@media (min-width: 640px) {
+  .bilva-subcopy {
+    font-size: 0.96875rem;
+  }
+}
+
+.bilva-serif {
+  font-family: var(--bilva-font-serif);
+}
+
+.bilva-sans {
+  font-family: var(--bilva-font-sans);
+}

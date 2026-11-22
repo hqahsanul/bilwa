@@ -18,6 +18,13 @@ dist-ssr
 .tanstack/**
 .nitro
 *.local
+tsconfig.tsbuildinfo
+
+# Design-time exports (never commit audit dumps to repo root)
+/*.png
+/*.jpg
+/*.jpeg
+/assets/
 
 # Cloudflare origin certs (place in nginx/ssl/ — see README.txt)
 nginx/ssl/*.pem

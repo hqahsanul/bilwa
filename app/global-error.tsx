@@ -6,23 +6,26 @@ export default function GlobalError({ reset }: { error: Error & { digest?: strin
   return (
     <html lang="en">
       <body className="m-0">
-        <main className="flex min-h-screen items-center justify-center bg-[#090909] px-6 text-white">
-          <div className="w-full max-w-[696px] rounded-[22px] border border-white/10 bg-[#111111] px-9 py-9 shadow-2xl sm:px-9 sm:py-10">
-            <h1 className="text-[27px] font-semibold tracking-tight">Something went wrong</h1>
-            <p className="mt-5 max-w-[560px] text-[21px] leading-8 text-white/80">
-              The page failed to render. Try again, or reload if the problem persists.
+        <main className="flex min-h-screen items-center justify-center bg-[#FAF7F2] px-6 text-[#0A2D23]">
+          <div className="w-full max-w-md text-center">
+            <p className="font-serif text-xs font-semibold uppercase tracking-[0.2em] text-[#B07A24]">
+              Sri Bilva Jewels
             </p>
-            <div className="mt-8 flex flex-wrap gap-4">
+            <h1 className="mt-3 font-serif text-3xl font-semibold tracking-tight">Something went wrong</h1>
+            <p className="mt-4 font-sans text-[15px] leading-relaxed text-[#4B5754]">
+              This page failed to load. Try again, or return home.
+            </p>
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
               <button
                 type="button"
                 onClick={() => reset()}
-                className="rounded-2xl bg-white px-5 py-3 text-[18px] font-medium text-black transition hover:bg-white/90"
+                className="rounded-[3px] bg-[#025342] px-6 py-3 font-sans text-sm font-medium text-white transition hover:bg-[#014134]"
               >
                 Try again
               </button>
               <a
                 href="/"
-                className="rounded-2xl border border-white/15 px-5 py-3 text-[18px] font-medium text-white transition hover:bg-white/10"
+                className="rounded-[3px] border border-[#C9DAD4] bg-white px-6 py-3 font-sans text-sm font-medium text-[#0A2D23] transition hover:border-[#387C71]"
               >
                 Go home
               </a>

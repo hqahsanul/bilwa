@@ -3,9 +3,21 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Instagram, Facebook, ArrowRight } from "lucide-react";
 
-export function BilvaFooter() {
+import { Instagram, Facebook, ArrowRight } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { BILVA_SITE_SHELL_CLASS } from "@/lib/bilva-site-shell";
+import { FOOTER_SHOP_LINKS } from "@/data/bilva/footer";
+
+const SHOP_LINKS = FOOTER_SHOP_LINKS;
+
+export function BilvaFooter({
+  showPreFooterCta = true,
+  fullBleedEmerald = false,
+}: {
+  showPreFooterCta?: boolean;
+  fullBleedEmerald?: boolean;
+}) {
   const [email, setEmail] = useState("");
   const [isSubscribed, setIsSubscribed] = useState(false);
 
@@ -19,11 +31,9 @@ export function BilvaFooter() {
 
   return (
     <footer className="w-full select-none">
-      {/* ========================================================================= */}
-      {/* 1. PRE-FOOTER CTA SECTION: 'Find something worth keeping.'               */}
-      {/* ========================================================================= */}
+      {showPreFooterCta ? (
       <section className="relative w-full bg-[#FAF7F2] overflow-hidden border-t border-[#EAE3D6] py-14 sm:py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
+        <div className={BILVA_SITE_SHELL_CLASS}>
           <div className="flex flex-col lg:flex-row items-center justify-between gap-10">
             {/* Left Content */}
             <div className="w-full lg:w-1/2 z-10">
@@ -90,15 +100,36 @@ export function BilvaFooter() {
           </div>
         </div>
       </section>
+      ) : null}
 
       {/* ========================================================================= */}
       {/* 2. MAIN DEEP IMPERIAL EMERALD FOOTER                                      */}
       {/* Same max-w-7xl column as hero / signature / legacy                         */}
       {/* ========================================================================= */}
-      <div className="w-full bg-[#FAF7F2]">
-        <div className="max-w-7xl mx-auto bg-[#083D35] text-[#FFFFFF] pt-14 pb-10 px-4 sm:px-8 lg:px-12">
+      <div
+        className={
+          fullBleedEmerald
+            ? "w-full bg-[#0C4338]"
+            : "w-full bg-[#FAF7F2] pb-10 sm:pb-12 lg:pb-16"
+        }
+      >
+        <div
+          className={
+            fullBleedEmerald
+              ? cn(BILVA_SITE_SHELL_CLASS, "bg-[#0C4338] pb-10 pt-6 text-[#E6EFE9] sm:pb-8 sm:pt-7")
+              : cn(
+                  BILVA_SITE_SHELL_CLASS,
+                  "bg-[#083D35] pb-10 pt-12 text-[#FFFFFF] sm:pt-14 sm:pb-12 lg:pt-14 lg:pb-12 overflow-hidden rounded-t-none rounded-b-[14px]",
+                )
+          }
+        >
           {/* TIER 1: Brand Lockup (Left) + Newsletter Signup (Right) */}
-          <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 pb-10 border-b border-[#1A574C]">
+          <div
+            className={cn(
+              "flex flex-col gap-8 pb-10 lg:flex-row lg:items-center lg:justify-between",
+              fullBleedEmerald ? "border-b border-[#C5A059]/50" : "border-b border-[#1A574C]",
+            )}
+          >
             {/* Left: Brand Identity */}
             <div className="flex items-center gap-4">
               {/* 3 Golden Leaves Icon */}
@@ -158,7 +189,12 @@ export function BilvaFooter() {
                   />
                   <button
                     type="submit"
-                    className="bg-[#0E7A67] hover:bg-[#0B6555] active:scale-[0.98] text-white px-5 py-2.5 rounded-[4px] font-sans font-medium text-[13.5px] transition-colors cursor-pointer shrink-0 text-center"
+                    className={cn(
+                      "active:scale-[0.98] shrink-0 rounded-[5px] px-3.5 py-2.5 text-center font-sans text-xs font-medium text-white transition-colors cursor-pointer sm:text-[12px]",
+                      fullBleedEmerald
+                        ? "bg-[#128670] hover:bg-[#0f735f]"
+                        : "bg-[#0E7A67] hover:bg-[#0B6555]",
+                    )}
                   >
                     Join updates
                   </button>
@@ -176,13 +212,10 @@ export function BilvaFooter() {
               </h4>
               <div className="w-7 h-[1px] bg-[#C5A059] mt-1 mb-4" />
               <ul className="space-y-2.5 text-[13px] text-[#B8D3C8]">
-                {["Gold coins & bars", "Silver coins & bars", "Rudraksh", "Gemstones", "Premium gifting", "Corporate gifting"].map((link) => (
-                  <li key={link}>
-                    <Link
-                      href={`#${link.toLowerCase().replace(/[\s&]+/g, "-")}`}
-                      className="hover:text-white transition-colors block"
-                    >
-                      {link}
+                {SHOP_LINKS.map((link) => (
+                  <li key={link.label}>
+                    <Link href={link.href} className="hover:text-white transition-colors block">
+                      {link.label}
                     </Link>
                   </li>
                 ))}

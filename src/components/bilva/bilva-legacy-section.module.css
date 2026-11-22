@@ -1,0 +1,48 @@
+.root {
+  --story-gold: #e0b252;
+  --story-gold-line: #c9a04a;
+  width: 100%;
+  background-color: var(--bilva-cream);
+}
+
+.story {
+  overflow: hidden;
+  color: var(--bilva-white);
+  background: #0a3229;
+}
+
+.serif {
+  font-family: var(--bilva-font-serif);
+}
+
+.sans {
+  font-family: var(--bilva-font-sans);
+}
+
+.gold {
+  color: var(--story-gold);
+}
+
+.frameRight {
+  background: linear-gradient(
+    180deg,
+    var(--story-gold) 0,
+    var(--story-gold) 52%,
+    rgba(224, 178, 82, 0) 100%
+  );
+}
+
+.statTitle {
+  font-family: var(--bilva-font-serif);
+  color: var(--story-gold);
+}
+
+.statBody {
+  font-family: var(--bilva-font-sans);
+  color: color-mix(in srgb, #f1f4f1 85%, transparent);
+}
+
+.copy {
+  color: #f1f4f1;
+  line-height: 1.55;
+}

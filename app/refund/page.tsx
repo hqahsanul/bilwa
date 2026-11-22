@@ -1,41 +1,75 @@
 import type { Metadata } from "next";
 import { LegalPage } from "@/components/legal-page";
 
-export const metadata: Metadata = { title: "Refund Policy | PostPuls" };
+export const metadata: Metadata = {
+  title: "Refund & Returns | Sri Bilva Jewels",
+};
 
 export default function RefundPage() {
   return (
     <LegalPage
-      title="Refund Policy"
-      intro="This Refund and Cancellation Policy explains how to cancel a PostPuls subscription and when a refund may be issued. Payments are processed by Dodo Payments, our Merchant of Record."
+      title="Refund & Returns Policy"
+      intro="We want you to be confident in every Bilwa purchase. Because precious metals and sealed bullion products have unique handling requirements, returns are limited as described below."
       sections={[
         {
-          title: "1. Cancelling your subscription",
-          body: <p>You can cancel from your account settings or by emailing legal@postpuls.com from your account email. Cancel before the next renewal to avoid another charge. Cancellation takes effect at the end of the current paid period, and access continues until then.</p>,
+          title: "1. Eligible returns",
+          body: (
+            <p>
+              You may request a return within 7 days of delivery for unused, sealed products in
+              original tamper-evident packaging with invoice and certificates intact, provided the
+              item was not a special order or custom engraving. Opened bullion packs and products
+              with broken seals cannot be accepted for hygiene and authenticity reasons.
+            </p>
+          ),
         },
         {
-          title: "2. When we issue refunds",
-          body: <p>We will refund an accidental duplicate charge, a material billing error, or a first payment for a new paid subscription when requested within 14 days and usage remains within the plan&apos;s included limits. Additional rights under local law continue to apply.</p>,
+          title: "2. Non-returnable items",
+          body: (
+            <p>
+              Products with broken seals, personalised engraving, promotional bundles marked
+              non-returnable, or items purchased at a locked live-rate window where metal markets
+              have moved materially may not be eligible for return. Defective or mis-shipped items are
+              always reviewed case by case.
+            </p>
+          ),
         },
         {
-          title: "3. What is not refundable",
-          body: <p>Renewals after the cancellation date, partial billing periods after cancellation, usage beyond the limits above, and purchases after an account suspension for a Terms of Service violation are generally non-refundable.</p>,
+          title: "3. How to request a return",
+          body: (
+            <p>
+              Email care@sribilva.com with your invoice number, photos of the product and packaging,
+              and the reason for return. Our team will confirm eligibility and pickup or drop-off
+              instructions within 2 business days.
+            </p>
+          ),
         },
         {
-          title: "4. How to request a refund",
-          body: <p>Email legal@postpuls.com from your account email with the payment date, invoice or transaction reference, and reason. We will reply within 5 business days.</p>,
+          title: "4. Refunds",
+          body: (
+            <p>
+              Approved refunds are processed to the original payment method after we receive and
+              inspect the product. Processing typically takes 7–10 business days depending on your
+              bank. Shipping and payment-gateway fees may be deducted where permitted by law.
+            </p>
+          ),
         },
         {
-          title: "5. Processing",
-          body: <p>Approved refunds are returned to the original payment method. Your bank or card issuer controls posting time. Refunds do not necessarily reverse currency conversion or third-party bank fees.</p>,
+          title: "5. Exchanges",
+          body: (
+            <p>
+              If you prefer a different weight or product, we can arrange an exchange when stock is
+              available and metal rates are recalculated at the time of exchange.
+            </p>
+          ),
         },
         {
-          title: "6. Chargebacks",
-          body: <p>If you have a billing problem, contact us first so we can resolve it quickly. A bank dispute may delay resolution.</p>,
-        },
-        {
-          title: "7. Contact",
-          body: <p>legal@postpuls.com</p>,
+          title: "6. In-store purchases",
+          body: (
+            <p>
+              Purchases made at a Sri Bilva Jewels store follow the same authenticity rules and may
+              have additional state-specific consumer protections. Keep your stamped invoice.
+            </p>
+          ),
         },
       ]}
     />

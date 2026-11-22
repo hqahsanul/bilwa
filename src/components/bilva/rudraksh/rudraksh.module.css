@@ -1,0 +1,831 @@
+/**
+ * Rudraksh collection page — section chrome via CSS module + design tokens.
+ */
+
+.page {
+  background-color: var(--bilva-cream);
+  color: var(--bilva-ink);
+}
+
+.hero {
+  position: relative;
+  width: 100%;
+  background-color: var(--bilva-cream);
+}
+
+.heroGrid {
+  display: grid;
+  width: 100%;
+  align-items: stretch;
+}
+
+@media (min-width: 1024px) {
+  .heroGrid {
+    grid-template-columns: minmax(0, 44%) minmax(0, 1fr);
+  }
+}
+
+.heroCopy {
+  position: relative;
+  z-index: 1;
+  padding-top: 1.5rem;
+  padding-bottom: 2.5rem;
+}
+
+@media (min-width: 1024px) {
+  .heroCopy {
+    padding-top: 2.5rem;
+    padding-bottom: 3.5rem;
+  }
+}
+
+.breadcrumb {
+  font-family: var(--bilva-font-sans);
+  font-size: 0.75rem;
+  color: #8a9590;
+}
+
+.breadcrumbCurrent {
+  font-weight: 500;
+  color: var(--bilva-emerald-mid);
+}
+
+.eyebrow {
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--bilva-font-serif);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--bilva-gold-soft);
+}
+
+.eyebrowRule {
+  height: 1px;
+  width: 3rem;
+  background-color: #d4b87a;
+}
+
+@media (min-width: 640px) {
+  .eyebrow {
+    margin-top: 2.5rem;
+  }
+
+  .eyebrowRule {
+    width: 4rem;
+  }
+}
+
+.heroTitle {
+  margin-top: 0.75rem;
+  font-family: var(--bilva-font-serif);
+  font-size: clamp(2.125rem, 4.9vw, 3.125rem);
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  color: var(--bilva-ink);
+}
+
+.heroDescription {
+  margin-top: 0.75rem;
+  max-width: 32rem;
+  font-family: var(--bilva-font-sans);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--bilva-muted);
+}
+
+.heroActions {
+  margin-top: 1.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .heroActions {
+    gap: 2rem;
+  }
+}
+
+.primaryCta {
+  display: inline-flex;
+  height: 2.5rem;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: var(--bilva-radius-md);
+  background-color: var(--bilva-emerald-mid);
+  padding-inline: 1.25rem;
+  font-family: var(--bilva-font-sans);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--bilva-white);
+  transition: background-color var(--bilva-duration) ease;
+}
+
+.primaryCta:hover {
+  background-color: #095548;
+}
+
+.secondaryCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--bilva-font-sans);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--bilva-emerald-mid);
+}
+
+.secondaryCta:hover {
+  text-decoration: underline;
+}
+
+.trustRow {
+  margin-top: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  font-family: var(--bilva-font-serif);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #1f4a3f;
+}
+
+.trustItem + .trustItem {
+  margin-left: 1.25rem;
+  padding-left: 1.25rem;
+  border-left: 1px solid #d4b87a;
+}
+
+@media (min-width: 640px) {
+  .trustItem + .trustItem {
+    margin-left: 1.5rem;
+    padding-left: 1.5rem;
+  }
+}
+
+.heroMedia {
+  position: relative;
+  margin-inline: -1rem;
+  min-height: 13.75rem;
+  overflow: hidden;
+}
+
+@media (min-width: 640px) {
+  .heroMedia {
+    margin-inline: -2rem;
+    min-height: 17.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .heroMedia {
+    margin-inline: 0;
+    margin-right: -3rem;
+    min-height: 25.625rem;
+  }
+}
+
+.heroFade {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    var(--bilva-cream) 0%,
+    color-mix(in srgb, var(--bilva-cream) 90%, transparent) 22%,
+    color-mix(in srgb, var(--bilva-cream) 53%, transparent) 38%,
+    transparent 54%
+  );
+}
+
+.heroFadeTop {
+  pointer-events: none;
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 3.5rem;
+  background: linear-gradient(to bottom, var(--bilva-cream), transparent);
+}
+
+@media (min-width: 1024px) {
+  .heroFadeTop {
+    display: none;
+  }
+}
+
+/* Guide bar */
+.guideBar {
+  margin-top: 1.5rem;
+  width: 100%;
+  border-radius: 7px;
+  border: 1px solid #dfc58f;
+  background: linear-gradient(90deg, #f8eee0 0%, #faf3e9 50%, #ece4d7 100%);
+  box-shadow: 0 2px 10px rgb(10 45 35 / 0.04);
+  padding: 0.85rem 1rem;
+}
+
+@media (min-width: 640px) {
+  .guideBar {
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    padding-inline: 1.25rem;
+  }
+}
+
+.guideTitle {
+  font-family: var(--bilva-font-serif);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--bilva-ink);
+  white-space: nowrap;
+}
+
+@media (min-width: 640px) {
+  .guideTitle {
+    padding-right: 1.25rem;
+    border-right: 1px solid #dfc58f;
+  }
+}
+
+.guideLinks {
+  margin-top: 0.75rem;
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 0;
+}
+
+@media (min-width: 640px) {
+  .guideLinks {
+    margin-top: 0;
+  }
+}
+
+.guideLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.9rem;
+  font-family: var(--bilva-font-sans);
+  font-size: 0.8125rem;
+  color: #153d33;
+  transition: color var(--bilva-duration) ease;
+}
+
+.guideLink:hover {
+  color: var(--bilva-emerald-mid);
+}
+
+.guideLink + .guideLink {
+  border-left: 1px solid #dfc58f;
+}
+
+.guideIcon {
+  width: 1.05rem;
+  height: 1.05rem;
+  flex-shrink: 0;
+  color: var(--bilva-gold-deep);
+}
+
+/* Browse card */
+.browse {
+  margin-top: 1.25rem;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 10px;
+  border: 1px solid #e0c690;
+  background-color: #fcf8f2;
+}
+
+@media (min-width: 640px) {
+  .browse {
+    margin-top: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .browse {
+    display: grid;
+    grid-template-columns: minmax(0, 29rem) 1fr;
+  }
+}
+
+.browseMedia {
+  position: relative;
+  height: 12rem;
+}
+
+@media (min-width: 640px) {
+  .browseMedia {
+    height: 14rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .browseMedia {
+    height: auto;
+    min-height: 17.5rem;
+  }
+}
+
+.browseBody {
+  padding: 1.75rem 1.25rem 2rem;
+}
+
+@media (min-width: 640px) {
+  .browseBody {
+    padding-inline: 1.75rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .browseBody {
+    padding-top: 2.25rem;
+  }
+}
+
+.browseTitle {
+  font-family: var(--bilva-font-serif);
+  font-size: clamp(1.35rem, 2vw, 1.5625rem);
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--bilva-ink);
+}
+
+.browseChips {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.625rem;
+}
+
+.browseChip {
+  display: inline-flex;
+  height: 2.5rem;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: var(--bilva-radius-md);
+  border: 1px solid #d4b87a;
+  background-color: #fffaf3;
+  padding-inline: 1rem;
+  font-family: var(--bilva-font-serif);
+  font-size: 0.8125rem;
+  color: var(--bilva-ink);
+  transition: background-color var(--bilva-duration) ease;
+}
+
+.browseChip:hover {
+  background-color: #f8ecd6;
+}
+
+.browseChipArrow {
+  color: var(--bilva-emerald-mid);
+}
+
+/* Assurance */
+.assuranceSection {
+  width: 100%;
+  background-color: var(--bilva-cream);
+  color: var(--bilva-ink);
+}
+
+.assurancePanel {
+  width: 100%;
+  border-radius: var(--bilva-radius-lg);
+  background: radial-gradient(ellipse 120% 80% at 50% 0%, #f2ebe0 0%, #e8e0d4 45%, #ddd4c6 100%);
+  padding: 1.75rem 1rem;
+}
+
+@media (min-width: 640px) {
+  .assurancePanel {
+    padding: 2rem 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .assurancePanel {
+    padding-inline: 2rem;
+  }
+}
+
+.sectionHeading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.sectionHeadingRule {
+  height: 1.5px;
+  max-width: 3.5rem;
+  flex: 1;
+  background-color: var(--bilva-gold);
+}
+
+.sectionHeadingTitle {
+  flex-shrink: 0;
+  padding-inline: 0.25rem;
+  font-family: var(--bilva-font-serif);
+  font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  text-align: center;
+  color: var(--bilva-emerald-mid);
+}
+
+.assuranceGrid {
+  margin-top: 1.25rem;
+  display: grid;
+  width: 100%;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .assuranceGrid {
+    margin-top: 1.5rem;
+    gap: 1.25rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .assuranceGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.assuranceCard {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border-radius: 20px;
+  border: 1px solid color-mix(in srgb, #d4af37 50%, transparent);
+  background: linear-gradient(to bottom, #fcf7f0, #f3e9da 55%, #e8decc);
+  padding: 1.5rem 1.25rem;
+  box-shadow: 0 4px 16px rgb(0 0 0 / 0.03);
+}
+
+@media (min-width: 640px) {
+  .assuranceCard {
+    border-radius: 24px;
+    padding: 2rem 1.5rem;
+  }
+}
+
+.assuranceIconWrap {
+  display: flex;
+  height: 3.5rem;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.75rem;
+  color: var(--bilva-gold-deep);
+}
+
+.assuranceCardTitle {
+  font-family: var(--bilva-font-serif);
+  font-size: clamp(1.35rem, 2.4vw, 1.75rem);
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--bilva-emerald-mid);
+}
+
+.assuranceCardBody {
+  margin-top: 0.5rem;
+  max-width: 14rem;
+  font-family: var(--bilva-font-serif);
+  font-size: 1rem;
+  font-style: italic;
+  line-height: 1.35;
+  color: #2d4a3e;
+}
+
+.reviewsBlock {
+  padding-block: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .reviewsBlock {
+    padding-block: 2rem;
+  }
+}
+
+.reviewsGrid {
+  margin-top: 1.25rem;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .reviewsGrid {
+    margin-top: 1.5rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+}
+
+.reviewCard {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  border-radius: 20px;
+  border: 1px solid color-mix(in srgb, #d4af37 50%, transparent);
+  background-color: var(--bilva-cream);
+  padding: 1.5rem;
+  box-shadow: 0 4px 16px rgb(0 0 0 / 0.03);
+}
+
+@media (min-width: 640px) {
+  .reviewCard {
+    border-radius: 24px;
+    padding: 2rem;
+  }
+}
+
+.stars {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: #c89d4b;
+}
+
+.star {
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+.quoteWrap {
+  position: relative;
+  flex: 1;
+  margin-top: 1rem;
+  padding-left: 2rem;
+}
+
+.quoteMark {
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-family: var(--bilva-font-serif);
+  font-size: 3.5rem;
+  line-height: 1;
+  color: var(--bilva-gold);
+}
+
+.quote {
+  font-family: var(--bilva-font-serif);
+  font-size: clamp(1.25rem, 2.4vw, 1.75rem);
+  font-style: italic;
+  line-height: 1.35;
+  color: var(--bilva-emerald-mid);
+}
+
+.quoteClose {
+  margin-left: 0.15rem;
+  font-style: normal;
+  color: var(--bilva-gold);
+}
+
+.reviewWho {
+  margin-top: auto;
+  padding-top: 1.25rem;
+  font-family: var(--bilva-font-serif);
+  font-size: 0.9375rem;
+  font-style: italic;
+  color: #4a6475;
+}
+
+.reviewsNote {
+  margin-top: 1.25rem;
+  text-align: center;
+  font-family: var(--bilva-font-serif);
+  font-size: 0.875rem;
+  font-style: italic;
+  color: #4a6b82;
+}
+
+.divider {
+  margin-inline: auto;
+  margin-top: 1.25rem;
+  height: 1.5px;
+  max-width: 65rem;
+  border: 0;
+  background-color: color-mix(in srgb, var(--bilva-gold) 80%, transparent);
+}
+
+/*
+ * CTA — emerald on bilva-shell only (same width as footer), cream page behind.
+ * Not full-bleed. Square corners. Split: copy | product photo.
+ */
+.ctaSection {
+  border-top: none;
+  width: 100%;
+  background-color: var(--bilva-cream);
+}
+
+.ctaShell {
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: var(--bilva-emerald-footer);
+  border-radius: 0;
+}
+
+.ctaFrame {
+  display: grid;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 0;
+  background-color: transparent;
+  grid-template-columns: 1fr;
+  min-height: 15rem;
+}
+
+@media (min-width: 640px) {
+  .ctaFrame {
+    min-height: 16.75rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .ctaFrame {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    min-height: 17.5rem;
+    align-items: stretch;
+  }
+}
+
+.ctaCopy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2.25rem 0 1.75rem;
+}
+
+@media (min-width: 640px) {
+  .ctaCopy {
+    padding: 2.5rem 0 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .ctaCopy {
+    padding: 2.5rem 1.75rem 2.5rem 0;
+    max-width: 26rem;
+  }
+}
+
+.ctaTitle {
+  font-family: var(--bilva-font-serif);
+  font-size: clamp(1.75rem, 2.6vw, 2.25rem);
+  font-weight: 600;
+  line-height: 1.08;
+  color: #f7f0df;
+}
+
+.ctaSubcopy {
+  margin-top: 0.65rem;
+  max-width: 24rem;
+  font-family: var(--bilva-font-serif);
+  font-size: 0.9375rem;
+  font-style: italic;
+  line-height: 1.4;
+  color: var(--bilva-white);
+}
+
+.ctaActions {
+  margin-top: 1.15rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.ctaPrimary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  border: 1px solid #fbeed0;
+  background-color: #fbeed0;
+  padding: 0.7rem 1.15rem;
+  font-family: var(--bilva-font-serif);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: #0d4a3d;
+  transition: background-color var(--bilva-duration) ease;
+}
+
+.ctaPrimary:hover {
+  background-color: #f5e4c8;
+}
+
+.ctaSecondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  border: 1px solid #e8dcc0;
+  background: transparent;
+  padding: 0.7rem 1.15rem;
+  font-family: var(--bilva-font-serif);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--bilva-white);
+  transition: background-color var(--bilva-duration) ease;
+}
+
+.ctaSecondary:hover {
+  background-color: rgb(255 255 255 / 0.1);
+}
+
+.ctaMedia {
+  position: relative;
+  width: 100%;
+  min-height: 14rem;
+  overflow: hidden;
+  background-color: var(--bilva-emerald-footer);
+}
+
+@media (min-width: 1024px) {
+  .ctaMedia {
+    /* Break out of shell right padding so photo meets the emerald card edge */
+    min-height: 17.5rem;
+    width: calc(100% + var(--bilva-shell-pad-x));
+    margin-right: calc(-1 * var(--bilva-shell-pad-x));
+  }
+}
+
+.ctaImage {
+  object-fit: cover;
+  object-position: left center;
+  /* Gradient mask: photo fades in from the emerald panel */
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    rgb(0 0 0 / 0.35) 18%,
+    rgb(0 0 0 / 0.85) 38%,
+    #000 58%,
+    #000 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    rgb(0 0 0 / 0.35) 18%,
+    rgb(0 0 0 / 0.85) 38%,
+    #000 58%,
+    #000 100%
+  );
+  mask-mode: alpha;
+}
+
+.ctaMediaBlend {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    to right,
+    var(--bilva-emerald-footer) 0%,
+    color-mix(in srgb, var(--bilva-emerald-footer) 72%, transparent) 22%,
+    color-mix(in srgb, var(--bilva-emerald-footer) 28%, transparent) 48%,
+    transparent 72%
+  );
+}
+
+@media (max-width: 1023px) {
+  .ctaImage {
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgb(0 0 0 / 0.5) 16%,
+      #000 40%,
+      #000 100%
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgb(0 0 0 / 0.5) 16%,
+      #000 40%,
+      #000 100%
+    );
+  }
+
+  .ctaMediaBlend {
+    background: linear-gradient(
+      to bottom,
+      var(--bilva-emerald-footer) 0%,
+      color-mix(in srgb, var(--bilva-emerald-footer) 55%, transparent) 28%,
+      transparent 58%
+    );
+  }
+}

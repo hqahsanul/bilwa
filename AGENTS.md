@@ -1,2 +1,8 @@
-- Keep Reply Radar as a frontend-only marketing experience until persistent signup, billing, or account features are explicitly requested; this prevents mock infrastructure from becoming product behavior.
+- Keep Bilwa as a frontend-only marketing experience until persistent signup, billing, or account features are explicitly requested; this prevents mock infrastructure from becoming product behavior.
 - Keep reusable button style variants in a separate module from the Button component so non-component consumers do not depend on its hot-reload lifecycle.
+- Static HTML mocks live in `docs/design-reference/`; do not serve them from Next.js.
+- Regenerate trimmed assets with `node scripts/prune-bilva-public-assets.mjs` after adding new `/images/bilva/` references.
+- Use `BILVA_SITE_SHELL_CLASS` / `bilva-shell` from `src/lib/bilva-site-shell.ts` and `src/styles/bilva/layout.css` for content width — do not introduce per-page `max-w-*` columns.
+- Put marketing copy and catalogues in `src/data/bilva/*` — components render; they must not own dummy datasets.
+- Put design tokens and shared chrome in `src/styles/bilva/` (tokens → layout → typography → components). Prefer CSS variables / CSS modules over hex literals and inline `style={{ fontFamily }}` in JSX.
+- Do not reintroduce unused shadcn kit, SaaS dashboard code, or third-party marketing scaffolds unrelated to Bilwa.

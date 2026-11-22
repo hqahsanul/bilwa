@@ -5,6 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { Heart } from "lucide-react";
 
+import { BILVA_SITE_SHELL_CLASS } from "@/lib/bilva-site-shell";
+
 export function BilvaSignatureCollection() {
   const [isHeroWishlisted, setIsHeroWishlisted] = useState(false);
 
@@ -14,7 +16,7 @@ export function BilvaSignatureCollection() {
       className="w-full bg-[#FAF7F2] pt-0 sm:pt-1 pb-16 sm:pb-22 select-none"
       aria-labelledby="signature-heading"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
+      <div className={BILVA_SITE_SHELL_CLASS}>
         {/* ===================================================================== */}
         {/* SECTION HEADER                                                        */}
         {/* ===================================================================== */}

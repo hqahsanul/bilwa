@@ -5,6 +5,11 @@ import Link from "next/link";
 import { Search, X } from "lucide-react";
 import { useMemo, type ReactNode } from "react";
 
+import {
+  GOLD_COINS_AND_BARS_PATH,
+  SILVER_COINS_AND_BARS_PATH,
+} from "@/lib/bilva-collection-routes";
+
 const TEAL = "#387C71";
 
 const SUGGESTED_SEARCHES = [
@@ -17,10 +22,10 @@ const SUGGESTED_SEARCHES = [
 ] as const;
 
 const MATCHING_CATEGORIES = [
-  { label: "Gold Coins", href: "#gold-coins" },
-  { label: "Gold Bars", href: "#gold-bars" },
+  { label: "Gold Coins", href: GOLD_COINS_AND_BARS_PATH },
+  { label: "Gold Bars", href: GOLD_COINS_AND_BARS_PATH },
   { label: "Gifting", href: "#gifting-collection" },
-  { label: "Silver Coins", href: "#silver-coins" },
+  { label: "Silver Coins", href: SILVER_COINS_AND_BARS_PATH },
   { label: "Rudraksh", href: "#rudraksh-collection" },
 ] as const;
 

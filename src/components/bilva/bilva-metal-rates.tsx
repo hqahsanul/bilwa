@@ -4,6 +4,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { Clock, Radio } from "lucide-react";
 
+import { BILVA_SITE_SHELL_CLASS } from "@/lib/bilva-site-shell";
+import { cn } from "@/lib/utils";
+
 export function BilvaMetalRates() {
   return (
     <section className="relative w-full bg-[#FAF7F2] py-12 sm:py-16 lg:py-20 overflow-hidden select-none border-t border-[#EAE3D6]">
@@ -36,7 +39,7 @@ export function BilvaMetalRates() {
         </svg>
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
+      <div className={cn("relative", BILVA_SITE_SHELL_CLASS)}>
         {/* ========================================================================= */}
         {/* 1. SECTION HEADER & INTELLIGENCE STATUS                                   */}
         {/* ========================================================================= */}

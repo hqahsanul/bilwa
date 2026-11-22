@@ -5,6 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, Heart } from "lucide-react";
 
+import { BILVA_SITE_SHELL_CLASS } from "@/lib/bilva-site-shell";
+
 interface BestSellerProduct {
   id: string;
   title: string;
@@ -141,7 +143,7 @@ export function BilvaBestSellers() {
       className="w-full bg-[#FAF7F2] pt-2 sm:pt-4 pb-6 sm:pb-8"
       aria-labelledby="best-sellers-heading"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
+      <div className={BILVA_SITE_SHELL_CLASS}>
         {/* ===================================================================== */}
         {/* SECTION HEADER                                                        */}
         {/* ===================================================================== */}

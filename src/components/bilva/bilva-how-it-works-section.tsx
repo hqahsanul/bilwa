@@ -1,52 +1,17 @@
 "use client";
 
 import Image from "next/image";
+
+import { HOW_IT_WORKS_STEPS, HOW_IT_WORKS_TRUST_POINTS } from "@/data/bilva/how-it-works";
+import { BILVA_SITE_SHELL_CLASS } from "@/lib/bilva-site-shell";
+import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { Check } from "lucide-react";
 
-const STEPS = [
-  {
-    id: "01",
-    num: "01",
-    title: "Explore with confidence",
-    description: "Discover weight, purity and product details.",
-    placement: "s1" as const,
-  },
-  {
-    id: "02",
-    num: "02",
-    title: "Review your price",
-    description: "See the price breakdown before checkout.",
-    placement: "s2" as const,
-  },
-  {
-    id: "03",
-    num: "03",
-    title: "Place your order",
-    description: "Review your details and complete payment.",
-    placement: "s3" as const,
-  },
-  {
-    id: "04",
-    num: "04",
-    title: "Follow your purchase",
-    description: "Track order status and access documents in your account.",
-    placement: "s4" as const,
-  },
-];
-
-const TRUST_POINTS = [
-  { lines: ["Clear product", "specifications"] },
-  { lines: ["Transparent", "checkout summary"] },
-  { lines: ["Order updates", "and documents"] },
-];
+import styles from "./bilva-how-it-works-section.module.css";
 
 /** Connector coordinate space — matches bilwa-how-it-works.html */
 const DIAGRAM_VIEWBOX = { w: 1487, h: 550 };
-
-/** Same stack as bilwa-how-it-works.html :root --font */
-const HOW_IT_WORKS_FONT =
-  '"Newsreader", "Iowan Old Style", Georgia, "Times New Roman", serif';
 
 const CONNECTOR_PATHS = {
   leftTop: "M312 97 H335 Q355 97 355 120 V190 Q355 210 375 210 H397",
@@ -73,7 +38,7 @@ type StepLayout = {
 /** Diagram step copy uses a 17% text measure (same as HTML .s3 / .s4) so headlines wrap like the reference. */
 const STEP_TEXT_COLUMN = "17%";
 
-const STEP_LAYOUT: Record<(typeof STEPS)[number]["placement"], StepLayout> = {
+const STEP_LAYOUT: Record<(typeof HOW_IT_WORKS_STEPS)[number]["placement"], StepLayout> = {
   s1: { left: "4.03%", top: "0.44%", width: STEP_TEXT_COLUMN, textAlign: "left" },
   s2: { left: "4.03%", bottom: "4.5%", width: STEP_TEXT_COLUMN, textAlign: "left" },
   s3: { left: "80%", top: "0.44%", width: STEP_TEXT_COLUMN, textAlign: "left" },
@@ -100,7 +65,9 @@ function StepBlock({
       className={!useHtmlStepLayout && isRight ? "text-right" : "text-left"}
       style={{
         color: "#555555",
-        fontFamily: useHtmlStepLayout ? HOW_IT_WORKS_FONT : "var(--font-serif, Georgia, serif)",
+        fontFamily: useHtmlStepLayout
+          ? "var(--bilva-font-serif)"
+          : "var(--bilva-font-serif, Georgia, serif)",
         width: useHtmlStepLayout ? "100%" : undefined,
       }}
     >
@@ -187,7 +154,7 @@ function ProductShowcaseCard({
       <div
         className="flex h-full min-h-0 min-w-0 flex-1 flex-col"
         style={{
-          fontFamily: isDesktop ? HOW_IT_WORKS_FONT : undefined,
+          fontFamily: isDesktop ? "var(--bilva-font-serif)" : undefined,
           padding: isDesktop
             ? "calc(var(--u) * 2.35) calc(var(--u) * 2.3) calc(var(--u) * 2.4)"
             : "1.4rem",
@@ -325,7 +292,7 @@ function ProductShowcaseCard({
                   padding: "calc(var(--u) * 1.25) 0",
                   background: "#1b5e48",
                   borderRadius: "calc(var(--u) * 0.4)",
-                  font: `500 calc(var(--u) * 1.55) ${HOW_IT_WORKS_FONT}`,
+                  font: "500 calc(var(--u) * 1.55) var(--bilva-font-serif)",
                 }
               : {
                   marginTop: "1.4rem",
@@ -369,7 +336,7 @@ function DiagramDesktop() {
         ))}
       </svg>
 
-      {STEPS.map((step) => {
+      {HOW_IT_WORKS_STEPS.map((step) => {
         const layout = STEP_LAYOUT[step.placement];
         return (
           <section
@@ -412,12 +379,11 @@ export function BilvaHowItWorksSection() {
   return (
     <section
       id="how-it-works"
-      className="relative w-full text-[#0f3d33]"
-      style={{ background: "#faf6f0" }}
+      className={cn(styles['root'], "relative text-[#0f3d33]")}
       aria-labelledby="how-it-works-heading"
     >
       <div
-        className="mx-auto w-full max-w-7xl px-4 pt-8 pb-12 sm:px-8 sm:pt-10 sm:pb-16 lg:px-12 lg:pb-20"
+        className={cn(BILVA_SITE_SHELL_CLASS, styles['shell'])}
         style={{ containerType: "inline-size" }}
       >
         <div className="relative mb-10 flex flex-col gap-5 sm:mb-12 sm:flex-row sm:items-start sm:justify-between lg:mb-14">
@@ -457,7 +423,7 @@ export function BilvaHowItWorksSection() {
         <div className="mb-8 md:hidden">
           <ProductShowcaseCard layout="mobile" />
           <ol className="mt-8 list-none space-y-8">
-            {STEPS.map((step) => (
+            {HOW_IT_WORKS_STEPS.map((step) => (
               <li key={step.id}>
                 <StepBlock
                   num={step.num}
@@ -480,7 +446,7 @@ export function BilvaHowItWorksSection() {
           aria-label="Purchase confidence highlights"
         >
           <ul className="flex list-none flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center sm:gap-0">
-            {TRUST_POINTS.map((point, index) => (
+            {HOW_IT_WORKS_TRUST_POINTS.map((point, index) => (
               <li
                 key={point.lines.join(" ")}
                 className={`flex min-w-0 items-center gap-3 font-medium leading-[1.18] text-[#0f3d33] ${

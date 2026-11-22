@@ -1,0 +1,41 @@
+/**
+ * Shared layout primitives — prefer these over one-off max-w / padding classes.
+ */
+
+.bilva-shell {
+  width: 100%;
+  max-width: var(--bilva-shell-max);
+  margin-inline: auto;
+  padding-inline: var(--bilva-shell-pad-x);
+}
+
+.bilva-frame {
+  width: 100%;
+  max-width: var(--bilva-shell-max);
+  margin-inline: auto;
+}
+
+.bilva-page {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+  background-color: var(--bilva-cream);
+  color: var(--bilva-ink-soft);
+  font-family: var(--bilva-font-sans);
+}
+
+.bilva-page ::selection {
+  background-color: var(--bilva-ink-soft);
+  color: var(--bilva-cream);
+}
+
+.bilva-section {
+  width: 100%;
+  background-color: var(--bilva-cream);
+  color: var(--bilva-ink);
+}
+
+.bilva-section--border-top {
+  border-top: 1px solid var(--bilva-border);
+}

@@ -3,77 +3,9 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 
-interface HeroSlide {
-  id: string;
-  number: string;
-  eyebrow: string;
-  headlineLine1: string;
-  headlineLine2: string;
-  descriptionLine1: string;
-  descriptionLine2: string;
-  primaryCtaText: string;
-  primaryCtaHref: string;
-  secondaryCtaText: string;
-  secondaryCtaHref: string;
-  upNextTitle: string;
-  imageSrc: string;
-  imageAlt: string;
-  seriesTag: string;
-}
-
-const slides: HeroSlide[] = [
-  {
-    id: "signature-collection",
-    number: "01",
-    eyebrow: "BILWA SIGNATURE COLLECTION",
-    headlineLine1: "More than precious.",
-    headlineLine2: "Made meaningful.",
-    descriptionLine1: "Gold and silver pieces crafted for gifting,",
-    descriptionLine2: "celebrating and keeping.",
-    primaryCtaText: "Explore the collection",
-    primaryCtaHref: "#collection",
-    secondaryCtaText: "Our heritage",
-    secondaryCtaHref: "#heritage",
-    upNextTitle: "The art of silver",
-    imageSrc: "/images/bilva/hero-slide-1-master-2x.webp",
-    imageAlt: "Bilwa Signature Collection - 24K Gold Coin in Green Velvet Presentation Box",
-    seriesTag: "SIGNATURE SERIES",
-  },
-  {
-    id: "art-of-silver",
-    number: "02",
-    eyebrow: "THE ART OF SILVER",
-    headlineLine1: "Purity sculpted in",
-    headlineLine2: "divine silver.",
-    descriptionLine1: "Master-crafted 999 pure silver coins,",
-    descriptionLine2: "idols and keepsakes for timeless blessings.",
-    primaryCtaText: "Explore Silver",
-    primaryCtaHref: "#silver",
-    secondaryCtaText: "Our heritage",
-    secondaryCtaHref: "#heritage",
-    upNextTitle: "Gifts with meaning",
-    imageSrc: "/images/bilva/hero-slide-1-master-2x.webp",
-    imageAlt: "Bilwa Art of Silver Collection",
-    seriesTag: "SIGNATURE SERIES",
-  },
-  {
-    id: "joy-of-giving",
-    number: "03",
-    eyebrow: "THE JOY OF GIVING",
-    headlineLine1: "A precious gift that",
-    headlineLine2: "holds its meaning.",
-    descriptionLine1: "Thoughtfully boxed coins and divine treasures,",
-    descriptionLine2: "crafted for life's celebrated milestones.",
-    primaryCtaText: "Explore Gifting",
-    primaryCtaHref: "#gifting",
-    secondaryCtaText: "Our heritage",
-    secondaryCtaHref: "#heritage",
-    upNextTitle: "Signature collection",
-    imageSrc: "/images/bilva/hero-slide-1-master-2x.webp",
-    imageAlt: "Bilwa Curated Gifting Sets",
-    seriesTag: "SIGNATURE SERIES",
-  },
-];
+import { HERO_SLIDES, type BilvaHeroSlide } from "@/data/bilva/hero";
+import { BILVA_SITE_FRAME_CLASS } from "@/lib/bilva-site-shell";
+import { cn } from "@/lib/utils";
 
 export function BilvaHero() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -81,7 +13,8 @@ export function BilvaHero() {
   const [progress, setProgress] = useState(0);
   const touchStartX = useRef<number | null>(null);
 
-  const currentSlide = slides[currentIndex];
+  const slides = HERO_SLIDES;
+  const currentSlide = slides[currentIndex] as BilvaHeroSlide;
   const totalSlides = slides.length;
 
   const goToNext = useCallback(() => {
@@ -150,7 +83,7 @@ export function BilvaHero() {
 
   return (
     <section
-      className="relative w-full bg-[#FAF7F2] select-none"
+      className="bilva-section relative select-none"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onTouchStart={handleTouchStart}
@@ -159,7 +92,12 @@ export function BilvaHero() {
       aria-label="Bilwa Signature Collection Hero"
     >
       {/* Same max-w-7xl column as navbar / signature / legacy / footer */}
-      <div className="relative w-full max-w-7xl mx-auto overflow-hidden h-[min(72svh,640px)] min-h-[440px] max-h-[640px] sm:h-[calc(100svh-110px)] sm:min-h-[520px] sm:max-h-[780px] lg:max-h-[860px] flex flex-col justify-start pt-20 pb-24 sm:justify-center sm:pt-0 sm:pb-0">
+      <div
+        className={cn(
+          BILVA_SITE_FRAME_CLASS,
+          "relative overflow-hidden h-[min(72svh,640px)] min-h-[440px] max-h-[640px] sm:h-[calc(100svh-110px)] sm:min-h-[520px] sm:max-h-[780px] lg:max-h-[860px] flex flex-col justify-start pt-20 pb-24 sm:justify-center sm:pt-0 sm:pb-0",
+        )}
+      >
       {/* 1. BACKGROUND PHOTO — clipped to content column */}
       <div className="absolute inset-0 pointer-events-none">
         {slides.map((s, idx) => {

@@ -9,15 +9,21 @@ const buttonVariants = cva(
         secondary: "border border-border bg-muted text-foreground hover:bg-accent",
         outline: "border border-border bg-transparent text-foreground hover:bg-muted",
         ghost: "border border-transparent bg-transparent text-muted-foreground hover:bg-muted hover:text-foreground",
-        signal: "border border-signal bg-signal text-signal-foreground hover:bg-signal/90",
         white: "border border-border bg-card text-foreground hover:bg-muted",
         destructive: "border border-destructive bg-destructive text-destructive-foreground hover:bg-destructive/90",
         link: "h-auto border border-transparent bg-transparent px-0 text-foreground underline-offset-4 hover:text-muted-foreground hover:underline active:scale-100",
+        bilwaGold:
+          "rounded-[6px] border border-transparent bg-[#F5E9D9] font-sans text-base font-medium text-[#083D35] shadow-none hover:bg-[#EDE0CC] active:scale-[0.98]",
+        bilwaGoldOutline:
+          "rounded-[6px] border border-[#C5DAD4]/80 bg-transparent font-sans text-base font-medium text-[#F0F5F3] shadow-none hover:bg-white/10 active:scale-[0.98]",
+        bilwaBag:
+          "rounded-[4px] border border-transparent bg-[#1B786A] font-sans font-medium text-white shadow-none hover:bg-[#146256] active:scale-[0.98]",
       },
       size: {
         default: "h-9 gap-2 px-4",
         sm: "h-8 gap-1.5 px-3.5 text-xs",
         lg: "h-10 gap-2 px-5 text-[15px]",
+        bilwaProduct: "h-9 min-w-[7rem] gap-1.5 px-3.5 text-[12.5px]",
         icon: "h-9 w-9 gap-0 p-0",
       },
     },

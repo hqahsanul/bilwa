@@ -22,17 +22,17 @@ export function BilvaLogo({ variant = "navbar", className = "" }: BilvaLogoProps
         <Image
           src="/images/bilva/sri-bilva-emblem-master.jpg"
           alt="Sri Bilva Jewels Emblem"
-          width={42}
-          height={38}
-          className="h-9 sm:h-10 w-auto object-contain rounded-sm"
+          width={52}
+          height={48}
+          className="h-11 sm:h-12 md:h-[50px] w-auto object-contain rounded-sm"
           priority
         />
         {/* Text lockup */}
         <div className="flex flex-col leading-none">
-          <span className="font-serif text-[16px] sm:text-[18px] font-semibold tracking-[0.08em] text-[#0A2D23]">
-            SRI BILVA
+          <span className="font-serif text-[20px] sm:text-[23px] md:text-[25px] font-semibold tracking-[0.08em] text-[#0A2D23]">
+            SRI BILWA
           </span>
-          <span className="font-sans text-[9.5px] sm:text-[10.5px] font-semibold tracking-[0.28em] text-[#B6914C] uppercase mt-[1px]">
+          <span className="font-sans text-[11px] sm:text-[12.5px] md:text-[13px] font-semibold tracking-[0.28em] text-[#B6914C] uppercase mt-[2px]">
             JEWELS
           </span>
         </div>

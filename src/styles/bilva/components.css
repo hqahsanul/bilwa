@@ -1,0 +1,120 @@
+/**
+ * Reusable Bilwa UI chrome (links, buttons, pills) as CSS — not hex in JSX.
+ */
+
+.bilva-text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-family: var(--bilva-font-sans);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--bilva-ink);
+  border-bottom: 1px solid var(--bilva-ink);
+  padding-bottom: 0.125rem;
+  transition: color var(--bilva-duration) ease, border-color var(--bilva-duration) ease;
+  cursor: pointer;
+}
+
+.bilva-text-link:hover {
+  color: var(--bilva-gold-deep);
+  border-bottom-color: var(--bilva-gold-deep);
+}
+
+.bilva-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: var(--bilva-radius-sm);
+  background-color: var(--bilva-emerald);
+  color: var(--bilva-white);
+  font-family: var(--bilva-font-sans);
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  padding: 0.875rem 1.75rem;
+  transition: background-color var(--bilva-duration) ease, transform var(--bilva-duration) ease;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.04);
+  cursor: pointer;
+}
+
+.bilva-btn-primary:hover {
+  background-color: var(--bilva-emerald-deep);
+}
+
+.bilva-btn-primary:active {
+  transform: scale(0.98);
+}
+
+.bilva-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: var(--bilva-radius-sm);
+  border: 1px solid color-mix(in srgb, var(--bilva-search-border) 80%, transparent);
+  background: transparent;
+  color: var(--bilva-ink);
+  font-family: var(--bilva-font-sans);
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 0.875rem 1.75rem;
+  transition: border-color var(--bilva-duration) ease, background-color var(--bilva-duration) ease;
+  cursor: pointer;
+}
+
+.bilva-btn-secondary:hover {
+  border-color: var(--bilva-emerald-mid);
+  background-color: color-mix(in srgb, var(--bilva-search-pill) 60%, transparent);
+}
+
+.bilva-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  background-color: #dfede6;
+  border: 1px solid #cce0d6;
+  padding: 0.375rem 0.875rem;
+  font-family: var(--bilva-font-sans);
+  font-size: 0.65625rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #14473b;
+}
+
+.bilva-card-surface {
+  background-color: var(--bilva-cream-deep);
+  border: 1px solid var(--bilva-border-strong);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.03);
+}
+
+.bilva-announce {
+  width: 100%;
+  background-color: var(--bilva-announce);
+  border-bottom: 1px solid var(--bilva-announce-border);
+  padding-block: 0.5rem;
+  padding-inline: 1rem;
+  text-align: center;
+}
+
+.bilva-announce__text {
+  font-family: var(--bilva-font-serif);
+  font-style: italic;
+  font-size: 0.84375rem;
+  letter-spacing: 0.03em;
+  color: var(--bilva-ink);
+}
+
+@media (min-width: 640px) {
+  .bilva-announce {
+    padding-block: 0.625rem;
+  }
+
+  .bilva-announce__text {
+    font-size: 0.90625rem;
+  }
+}

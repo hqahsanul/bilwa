@@ -5,6 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { Flame, Mountain, HandHeart, Briefcase } from "lucide-react";
 
+import { BILVA_SITE_SHELL_CLASS } from "@/lib/bilva-site-shell";
+import { cn } from "@/lib/utils";
+
 type OccasionId = "weddings" | "festivals" | "milestones" | "blessings" | "corporate";
 
 interface OccasionItem {
@@ -121,7 +124,7 @@ export function BilvaGiftingSection() {
       className="relative w-full bg-[#FAF7F2] text-[#0A2D23]"
       aria-labelledby="gifting-heading"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 pt-3 sm:pt-4 pb-6 sm:pb-8">
+      <div className={cn(BILVA_SITE_SHELL_CLASS, "pt-3 sm:pt-4 pb-6 sm:pb-8")}>
         <div className="flex flex-col gap-4 mb-7 sm:mb-8 sm:flex-row sm:items-center sm:justify-between">
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-3 mb-2.5">

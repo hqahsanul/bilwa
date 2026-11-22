@@ -3,6 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { BILVA_SITE_SHELL_CLASS } from "@/lib/bilva-site-shell";
+
 interface CollectionItem {
   id: string;
   title: string;
@@ -18,7 +20,7 @@ const COLLECTIONS: CollectionItem[] = [
   {
     id: "gold-coins-and-bars",
     title: "Gold coins & bars",
-    href: "#gold-coins-bars",
+    href: "/gold-silver/gold-coins-and-bars",
     image: "/images/bilva/collection-gold-coins-and-bars-raw.webp",
     alt: "Bilwa 24K Gold Lotus Coin and Gold Bar on Travertine",
     desktopCol: "lg:col-start-1 lg:col-end-2",
@@ -28,7 +30,7 @@ const COLLECTIONS: CollectionItem[] = [
   {
     id: "silver-coins-and-bars",
     title: "Silver coins & bars",
-    href: "#silver-coins-bars",
+    href: "/gold-silver/silver-coins-and-bars",
     image: "/images/bilva/collection-silver-coins-and-bars-raw.webp",
     alt: "Bilwa 999 Ganesha Silver Coin and Bilwa Silver Coin on Silk",
     desktopCol: "lg:col-start-2 lg:col-end-4",
@@ -83,7 +85,7 @@ export function BilvaCollectionsSection() {
       id="explore-collections"
       className="relative w-full bg-[#FAF7F2] pb-6 sm:pb-8 lg:pb-10 overflow-hidden select-none"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
+      <div className={BILVA_SITE_SHELL_CLASS}>
         {/* ===================================================================== */}
         {/* SECTION HEADER                                                        */}
         {/* ===================================================================== */}

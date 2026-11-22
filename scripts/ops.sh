@@ -32,7 +32,7 @@ reload_nginx() {
 case "$CMD" in
   start-all)
     "${COMPOSE[@]}" up -d
-  DOMAIN="${DOMAIN:-postpuls.com}"
+  DOMAIN="${DOMAIN:-sribilva.com}"
     if [ "$USE_SSL" -eq 1 ]; then
       echo "Site:  https://$DOMAIN"
       echo "       https://www.$DOMAIN"

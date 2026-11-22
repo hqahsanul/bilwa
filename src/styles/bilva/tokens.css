@@ -1,0 +1,70 @@
+/**
+ * Bilwa design tokens — single source for color, type, and spacing.
+ * Components consume these via CSS classes or Tailwind theme aliases.
+ */
+:root {
+  /* Surfaces */
+  --bilva-cream: #faf7f2;
+  --bilva-cream-deep: #faf8f5;
+  --bilva-paper: #f2ece2;
+  --bilva-white: #ffffff;
+
+  /* Ink */
+  --bilva-ink: #0a2d23;
+  --bilva-ink-soft: #0e3d30;
+  --bilva-muted: #4b5754;
+  --bilva-muted-strong: #425e53;
+  --bilva-muted-soft: #5c6b66;
+
+  /* Brand emerald */
+  --bilva-emerald: #025342;
+  --bilva-emerald-deep: #014134;
+  --bilva-emerald-mid: #0b6b5c;
+  --bilva-emerald-bright: #0e7a67;
+  --bilva-emerald-footer: #083d35;
+  --bilva-emerald-footer-bleed: #0c4338;
+
+  /* Gold */
+  --bilva-gold: #c5a059;
+  --bilva-gold-deep: #a67c44;
+  --bilva-gold-mid: #b6914c;
+  --bilva-gold-soft: #b07a24;
+
+  /* Borders / chrome */
+  --bilva-border: #eae3d6;
+  --bilva-border-strong: #e7dfd3;
+  --bilva-border-nav: #eae6df;
+  --bilva-announce: #dce6e0;
+  --bilva-announce-border: #d2ddd7;
+  --bilva-search-pill: #e8f0ec;
+  --bilva-search-border: #c9dad4;
+
+  /* Type */
+  --bilva-font-serif: "Newsreader", Georgia, "Times New Roman", serif;
+  --bilva-font-sans: "Inter", "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Layout */
+  --bilva-shell-max: 80rem; /* max-w-7xl */
+  --bilva-shell-pad-x: 1rem;
+  --bilva-shell-pad-x-sm: 2rem;
+  --bilva-shell-pad-x-lg: 3rem;
+  --bilva-radius-sm: 3px;
+  --bilva-radius-md: 6px;
+  --bilva-radius-lg: 14px;
+
+  /* Motion */
+  --bilva-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --bilva-duration: 200ms;
+}
+
+@media (min-width: 640px) {
+  :root {
+    --bilva-shell-pad-x: var(--bilva-shell-pad-x-sm);
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --bilva-shell-pad-x: var(--bilva-shell-pad-x-lg);
+  }
+}

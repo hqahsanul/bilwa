@@ -50,7 +50,7 @@ function Reload-Nginx {
 switch ($Command) {
     "start-all" {
         Invoke-Compose @("up", "-d")
-        $domain = if ($env:DOMAIN) { $env:DOMAIN } else { "postpuls.com" }
+        $domain = if ($env:DOMAIN) { $env:DOMAIN } else { "sribilva.com" }
         if ($UseSsl) {
             Write-Host "Site:  https://$domain" -ForegroundColor Green
             Write-Host "       https://www.$domain" -ForegroundColor Green

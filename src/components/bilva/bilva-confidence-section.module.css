@@ -1,0 +1,134 @@
+/**
+ * Confidence section — container-query layout lives here, not inline style props.
+ */
+.root {
+  width: 100%;
+  background-color: var(--bilva-cream);
+}
+
+.sec {
+  --u: 1cqw;
+  --confidence-gold: #f0d160;
+  container-type: inline-size;
+  width: 100%;
+  color: var(--bilva-white);
+  font-family: var(--bilva-font-sans);
+  padding-top: calc(var(--u) * 1);
+  padding-bottom: calc(var(--u) * 1.6);
+  background:
+    radial-gradient(60cqw 30cqw at 15% 0, rgba(20, 110, 84, 0.35), transparent 70%),
+    radial-gradient(50cqw 35cqw at 95% 40%, rgba(14, 90, 68, 0.35), transparent 70%),
+    linear-gradient(180deg, #04271f 0%, #07382b 45%, #052d23 100%);
+}
+
+.serif {
+  font-family: var(--bilva-font-serif);
+}
+
+.sans {
+  font-family: var(--bilva-font-sans);
+}
+
+.gold {
+  color: var(--confidence-gold);
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--u) * 2);
+  font-size: calc(var(--u) * 1.45);
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--confidence-gold);
+}
+
+.eyebrowRule {
+  height: 1px;
+  width: calc(var(--u) * 5.8);
+  background-color: var(--confidence-gold);
+}
+
+.headline {
+  font-family: var(--bilva-font-serif);
+  font-weight: 500;
+  line-height: 1.1;
+  font-size: calc(var(--u) * 3.85);
+  margin-top: calc(var(--u) * 0.45);
+  text-shadow: 0 2px 6px rgb(0 0 0 / 0.35);
+}
+
+.lede {
+  color: #f3f6f3;
+  font-size: calc(var(--u) * 1.75);
+  margin-top: calc(var(--u) * 0.35);
+}
+
+.feat {
+  display: grid;
+  gap: calc(var(--u) * 2.6);
+  margin-top: calc(var(--u) * 2.2);
+}
+
+@media (min-width: 1024px) {
+  .feat {
+    grid-template-columns: 54.3fr 37.8fr;
+  }
+}
+
+.photo {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 807 / 407;
+  background: #d9c3a0;
+  box-shadow: 0 0.8cqw 2cqw rgb(0 0 0 / 0.35);
+}
+
+.tag {
+  position: absolute;
+  left: 3.1%;
+  bottom: 7.6%;
+  padding: calc(var(--u) * 0.8) calc(var(--u) * 1.3);
+  background: #fbf4e6;
+  color: #1b2a22;
+  font-size: calc(var(--u) * 1.5);
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.2);
+}
+
+.icon {
+  fill: none;
+  stroke: var(--confidence-gold);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.iconDot {
+  fill: var(--confidence-gold);
+  stroke: none;
+}
+
+.detailTitle {
+  font-family: var(--bilva-font-serif);
+  color: #f1f5f1;
+}
+
+.detailBody {
+  font-family: var(--bilva-font-sans);
+  color: color-mix(in srgb, #f1f5f1 82%, transparent);
+  line-height: 1.55;
+}
+
+.reviewQuote {
+  font-family: var(--bilva-font-serif);
+  font-style: italic;
+  color: #f1f5f1;
+}
+
+.reviewWho {
+  font-family: var(--bilva-font-sans);
+  font-size: 0.8125rem;
+  color: color-mix(in srgb, #f1f5f1 70%, transparent);
+}

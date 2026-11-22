@@ -4,6 +4,9 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
+import { BILVA_SITE_SHELL_CLASS } from "@/lib/bilva-site-shell";
+import { cn } from "@/lib/utils";
+
 type WeightOption = "0.5 g" | "1 g" | "2 g" | "5 g";
 type MetalOption = "gold" | "silver";
 
@@ -23,7 +26,7 @@ export function BilvaSmallDenominations() {
       {/* =================================================================== */}
       {/* MAIN CONTAINER: 16:10 Editorial Spread matching exact design        */}
       {/* =================================================================== */}
-      <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
+      <div className={cn("relative", BILVA_SITE_SHELL_CLASS)}>
         {/* Visual Canvas Area (16:10 ratio on desktop) */}
         <div className="relative w-full lg:aspect-[16/10] lg:min-h-[640px] lg:max-h-[760px] overflow-hidden">
           {/* Desktop Master Photographic Backdrop (Full bleed within container) */}
