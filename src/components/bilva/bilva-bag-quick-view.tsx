@@ -160,7 +160,7 @@ export function BilvaBagQuickView({
             Delivery eligibility is checked on the product page / checkout.
           </p>
           <Link
-            href="#bag"
+            href="/bag"
             onClick={onClose}
             className="mt-3 flex w-full items-center justify-center gap-1.5 rounded-[6px] bg-[#0B6B5C] py-2.5 font-sans text-[13px] font-semibold text-white transition-colors hover:bg-[#095548]"
           >

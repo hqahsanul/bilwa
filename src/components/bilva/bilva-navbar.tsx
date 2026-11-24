@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { BilvaLogo } from "./bilva-logo";
 import { BilvaSearchOverlay } from "./bilva-search-overlay";
 import {
@@ -29,6 +30,10 @@ import {
   GOLD_COINS_AND_BARS_PATH,
   SILVER_COINS_AND_BARS_PATH,
   RUDRAKSH_COLLECTION_PATH,
+  FIVE_MUKHI_RUDRAKSHA_PATH,
+  LAKSHMI_SILVER_COIN_PATH,
+  LAKSHMI_GOLD_COIN_PATH,
+  CORPORATE_GIFTING_PATH,
 } from "@/lib/bilva-collection-routes";
 import { BILVA_SITE_SHELL_CLASS } from "@/lib/bilva-site-shell";
 import { cn } from "@/lib/utils";
@@ -38,6 +43,7 @@ const SILVER_COLLECTION_PATH = SILVER_COINS_AND_BARS_PATH;
 const RUDRAKSH_PATH = RUDRAKSH_COLLECTION_PATH;
 
 export function BilvaNavbar() {
+  const pathname = usePathname();
   const frameClass = BILVA_SITE_SHELL_CLASS;
   // Menu is strictly CLOSED by default on site load
   const [openMenu, setOpenMenu] = useState<string | null>(null);
@@ -178,7 +184,7 @@ export function BilvaNavbar() {
     { label: "Rudraksh", hasDropdown: true },
     { label: "Gemstones", hasDropdown: true },
     { label: "Gifting", hasDropdown: true },
-    { label: "Corporate Gifting", hasDropdown: false },
+    { label: "Corporate Gifting", hasDropdown: false, href: CORPORATE_GIFTING_PATH },
     { label: "Our Story", hasDropdown: false },
   ];
 
@@ -326,35 +332,52 @@ export function BilvaNavbar() {
 
         {/* TIER 2: Centered Navigation Categories Row (Desktop) */}
         <div className={cn("hidden lg:block", frameClass)}>
-          <nav ref={navMenuBarRef} className="flex items-center justify-center gap-8 xl:gap-11 h-[50px] sm:h-[54px] relative">
+          <nav ref={navMenuBarRef} className="flex items-center justify-center gap-12 xl:gap-16 h-[58px] relative">
             {menuList.map((item) => {
               const isOpen = openMenu === item.label;
 
               return (
                 <div key={item.label} className="relative h-full flex items-center">
-                  <button
-                    onClick={() => handleMenuClick(item.label, item.hasDropdown)}
-                    className={`relative inline-flex items-center gap-2 text-[14.5px] sm:text-[15.5px] font-sans tracking-[0.02em] transition-colors cursor-pointer h-full px-2 ${
-                      isOpen
-                        ? "text-[#0A2D23] font-semibold"
-                        : "text-[#283832] hover:text-[#0A2D23]"
-                    }`}
-                  >
-                    <span>{item.label}</span>
-                    {item.hasDropdown && (
-                      <ChevronDown
-                        size={14}
-                        className={`text-[#556961] transition-transform duration-200 ${
-                          isOpen ? "rotate-180 text-[#B58E3F]" : ""
-                        }`}
-                      />
-                    )}
+                  {"href" in item && item.href ? (
+                    <Link
+                      href={item.href}
+                      className={cn(
+                        "relative inline-flex items-center gap-2 text-[17px] xl:text-[18px] font-sans tracking-[0.02em] transition-colors cursor-pointer h-full px-2",
+                        pathname === item.href
+                          ? "text-[#0A2D23] font-semibold"
+                          : "text-[#283832] hover:text-[#0A2D23]",
+                      )}
+                    >
+                      <span>{item.label}</span>
+                      {pathname === item.href && (
+                        <span className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-[#0A2D23]" />
+                      )}
+                    </Link>
+                  ) : (
+                    <button
+                      onClick={() => handleMenuClick(item.label, item.hasDropdown)}
+                      className={`relative inline-flex items-center gap-2 text-[17px] xl:text-[18px] font-sans tracking-[0.02em] transition-colors cursor-pointer h-full px-2 ${
+                        isOpen
+                          ? "text-[#0A2D23] font-semibold"
+                          : "text-[#283832] hover:text-[#0A2D23]"
+                      }`}
+                    >
+                      <span>{item.label}</span>
+                      {item.hasDropdown && (
+                        <ChevronDown
+                          size={16}
+                          className={`text-[#556961] transition-transform duration-200 ${
+                            isOpen ? "rotate-180 text-[#B58E3F]" : ""
+                          }`}
+                        />
+                      )}
 
-                    {/* Exact Active Underline Indicator */}
-                    {isOpen && (
-                      <span className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-[#0A2D23]" />
-                    )}
-                  </button>
+                      {/* Exact Active Underline Indicator */}
+                      {isOpen && (
+                        <span className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-[#0A2D23]" />
+                      )}
+                    </button>
+                  )}
                 </div>
               );
             })}
@@ -400,7 +423,7 @@ export function BilvaNavbar() {
                           {["Gold Coins", "Gold Bars", "Small Denominations", "Artistic Coins", "All Gold"].map((link) => (
                             <li key={link}>
                               <Link
-                                href={GOLD_COLLECTION_PATH}
+                                href={link === "Gold Coins" ? LAKSHMI_GOLD_COIN_PATH : GOLD_COLLECTION_PATH}
                                 className="block hover:text-[#387C71] hover:underline transition-colors"
                                 onClick={() => setOpenMenu(null)}
                               >
@@ -421,7 +444,7 @@ export function BilvaNavbar() {
                           {["Silver Coins", "Silver Bars", "Collectible Designs", "Silver Gifts", "All Silver"].map((link) => (
                             <li key={link}>
                               <Link
-                                href={SILVER_COLLECTION_PATH}
+                                href={link === "Silver Coins" ? LAKSHMI_SILVER_COIN_PATH : SILVER_COLLECTION_PATH}
                                 className="block hover:text-[#387C71] hover:underline transition-colors"
                                 onClick={() => setOpenMenu(null)}
                               >
@@ -506,7 +529,7 @@ export function BilvaNavbar() {
                           {["1 Mukhi", "2 Mukhi", "3 Mukhi", "5 Mukhi", "7 Mukhi", "All Rudraksh"].map((link) => (
                             <li key={link}>
                               <Link
-                                href={RUDRAKSH_PATH}
+                                href={link === "5 Mukhi" ? FIVE_MUKHI_RUDRAKSHA_PATH : RUDRAKSH_PATH}
                                 className="block hover:text-[#387C71] hover:underline transition-colors"
                                 onClick={() => setOpenMenu(null)}
                               >
@@ -786,27 +809,37 @@ export function BilvaNavbar() {
           <div className="space-y-4">
             {menuList.map((item) => (
               <div key={item.label} className="border-b border-[#F0ECE1] pb-3 last:border-b-0">
-                <div
-                  onClick={() => handleMenuClick(item.label, item.hasDropdown)}
-                  className="flex items-center justify-between font-serif text-[15px] text-[#0A2D23] font-medium py-1 cursor-pointer"
-                >
-                  <span>{item.label}</span>
-                  {item.hasDropdown && (
-                    <ChevronDown
-                      size={15}
-                      className={`text-[#B89248] transition-transform duration-200 ${
-                        openMenu === item.label ? "rotate-180" : ""
-                      }`}
-                    />
-                  )}
-                </div>
+                {"href" in item && item.href ? (
+                  <Link
+                    href={item.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="flex items-center justify-between font-serif text-[15px] text-[#0A2D23] font-medium py-1 cursor-pointer"
+                  >
+                    <span>{item.label}</span>
+                  </Link>
+                ) : (
+                  <div
+                    onClick={() => handleMenuClick(item.label, item.hasDropdown)}
+                    className="flex items-center justify-between font-serif text-[15px] text-[#0A2D23] font-medium py-1 cursor-pointer"
+                  >
+                    <span>{item.label}</span>
+                    {item.hasDropdown && (
+                      <ChevronDown
+                        size={15}
+                        className={`text-[#B89248] transition-transform duration-200 ${
+                          openMenu === item.label ? "rotate-180" : ""
+                        }`}
+                      />
+                    )}
+                  </div>
+                )}
 
                 {item.hasDropdown && openMenu === item.label && (
                   <div className="mt-2.5 pl-3 border-l-2 border-[#B89248] space-y-2 text-[13px] text-[#333333]">
                     {item.label === "Gold & Silver" && (
                       <>
                         <p className="font-semibold text-[#387C71] text-[11px] uppercase tracking-wider">Gold</p>
-                        <Link href={GOLD_COLLECTION_PATH} className="block pl-2 py-0.5" onClick={() => setIsMobileMenuOpen(false)}>
+                        <Link href={LAKSHMI_GOLD_COIN_PATH} className="block pl-2 py-0.5" onClick={() => setIsMobileMenuOpen(false)}>
                           Gold Coins
                         </Link>
                         <Link href={GOLD_COLLECTION_PATH} className="block pl-2 py-0.5" onClick={() => setIsMobileMenuOpen(false)}>
