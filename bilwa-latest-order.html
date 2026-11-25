@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My Bilwa – Overview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #1f4a2c; --green-2: #2c6a3e; --green-soft: #e3eedb; --green-bar: #e6efdc;
+    --amber: #c27b12;
+    --ink: #1c1c1c; --muted: #5a5a55;
+    --bg: #f9f5ec; --card: #fcfaf5; --border: #e6dfd0;
+    --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+    --sans: "Inter", -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--sans); color: var(--ink); font-size: 14px; background: #ece6d8; }
+  a { color: inherit; text-decoration: none; }
+  .ico { width: 1em; height: 1em; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+
+  .page {
+    position: relative; overflow: hidden;
+    max-width: 1100px; margin: 0 auto; min-height: 100vh;
+    padding: 26px 26px 30px;
+    background: radial-gradient(90% 60% at 100% 0%, #f1ecdd 0%, rgba(241,236,221,0) 70%), var(--bg);
+  }
+
+  /* placeholder */
+  .ph {
+    display: grid; place-items: center; text-align: center;
+    font-size: 10.5px; color: #8c8266; letter-spacing: .2px;
+    background: repeating-linear-gradient(45deg, #f1e8d5, #f1e8d5 8px, #f6efe0 8px, #f6efe0 16px);
+    border: 1px dashed #cdbd98; border-radius: 6px;
+  }
+
+  /* ---------- Pill nav ---------- */
+  .nav { display: flex; gap: 14px; flex-wrap: wrap; position: relative; z-index: 1; }
+  .nav a {
+    min-width: 118px; text-align: center; padding: 9px 22px;
+    border: 1px solid #ddd5c3; border-radius: 999px; background: #fcfaf5;
+    font-size: 14px; font-weight: 500; color: #2b2b2b;
+  }
+  .nav a.active { background: var(--green); border-color: var(--green); color: #fff; }
+
+  /* ---------- Heading + leaf ---------- */
+  .head { position: relative; margin: 26px 0 24px; }
+  .head h1 { font-family: var(--serif); font-weight: 600; font-size: 40px; line-height: 1.1; color: var(--green); letter-spacing: -.3px; }
+  .head p { font-size: 17px; color: #4b4b47; margin-top: 4px; }
+  .leaf { position: absolute; right: -10px; top: -34px; width: 200px; height: 130px; opacity: .85; font-size: 10px; }
+
+  /* ---------- Grid ---------- */
+  .grid { display: grid; grid-template-columns: 1fr 338px; gap: 16px; align-items: start; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; box-shadow: 0 1px 4px rgba(90,70,30,.05); }
+
+  /* latest order */
+  .order { padding: 14px 22px 18px 20px; }
+  .order h2 { font-family: var(--serif); font-size: 25px; font-weight: 600; color: #1d1d1d; }
+  .meta { display: flex; align-items: center; flex-wrap: wrap; gap: 12px 14px; margin-top: 8px; font-size: 12.5px; }
+  .meta .sep { width: 1px; height: 16px; background: #888; }
+  .meta b { font-weight: 700; }
+  .status { margin-left: auto; display: inline-flex; align-items: center; gap: 8px; background: #d6e8c6; color: #1f3d22; font-weight: 600; font-size: 13px; padding: 8px 14px; border-radius: 999px; }
+  .status .ico { font-size: 17px; }
+
+  .items { margin: 10px 0 0; border-top: 1px solid #e3dccb; padding-left: 10px; }
+  .item { display: flex; align-items: center; gap: 22px; padding: 8px 0; border-bottom: 1px solid #e3dccb; }
+  .item .ph { width: 92px; height: 64px; }
+  .item b { font-size: 17px; font-weight: 600; }
+
+  /* stepper */
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); margin: 14px 10px 0; position: relative; }
+  .step { text-align: center; position: relative; padding-top: 0; font-size: 13.5px; font-weight: 500; }
+  .step .dot { width: 24px; height: 24px; border-radius: 50%; margin: 0 auto 8px; display: grid; place-items: center; background: #fff; border: 2px solid #cfcfc8; position: relative; z-index: 1; }
+  .step.done .dot { background: var(--green-2); border-color: var(--green-2); color: #fff; }
+  .step.done .dot .ico { font-size: 14px; stroke-width: 3; }
+  .step.current .dot { border-color: var(--green-2); }
+  .step.current .dot::after { content: ""; width: 12px; height: 12px; border-radius: 50%; background: var(--green-2); }
+  .step::before { content: ""; position: absolute; top: 11px; left: -50%; width: 100%; height: 2px; background: #d6d6cf; }
+  .step:first-child::before { display: none; }
+  .step.done::before, .step.current::before { background: var(--green-2); }
+  .step small { display: block; font-size: 11.5px; font-weight: 400; color: #555; line-height: 1.25; margin-top: 1px; }
+  .step.current { color: var(--green-2); font-weight: 600; }
+  .step.current small { color: #555; font-weight: 400; }
+  .step.next { color: #333; }
+
+  .cta { display: flex; align-items: center; gap: 16px; margin-top: 16px; flex-wrap: wrap; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; height: 36px; border-radius: 6px; font-size: 14.5px; font-weight: 600; padding: 0 28px; }
+  .btn .ico { font-size: 17px; }
+  .btn.primary { background: var(--green); color: #fff; }
+  .btn.disabled { background: #ece8de; color: #aaa69a; border: 1px solid #e3ddcd; cursor: not-allowed; }
+  .hint { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: #3c3c38; padding-left: 14px; border-left: 1px solid #cfc8b6; height: 20px; }
+  .hint .ico { font-size: 15px; }
+
+  .insure { display: flex; align-items: center; gap: 18px; margin-top: 14px; background: var(--green-bar); border: 1px solid #d9e6cc; border-radius: 8px; padding: 10px 18px; font-size: 13.5px; }
+  .insure .ico { font-size: 24px; color: var(--green-2); }
+  .insure b { font-weight: 600; }
+  .insure .sep { width: 1px; height: 18px; background: #aab59b; }
+  .insure em { font-size: 11.5px; color: #4a4a45; }
+
+  /* right column */
+  .side { display: grid; gap: 14px; }
+  .docs { padding: 16px 18px 18px; }
+  .ttl { display: flex; align-items: center; gap: 12px; }
+  .ttl .ico { font-size: 28px; color: #222; stroke-width: 1.5; }
+  .ttl h3 { font-family: var(--serif); font-size: 23px; font-weight: 600; }
+  .docs ul { list-style: none; margin: 18px 0 16px; display: grid; gap: 18px; }
+  .docs li { display: flex; align-items: center; gap: 14px; font-size: 13px; }
+  .docs li .ico { font-size: 22px; color: #333; stroke-width: 1.4; }
+  .docs li .amber { color: var(--amber); font-weight: 500; }
+  .docs li .soft { color: #5a5a55; font-size: 12.5px; }
+  .lib { display: flex; align-items: center; justify-content: center; gap: 10px; height: 38px; background: var(--green-soft); border: 1px solid #cfe0c0; border-radius: 6px; font-weight: 600; font-size: 14px; }
+  .lib .ico { font-size: 16px; }
+
+  .help { padding: 16px 18px 22px; }
+  .help .ttl h3 { font-size: 22px; }
+  .help p { font-size: 13.5px; color: #4b4b47; line-height: 1.4; margin: 6px 0 14px; max-width: 280px; }
+  .row { display: flex; align-items: center; gap: 14px; height: 38px; padding: 0 14px; margin-top: 10px; background: #fff; border: 1px solid #e2dccb; border-radius: 6px; font-size: 13.5px; font-weight: 600; }
+  .row .ico { font-size: 19px; color: #444; stroke-width: 1.5; }
+  .row .chev { margin-left: auto; font-size: 17px; color: #333; }
+
+  /* bottom cards */
+  .bottom { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 20px; }
+  .link { display: flex; align-items: center; gap: 16px; padding: 16px 16px 16px 18px; background: var(--card); border: 1px solid var(--border); border-radius: 8px; min-height: 68px; }
+  .link > .ico { font-size: 28px; color: #2a2a2a; stroke-width: 1.5; }
+  .link b { display: block; font-family: var(--serif); font-size: 18px; font-weight: 600; }
+  .link small { font-size: 12px; color: #4b4b47; }
+  .link .chev { margin-left: auto; font-size: 18px; }
+
+  @media (max-width: 900px) {
+    .grid, .bottom { grid-template-columns: 1fr; }
+    .head h1 { font-size: 30px; }
+    .leaf { display: none; }
+    .status { margin-left: 0; }
+    .steps { margin: 14px 0 0; }
+    .step { font-size: 12px; }
+    .insure { flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h6M9 9h2"/></symbol>
+    <symbol id="i-receipt" viewBox="0 0 24 24"><path d="M5 3h14v18l-3-2-2 2-2-2-2 2-2-2-3 2V3z"/><path d="M9 8h6M9 12h6"/></symbol>
+    <symbol id="i-award" viewBox="0 0 24 24"><circle cx="12" cy="9" r="6"/><path d="m8.5 14 -1.500 7 5-3 5 3-1.500-7"/><path d="m9.500 9 1.800 1.800L14.500 7.500"/></symbol>
+    <symbol id="i-headset" viewBox="0 0 24 24"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="14" width="4" height="6" rx="1.500"/><rect x="17" y="14" width="4" height="6" rx="1.500"/><path d="M19 20c0 1.500-2 2-5 2"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 11.500a8 7.500 0 0 1-12 6.500L3 20l1.800-4.500A8 7.500 0 1 1 21 11.500z"/></symbol>
+    <symbol id="i-box" viewBox="0 0 24 24"><path d="M21 8 12 3 3 8v8l9 5 9-5V8z"/><path d="m3 8 9 5 9-5"/><path d="M12 13v8"/></symbol>
+    <symbol id="i-chev" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.500 4.500 4.500L19 7.500"/></symbol>
+    <symbol id="i-spinner" viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 1 9 9" stroke-width="2.200"/><path d="M21 12a9 9 0 0 1-3 6.700M15 20.600A9 9 0 0 1 8.500 20.600M5.500 18.200A9 9 0 0 1 3 12M3.600 8.800A9 9 0 0 1 8.500 3.800" stroke-dasharray="2.500 3"/></symbol>
+    <symbol id="i-truck" viewBox="0 0 24 24"><path d="M2 6h11v10H2z"/><path d="M13 9h4.500L21 12.500V16h-8"/><circle cx="6.500" cy="17.500" r="2"/><circle cx="17" cy="17.500" r="2"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 2.500 20 5.500v6c0 5-3.400 8.800-8 10.500-4.600-1.700-8-5.500-8-10.500v-6l8-3z"/><path d="m8.500 12 2.500 2.500 4.500-5"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.200-7-11.500a7 7 0 0 1 14 0C19 14.800 12 21 12 21z"/><circle cx="12" cy="9.500" r="2.500"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-8-4.900-8-11a4.600 4.600 0 0 1 8-3 4.600 4.600 0 0 1 8 3c0 6.100-8 11-8 11z"/></symbol>
+    <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.200"/><circle cx="12" cy="12" r="7"/><path d="M12 2.500v2.500M12 19v2.500M2.500 12H5M19 12h2.500M5.300 5.300l1.800 1.800M16.900 16.900l1.800 1.800M18.700 5.300l-1.800 1.800M7.100 16.900l-1.800 1.800"/></symbol>
+  </defs>
+</svg>
+
+<div class="page">
+
+  <nav class="nav">
+    <a class="active" href="#">Overview</a>
+    <a href="#">My orders</a>
+    <a href="#">Certificates</a>
+    <a href="#">Addresses</a>
+    <a href="#">Support</a>
+    <a href="#">Preferences</a>
+  </nav>
+
+  <header class="head">
+    <div class="ph leaf">Leaf image placeholder</div>
+    <h1>Welcome to My Bilwa, Rajesh.</h1>
+    <p>Your latest order and everything you need, in one place.</p>
+  </header>
+
+  <div class="grid">
+
+    <!-- Latest order -->
+    <section class="card order">
+      <h2>Your latest order</h2>
+      <div class="meta">
+        <span>Order ID: <b>BLW-2026-00428</b></span><span class="sep"></span>
+        <span>Date: 14 Nov 2026</span><span class="sep"></span>
+        <span>Amount: <b>₹2,38,350</b></span>
+        <span class="status"><svg class="ico"><use href="#i-spinner"/></svg>Confirmed · Preparing</span>
+      </div>
+
+      <div class="items">
+        <div class="item"><div class="ph">Product image</div><b>Lakshmi Gold Coin • 10 g</b></div>
+        <div class="item"><div class="ph">Product image</div><b>Gold Bar • 5 g</b></div>
+      </div>
+
+      <div class="steps">
+        <div class="step done"><div class="dot"><svg class="ico"><use href="#i-check"/></svg></div>Order placed<small>14 Nov 2026</small></div>
+        <div class="step current"><div class="dot"></div>Preparing<small>We are getting your<br>order ready.</small></div>
+        <div class="step next"><div class="dot"></div>Insured dispatch<small>—</small></div>
+        <div class="step next"><div class="dot"></div>Delivered<small>—</small></div>
+      </div>
+
+      <div class="cta">
+        <a class="btn primary" href="#">View order details <svg class="ico"><use href="#i-arrow"/></svg></a>
+        <span class="btn disabled"><svg class="ico"><use href="#i-truck"/></svg>Track delivery</span>
+        <span class="hint"><svg class="ico"><use href="#i-info"/></svg>Tracking appears after dispatch.</span>
+      </div>
+
+      <div class="insure">
+        <svg class="ico"><use href="#i-shield"/></svg>
+        <b>Delivery insurance included · Covered by Bilwa (₹0)</b>
+        <span class="sep"></span>
+        <em>Coverage details available in your order.</em>
+      </div>
+    </section>
+
+    <!-- Right column -->
+    <aside class="side">
+      <section class="card docs">
+        <div class="ttl"><svg class="ico"><use href="#i-file"/></svg><h3>Your documents</h3></div>
+        <ul>
+          <li><svg class="ico"><use href="#i-receipt"/></svg><span>Payment receipt — <span class="amber">Pending issuance</span></span></li>
+          <li><svg class="ico"><use href="#i-award"/></svg><span>Product certificates — <span class="soft">Available when provided</span></span></li>
+        </ul>
+        <a class="lib" href="#">View document library <svg class="ico"><use href="#i-arrow"/></svg></a>
+      </section>
+
+      <section class="card help">
+        <div class="ttl"><svg class="ico"><use href="#i-headset"/></svg><h3>Need help?</h3></div>
+        <p>We’re here to help with your order, documents and more.</p>
+        <a class="row" href="#"><svg class="ico"><use href="#i-chat"/></svg>Contact support<svg class="ico chev"><use href="#i-chev"/></svg></a>
+        <a class="row" href="#"><svg class="ico"><use href="#i-box"/></svg>Order queries<svg class="ico chev"><use href="#i-chev"/></svg></a>
+      </section>
+    </aside>
+  </div>
+
+  <!-- Bottom cards -->
+  <div class="bottom">
+    <a class="link" href="#"><svg class="ico"><use href="#i-pin"/></svg><div><b>Saved addresses</b><small>Manage your delivery addresses.</small></div><svg class="ico chev"><use href="#i-chev"/></svg></a>
+    <a class="link" href="#"><svg class="ico"><use href="#i-heart"/></svg><div><b>Wishlist</b><small>View and manage your saved items.</small></div><svg class="ico chev"><use href="#i-chev"/></svg></a>
+    <a class="link" href="#"><svg class="ico"><use href="#i-gear"/></svg><div><b>Account preferences</b><small>Update your details and account settings.</small></div><svg class="ico chev"><use href="#i-chev"/></svg></a>
+  </div>
+
+</div>
+</body>
+</html>

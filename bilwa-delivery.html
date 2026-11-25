@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Where should we deliver? · Bilwa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600;6..72,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8f5ee; --card:#fcfbf7; --field:#fdfcf9; --panel:#e3eadb; --panel-2:#d9e4d0; --line:#d9dccd; --ink:#16301f; --muted:#5b685e;
+  --green:#14442e; --green-2:#0e3825; --tint:#dde6d4; --ins:#d3e4c6; --thumb:#ece6d8; --gold:#b98a3e; --onbtn:#fff; --err:#a3392b;
+  --serif:Newsreader,Georgia,"Times New Roman",serif; --sans:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0f1713; --card:#16201a; --field:#1a251e; --panel:#1a271f; --panel-2:#203126; --line:#2b3a31; --ink:#e8efe6; --muted:#9db0a2;
+  --green:#4a9a72; --green-2:#3f8a63; --tint:#223428; --ins:#27402f; --thumb:#26302a; --gold:#d3a85a; --onbtn:#0b130e; --err:#e08a7c;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0f1713; --card:#16201a; --field:#1a251e; --panel:#1a271f; --panel-2:#203126; --line:#2b3a31; --ink:#e8efe6; --muted:#9db0a2;
+  --green:#4a9a72; --green-2:#3f8a63; --tint:#223428; --ins:#27402f; --thumb:#26302a; --gold:#d3a85a; --onbtn:#0b130e; --err:#e08a7c;color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 var(--sans);-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:30}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+svg{width:1em;height:1em;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;flex:none}
+
+/* top bar */
+.top{border-bottom:1px solid var(--gold);background:var(--bg)}
+.top-in{max-width:1100px;margin:0 auto;padding:8px 24px;display:flex;align-items:center;gap:18px}
+.brand{display:flex;align-items:center;gap:12px;color:var(--green);text-decoration:none}
+.brand svg{font-size:36px;stroke:none;fill:currentColor}
+.brand span{font:600 27px var(--serif);letter-spacing:.2em}
+.secure{display:flex;align-items:center;gap:8px;font:600 16px var(--serif);color:var(--green);padding:6px 0 6px 18px;border-left:1px solid var(--line)}
+.secure svg{font-size:16px;color:var(--gold)}
+.steps{margin-left:auto;display:flex;align-items:center;gap:12px;font-size:15px;font-weight:500;color:var(--muted)}
+.steps .n{width:27px;height:27px;border-radius:50%;background:var(--tint);display:grid;place-items:center;font:600 13px var(--sans);color:var(--ink)}
+.steps .on{color:var(--ink);font-weight:700}
+.steps .on .n{background:var(--green);color:var(--onbtn)}
+.steps .st{display:flex;align-items:center;gap:10px}
+.steps .ln{width:38px;height:1px;background:var(--muted);opacity:.6}
+
+main{max-width:1100px;margin:0 auto;padding:24px 24px 24px}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:24px;align-items:stretch}
+
+/* heading */
+.head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+h1{font:700 37px/1.1 var(--serif);color:var(--green);margin:0;letter-spacing:-.01em;white-space:nowrap}
+.rule{width:40px;height:2px;background:var(--gold);margin:8px 0 6px}
+.sub{font-weight:500;margin:0 0 14px;color:var(--muted);font-size:14.5px}
+.acct{font-weight:500;font-size:12.5px;margin-top:14px;white-space:nowrap}
+.acct a{color:var(--green);text-underline-offset:3px}
+
+/* form cards */
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 18px 12px;margin-bottom:14px}
+.card h2{display:flex;align-items:center;gap:10px;font:700 22px/1 var(--serif);color:var(--green);margin:0 0 8px}
+.card h2 .ic{width:30px;height:30px;border-radius:7px;background:var(--tint);display:grid;place-items:center;font-size:17px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:6px 22px}
+.f{min-width:0}
+.span2{grid-column:1/-1}
+.f label{display:block;font:600 12.5px/1.2 var(--sans);margin:0 0 4px}
+.f label em{font-style:normal;font-weight:500;color:var(--muted)}
+.f label .req{color:var(--err)}
+.box{background:var(--field);border:1px solid var(--line);border-radius:8px;height:33px;display:flex;align-items:center;gap:10px;padding:0 12px;position:relative}
+.box:focus-within{border-color:var(--green);box-shadow:0 0 0 3px color-mix(in srgb,var(--green) 18%,transparent)}
+.box>svg{font-size:17px;color:var(--muted)}
+.box input,.box select{border:0;background:none;outline:0;flex:1;min-width:0;height:100%;font-size:13px;font-weight:500;padding:0}
+.box select{appearance:none;-webkit-appearance:none;cursor:pointer;padding-right:22px}
+.box select:invalid{color:var(--muted)}
+.box select option{color:var(--ink);background:var(--card)}
+.box .chev{position:absolute;right:12px;font-size:14px;color:var(--ink);pointer-events:none}
+.box input::placeholder{color:var(--muted);opacity:.85;font-weight:500}
+.box.cc select{flex:none;width:44px;padding-right:0}
+.box.cc .sep{width:1px;height:18px;background:var(--line);margin:0 0 0 -2px}
+.box.cc .chev{position:static;margin-left:-8px}
+.f.bad .box{border-color:var(--err)}
+.f .e{display:none;color:var(--err);font-size:12px;margin-top:4px}
+.f.bad .e{display:block}
+
+
+/* custom dropdowns */
+.dd{position:static}
+.box .dd{height:100%;display:flex;align-items:center}
+.box .dd.fill{flex:1;min-width:0}
+.box.cc .dd{flex:none}
+.dd-btn{border:0;background:none;display:flex;align-items:center;gap:6px;height:100%;width:100%;padding:0;font-size:13px;font-weight:500;color:var(--ink);text-align:left;cursor:pointer}
+.dd-btn .v{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dd-btn.ph .v{color:var(--muted)}
+.dd-btn svg{font-size:14px;color:var(--ink);transition:transform .15s}
+.dd.open .dd-btn svg{transform:rotate(180deg)}
+.dd-btn:focus-visible{outline:0}
+.box:has(.dd-btn:focus-visible),.box:has(.dd.open){border-color:var(--green);box-shadow:0 0 0 3px color-mix(in srgb,var(--green) 18%,transparent)}
+.dd-list{display:none;position:absolute;z-index:50;left:0;right:0;top:calc(100% + 4px);max-height:200px;overflow:auto;margin:0;padding:4px;list-style:none;background:var(--card);border:1px solid var(--line);border-radius:8px;box-shadow:0 10px 28px rgba(20,40,28,.18);outline:0}
+.dd.open .dd-list{display:block}
+.box.cc .dd-list{right:auto;width:230px}
+.dd-list li{display:flex;justify-content:space-between;gap:12px;padding:6px 10px;line-height:1.35;border-radius:6px;font-size:13px;font-weight:500;cursor:pointer}
+.dd-list li .sub2{color:var(--muted);font-weight:400}
+.dd-list li.act{background:var(--tint)}
+.dd-list li[aria-selected="true"]{color:var(--green);font-weight:700}
+
+/* checkbox + switch */
+.chk{display:flex;align-items:center;gap:10px;font-weight:500;font-size:13px;margin-top:10px;cursor:pointer}
+.chk input{position:absolute;opacity:0;width:0;height:0}
+.chk .cb{width:18px;height:18px;border-radius:4px;border:1.5px solid var(--muted);display:grid;place-items:center;flex:none;color:transparent;background:var(--field)}
+.chk .cb svg{font-size:13px;stroke-width:2.6}
+.chk input:checked+.cb{background:var(--green);border-color:var(--green);color:var(--onbtn)}
+.chk input:focus-visible+.cb,.chk input:focus-visible+.sw{outline:2px solid var(--green);outline-offset:2px}
+.sw{width:42px;height:22px;border-radius:11px;background:var(--muted);opacity:.55;position:relative;flex:none;transition:background .15s}
+.sw::after{content:"";position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:transform .15s}
+.chk input:checked+.sw{background:var(--green);opacity:1}
+.chk input:checked+.sw::after{transform:translateX(20px)}
+.sw svg{position:absolute;left:25px;top:5px;font-size:12px;color:var(--green);stroke-width:3;opacity:0;z-index:1}
+.chk input:checked+.sw svg{opacity:1}
+.chk.bill{font-weight:600;padding-top:9px;margin-top:9px;border-top:1px solid var(--line)}
+
+/* footer actions */
+.actions{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-top:16px}
+.back{display:flex;align-items:center;gap:8px;color:var(--green);font-weight:600;font-size:14.5px;text-underline-offset:3px}
+.back svg{font-size:18px}
+.btn{background:var(--green);color:var(--onbtn);border:0;border-radius:8px;height:40px;padding:0 30px;min-width:226px;font:600 16px var(--serif);display:flex;gap:10px;align-items:center;justify-content:center;transition:background .15s}
+.btn:hover{background:var(--green-2)}
+.btn svg{font-size:18px}
+.status{font-size:13px;margin:8px 0 0;min-height:0;text-align:right;color:var(--green)}
+.status.err{color:var(--err)}
+
+/* summary */
+.sum{background:linear-gradient(180deg,var(--panel),var(--panel-2));border:1px solid var(--line);border-radius:14px;padding:14px 18px 20px;position:relative;overflow:hidden}
+.sum h2{font:700 25px/1.1 var(--serif);color:var(--green);margin:2px 0 12px 2px}
+.li{display:flex;gap:14px;align-items:flex-start;margin-bottom:14px}
+.thumb{width:72px;height:72px;border-radius:8px;background:linear-gradient(145deg,var(--thumb),color-mix(in srgb,var(--thumb) 80%,#000 6%));display:grid;place-items:center;flex:none;box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.thumb svg{width:62px;height:62px;stroke:none;fill:initial;filter:drop-shadow(0 2px 2px rgba(0,0,0,.25))}
+.li .t{flex:1;min-width:0}
+.li b{display:block;font:700 17px/1.25 var(--serif);color:var(--green)}
+.li small{display:block;color:var(--muted);font-weight:500;font-size:12.5px;margin-top:3px}
+.li .q{margin-top:6px}
+.li .p{font:700 15px var(--sans);white-space:nowrap;margin-top:12px}
+.lines{border-top:1px solid color-mix(in srgb,var(--ink) 18%,transparent);padding-top:12px}
+.ln2{font-weight:500;display:flex;justify-content:space-between;gap:12px;font-size:14px;margin-bottom:8px}
+.ln2 span:last-child{color:var(--muted)}
+.ln2.i span:last-child{color:var(--ink);font:700 15px var(--sans)}
+.ins{background:var(--ins);border-radius:10px;padding:10px 12px 10px 14px;margin:10px -10px 0;display:flex;gap:12px;align-items:flex-start}
+.ins .r{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.ins>svg{font-size:30px;color:var(--green)}
+.ins .t{flex:1}
+.ins b{display:block;font:700 17px/1.2 var(--serif);color:var(--ink)}
+.ins .cv{display:block;color:var(--green);font-weight:700;font-size:13.5px;margin:2px 0 4px}
+.ins p{margin:0;font-weight:500;font-size:11px;color:var(--muted);line-height:1.4;letter-spacing:-.005em}
+.ins .z{font:700 18px var(--sans)}
+.total{border-top:1px solid color-mix(in srgb,var(--ink) 18%,transparent);margin-top:14px;padding-top:10px;display:flex;justify-content:space-between;align-items:baseline;font-family:var(--serif)}
+.total span{font-size:26px;font-weight:700;color:var(--green)}
+.total b{font-size:27px;font-weight:700}
+.total i{font:500 13px var(--sans);color:var(--muted);margin-left:6px}
+.note{font-weight:500;display:flex;gap:8px;align-items:center;font-size:12px;color:var(--muted);margin:6px 0 0}
+.note svg{font-size:15px}
+.leaf{position:absolute;right:10px;bottom:6px;width:150px;height:124px;pointer-events:none;stroke:none}
+
+@media (max-width:900px){
+  .grid{grid-template-columns:1fr}
+  .sum{order:-1}
+  .steps .st span.l,.steps .ln{display:none}
+  .steps .st.on span.l{display:inline}
+  .secure{display:none}
+}
+@media (max-width:640px){
+  main{padding:20px 16px 40px}
+  .top-in{padding:12px 16px}
+  .brand span{font-size:21px}
+  h1{font-size:30px}
+  .head{flex-direction:column;gap:0}
+  .acct{margin:0 0 10px}
+  .row{grid-template-columns:1fr}
+  .actions{flex-direction:column-reverse;align-items:stretch}
+  .back{justify-content:center}
+  .btn{width:100%}
+  .status{text-align:center}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <radialGradient id="gCoin" cx="35%" cy="30%" r="80%"><stop offset="0" stop-color="#f7e29a"/><stop offset=".55" stop-color="#d9a736"/><stop offset="1" stop-color="#9a6b17"/></radialGradient>
+    <radialGradient id="sCoin" cx="35%" cy="30%" r="80%"><stop offset="0" stop-color="#fafafa"/><stop offset=".55" stop-color="#c9ccd0"/><stop offset="1" stop-color="#8d9298"/></radialGradient>
+  </defs>
+  <symbol id="i-leaf" viewBox="0 0 48 48"><path d="M4 41c5-5 11-8 19-10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M23 31C12 31 6 24 6 14c11 0 17 6 17 17z"/><path d="M24 30C26 18 33 10 44 8c1 13-6 24-20 22z"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 7 8.5 6 8.5-6"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.400-6.500 11-6.500 11z"/><circle cx="12" cy="10" r="2.400"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.800"/><path d="M4.500 20c.8-4 3.600-6 7.500-6s6.700 2 7.500 6"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11 12 4l8 7"/><path d="M6 10v10h12V10"/><path d="M10 20v-5h4v5"/></symbol>
+  <symbol id="i-bld" viewBox="0 0 24 24"><rect x="5" y="3" width="10" height="18" rx="1"/><path d="M15 9h4v12h-4M8.500 7h3M8.500 11h3M8.500 15h3"/></symbol>
+  <symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 21V4l13 3.500-3 4.500 3 4.500L5 13"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.500 4.500 4.500L19 7.500"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-back" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 4.500 6v5.500c0 4.600 3.100 8.200 7.500 9.500 4.400-1.300 7.500-4.900 7.500-9.500V6z"/><path d="m8.800 12 2.400 2.400 4.200-4.600"/></symbol>
+</svg>
+
+<header class="top">
+  <div class="top-in">
+    <a class="brand" href="#" aria-label="Bilwa home"><svg><use href="#i-leaf"/></svg><span>BILWA</span></a>
+    <div class="secure"><svg><use href="#i-lock"/></svg>Secure checkout</div>
+    <nav class="steps" aria-label="Checkout progress">
+      <div class="st on" aria-current="step"><span class="n">1</span><span class="l">Details</span></div><i class="ln"></i>
+      <div class="st"><span class="n">2</span><span class="l">Review</span></div><i class="ln"></i>
+      <div class="st"><span class="n">3</span><span class="l">Payment</span></div>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="grid">
+    <section aria-label="Delivery form">
+      <div class="head">
+        <div>
+          <h1>Where should we deliver?</h1>
+          <div class="rule"></div>
+        </div>
+        <div class="acct">Already have an account? <a href="#">Sign in</a></div>
+      </div>
+      <p class="sub">Your details stay private and are used to fulfil your order.</p>
+
+      <form id="form" novalidate>
+        <div class="card">
+          <h2><span class="ic"><svg><use href="#i-mail"/></svg></span>Contact</h2>
+          <div class="row">
+            <div class="f" data-f="email">
+              <label for="email">Email address <span class="req">*</span></label>
+              <div class="box"><svg><use href="#i-mail"/></svg><input id="email" type="email" autocomplete="email" placeholder="customer@example.com"></div>
+              <div class="e">Enter a valid email address.</div>
+            </div>
+            <div class="f" data-f="phone">
+              <label for="phone">Phone <span class="req">*</span></label>
+              <div class="box cc">
+                <input type="hidden" id="cc" value="+91">
+                <div class="dd" data-dd="cc">
+                  <button type="button" class="dd-btn" aria-haspopup="listbox" aria-expanded="false" aria-label="Country code"><span class="v">+91</span><svg><use href="#i-chev"/></svg></button>
+                  <ul class="dd-list" role="listbox" tabindex="-1" aria-label="Country code"><li role="option" data-v="+91" aria-selected="true"><span>+91</span><span class="sub2">India</span></li><li role="option" data-v="+1"><span>+1</span><span class="sub2">USA / Canada</span></li><li role="option" data-v="+44"><span>+44</span><span class="sub2">United Kingdom</span></li><li role="option" data-v="+971"><span>+971</span><span class="sub2">UAE</span></li><li role="option" data-v="+65"><span>+65</span><span class="sub2">Singapore</span></li></ul>
+                </div>
+                <span class="sep"></span>
+                <input id="phone" type="tel" inputmode="numeric" maxlength="10" autocomplete="tel-national" placeholder="98765 43210">
+              </div>
+              <div class="e">Enter a valid 10-digit phone number.</div>
+            </div>
+          </div>
+          <label class="chk"><input type="checkbox" checked><span class="cb"><svg><use href="#i-check"/></svg></span>Send order updates (order status, delivery updates) to my email and phone</label>
+        </div>
+
+        <div class="card">
+          <h2><span class="ic"><svg><use href="#i-pin"/></svg></span>Delivery details</h2>
+          <div class="row">
+            <div class="f" data-f="name">
+              <label for="name">Full name <span class="req">*</span></label>
+              <div class="box"><svg><use href="#i-user"/></svg><input id="name" autocomplete="name" placeholder="e.g. Rajesh Sharma"></div>
+              <div class="e">Enter the recipient’s full name.</div>
+            </div>
+            <div class="f" data-f="pin">
+              <label for="pin">PIN code <span class="req">*</span></label>
+              <div class="box"><svg><use href="#i-pin"/></svg><input id="pin" inputmode="numeric" maxlength="6" autocomplete="postal-code" placeholder="e.g. 560001"></div>
+              <div class="e">Enter a valid 6-digit PIN code.</div>
+            </div>
+            <div class="f" data-f="a1">
+              <label for="a1">Address line 1 <span class="req">*</span></label>
+              <div class="box"><svg><use href="#i-home"/></svg><input id="a1" autocomplete="address-line1" placeholder="House / Flat No., Building, Street"></div>
+              <div class="e">Enter your house or flat number and street.</div>
+            </div>
+            <div class="f" data-f="city">
+              <label for="city">City <span class="req">*</span></label>
+              <div class="box"><svg><use href="#i-bld"/></svg><input id="city" autocomplete="address-level2" placeholder="e.g. Bengaluru"></div>
+              <div class="e">Enter your city.</div>
+            </div>
+            <div class="f">
+              <label for="a2">Address line 2 <em>(optional)</em></label>
+              <div class="box"><svg><use href="#i-bld"/></svg><input id="a2" autocomplete="address-line2" placeholder="Apartment, Area, Colony, etc."></div>
+            </div>
+            <div class="f" data-f="state">
+              <label for="state">State <span class="req">*</span></label>
+              <div class="box"><svg><use href="#i-flag"/></svg>
+                <input type="hidden" id="state" value="">
+                <div class="dd fill" data-dd="state">
+                  <button type="button" class="dd-btn ph" aria-haspopup="listbox" aria-expanded="false" aria-label="State"><span class="v">Select state</span><svg><use href="#i-chev"/></svg></button>
+                  <ul class="dd-list" role="listbox" tabindex="-1" aria-label="State"><li role="option" data-v="Andhra Pradesh">Andhra Pradesh</li><li role="option" data-v="Assam">Assam</li><li role="option" data-v="Bihar">Bihar</li><li role="option" data-v="Chhattisgarh">Chhattisgarh</li><li role="option" data-v="Delhi">Delhi</li><li role="option" data-v="Goa">Goa</li><li role="option" data-v="Gujarat">Gujarat</li><li role="option" data-v="Haryana">Haryana</li><li role="option" data-v="Himachal Pradesh">Himachal Pradesh</li><li role="option" data-v="Jharkhand">Jharkhand</li><li role="option" data-v="Karnataka">Karnataka</li><li role="option" data-v="Kerala">Kerala</li><li role="option" data-v="Madhya Pradesh">Madhya Pradesh</li><li role="option" data-v="Maharashtra">Maharashtra</li><li role="option" data-v="Odisha">Odisha</li><li role="option" data-v="Punjab">Punjab</li><li role="option" data-v="Rajasthan">Rajasthan</li><li role="option" data-v="Tamil Nadu">Tamil Nadu</li><li role="option" data-v="Telangana">Telangana</li><li role="option" data-v="Uttar Pradesh">Uttar Pradesh</li><li role="option" data-v="Uttarakhand">Uttarakhand</li><li role="option" data-v="West Bengal">West Bengal</li></ul></div></div>
+              <div class="e">Select your state.</div>
+            </div>
+            <div class="f span2">
+              <label for="lm">Landmark <em>(optional)</em></label>
+              <div class="box"><svg><use href="#i-pin"/></svg><input id="lm" placeholder="e.g. Near City Mall, Opp. Central Park"></div>
+            </div>
+          </div>
+          <label class="chk"><input type="checkbox"><span class="cb"><svg><use href="#i-check"/></svg></span>Save this address to My Bilwa for a faster checkout next time</label>
+          <label class="chk bill"><input type="checkbox" checked><span class="sw"><svg><use href="#i-check"/></svg></span>Billing address same as delivery</label>
+        </div>
+
+        <div class="actions">
+          <a class="back" href="#"><svg><use href="#i-back"/></svg>Return to bag</a>
+          <button class="btn" type="submit">Continue to review <svg><use href="#i-arrow"/></svg></button>
+        </div>
+        <p class="status" id="status" role="status"></p>
+      </form>
+    </section>
+
+    <aside class="sum" aria-label="Order summary">
+      <h2>Order summary</h2>
+      <div class="li">
+        <div class="thumb"><svg viewBox="0 0 100 100" role="img" aria-label="Gold coin">
+          <circle cx="50" cy="50" r="48" fill="url(#gCoin)"/><circle cx="50" cy="50" r="42" fill="none" stroke="#8a5d10" stroke-opacity=".5" stroke-width="1.400"/>
+          <circle cx="50" cy="50" r="38" fill="none" stroke="#fbe9a8" stroke-opacity=".6" stroke-dasharray="1.600 3"/>
+          <g fill="#f3d27a" stroke="#8a5d10" stroke-opacity=".75" stroke-width=".9">
+            <circle cx="50" cy="35" r="13" fill="none" stroke-dasharray="1.5 2"/>
+            <path d="M30 78c4-8 12-10 20-10s16 2 20 10c-6 6-14 8-20 8s-14-2-20-8z"/>
+            <path d="M36 70c1-14 5-22 14-22s13 8 14 22c-5 3-9 4-14 4s-9-1-14-4z"/>
+            <path d="M33 62c-4-6-3-12 1-15 2 4 5 9 9 13zM67 62c4-6 3-12-1-15-2 4-5 9-9 13z"/>
+            <circle cx="50" cy="38" r="6"/><path d="M42 34c1-8 15-8 16 0z"/>
+            <path d="M40 84c-5 0-9-3-10-7 5-1 9 1 10 7zM60 84c5 0 9-3 10-7-5-1-9 1-10 7zM50 86c-4-2-5-6-3-9h6c2 3 1 7-3 9z"/>
+          </g></svg></div>
+        <div class="t"><b>Lakshmi Gold Coin</b><small>24K Gold • 10 g</small><small class="q">Qty: 1</small></div>
+        <div class="p">₹79,450</div>
+      </div>
+      <div class="li">
+        <div class="thumb"><svg viewBox="0 0 100 100" role="img" aria-label="Silver coin">
+          <circle cx="50" cy="50" r="48" fill="url(#sCoin)"/><circle cx="50" cy="50" r="42" fill="none" stroke="#5d6269" stroke-opacity=".5" stroke-width="1.400"/>
+          <circle cx="50" cy="50" r="38" fill="none" stroke="#fff" stroke-opacity=".7" stroke-dasharray="1.600 3"/>
+          <g fill="#e9ebee" stroke="#5d6269" stroke-opacity=".6"><path d="M50 30c5 7 5 16 0 24-5-8-5-17 0-24z"/><path d="M50 56c-10-1-17-6-22-14 9 0 17 5 22 14zM50 56c10-1 17-6 22-14-9 0-17 5-22 14z"/><path d="M50 60c-12 2-20-1-27-8 11-1 21 2 27 8zM50 60c12 2 20-1 27-8-11-1-21 2-27 8z"/><ellipse cx="50" cy="70" rx="18" ry="4"/></g></svg></div>
+        <div class="t"><b>Silver Blessings Coin</b><small>999 Silver • 50 g</small><small class="q">Qty: 1</small></div>
+        <div class="p">₹2,250</div>
+      </div>
+
+      <div class="lines">
+        <div class="ln2 i"><span style="color:var(--ink)">Items (2)</span><span>₹81,700</span></div>
+        <div class="ln2"><span style="color:var(--ink)">Delivery</span><span>Calculated after PIN</span></div>
+        <div class="ln2"><span style="color:var(--ink)">Taxes (GST)</span><span>Calculated at checkout</span></div>
+      </div>
+
+      <div class="ins">
+        <svg><use href="#i-shield"/></svg>
+        <div class="t"><div class="r"><b>Delivery insurance</b><span class="z">₹0</span></div><span class="cv">Covered by Bilwa</span><p>Insured while in transit under Bilwa’s shipping cover.<br><i>(Mockup policy – pending confirmation)</i></p></div>
+      </div>
+
+      <div class="total"><span>Total</span><div><b>₹81,700</b><i>indicative</i></div></div>
+      <p class="note"><svg><use href="#i-info"/></svg>Final payable amount confirmed before payment.</p>
+
+      <svg class="leaf" viewBox="0 0 170 140" aria-hidden="true">
+        <path d="M6 134C40 120 78 96 128 30" stroke="#9db08f" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+        <g fill="#b4c6a6" fill-opacity=".75" stroke="#93a884" stroke-width=".8" stroke-opacity=".7">
+          <path d="M128 30C116 16 118 6 130 0c10 10 8 22-2 30z"/>
+          <path d="M126 36c14-4 28 2 36 14-14 6-30 2-36-14z"/>
+          <path d="M112 54c-12-8-14-20-8-30 12 6 16 18 8 30z"/>
+          <path d="M106 62c14-6 28-2 36 10-14 8-28 4-36-10z"/>
+          <path d="M90 78C76 72 70 60 74 50c12 4 20 16 16 28z"/>
+          <path d="M84 84c-8 12-22 18-38 14 6-12 20-18 38-14z"/>
+          <path d="M62 102c-12-2-22-10-24-22 12 0 22 8 24 22z"/>
+          <path d="M52 108c-8 8-20 10-32 4 8-8 20-10 32-4z"/>
+        </g>
+      </svg>
+    </aside>
+  </div>
+</main>
+
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id)};
+  var rules={
+    email:function(v){return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)},
+    phone:function(v){return /^\d{10}$/.test(v)},
+    name:function(v){return v.trim().length>=2},
+    pin:function(v){return /^\d{6}$/.test(v)},
+    a1:function(v){return v.trim().length>=3},
+    city:function(v){return v.trim().length>=2},
+    state:function(v){return !!v}
+  };
+  function check(k){
+    var el=$(k),f=el.closest(".f"),ok=rules[k](el.value);
+    f.classList.toggle("bad",!ok);return ok;
+  }
+  ["phone","pin"].forEach(function(k){$(k).addEventListener("input",function(){this.value=this.value.replace(/\D/g,"")})});
+  Object.keys(rules).forEach(function(k){
+    var el=$(k);
+    el.addEventListener("blur",function(){if(el.value||el.closest(".f").classList.contains("bad"))check(k)});
+    el.addEventListener("input",function(){if(el.closest(".f").classList.contains("bad"))check(k)});
+    el.addEventListener("change",function(){if(k==="state")check(k)});
+  });
+
+  /* custom dropdowns */
+  [].slice.call(document.querySelectorAll("[data-dd]")).forEach(function(dd){
+    var btn=dd.querySelector(".dd-btn"),list=dd.querySelector(".dd-list"),val=btn.querySelector(".v"),
+        input=$(dd.getAttribute("data-dd")),opts=[].slice.call(list.children),act=-1,buf="",bt;
+    function setAct(i,scroll){
+      if(act>-1)opts[act].classList.remove("act");
+      act=i;if(i>-1){opts[i].classList.add("act");if(scroll!==false)opts[i].scrollIntoView({block:"nearest"})}
+    }
+    function open(){
+      dd.classList.add("open");btn.setAttribute("aria-expanded","true");
+      var sel=opts.findIndex(function(o){return o.getAttribute("aria-selected")==="true"});
+      setAct(sel>-1?sel:0);
+    }
+    function close(){dd.classList.remove("open");btn.setAttribute("aria-expanded","false");setAct(-1)}
+    function pick(i){
+      opts.forEach(function(o){o.removeAttribute("aria-selected")});
+      opts[i].setAttribute("aria-selected","true");
+      val.textContent=opts[i].getAttribute("data-v");btn.classList.remove("ph");
+      input.value=opts[i].getAttribute("data-v");
+      input.dispatchEvent(new Event("change",{bubbles:true}));close();btn.focus();
+    }
+    btn.addEventListener("click",function(){dd.classList.contains("open")?close():open()});
+    opts.forEach(function(o,i){
+      o.addEventListener("mousemove",function(){if(act!==i)setAct(i,false)});
+      o.addEventListener("mousedown",function(e){e.preventDefault()});
+      o.addEventListener("click",function(){pick(i)});
+    });
+    btn.addEventListener("keydown",function(e){
+      var k=e.key,isOpen=dd.classList.contains("open");
+      if(k==="ArrowDown"||k==="ArrowUp"){
+        e.preventDefault();if(!isOpen){open();return}
+        setAct(Math.max(0,Math.min(opts.length-1,act+(k==="ArrowDown"?1:-1))));
+      }else if(k==="Home"||k==="End"){if(isOpen){e.preventDefault();setAct(k==="Home"?0:opts.length-1)}}
+      else if(k==="Enter"||k===" "){
+        if(isOpen&&act>-1){e.preventDefault();pick(act)}
+        else if(!isOpen){e.preventDefault();open()}
+      }else if(k==="Escape"){if(isOpen){e.preventDefault();close()}}
+      else if(k==="Tab"){close()}
+      else if(k.length===1&&/\S/.test(k)){
+        buf+=k.toLowerCase();clearTimeout(bt);bt=setTimeout(function(){buf=""},700);
+        var i=opts.findIndex(function(o){return o.textContent.toLowerCase().indexOf(buf)===0});
+        if(i>-1){if(!isOpen)open();setAct(i)}
+      }
+    });
+    document.addEventListener("mousedown",function(e){if(!dd.contains(e.target))close()});
+  });
+  $("form").addEventListener("submit",function(e){
+    e.preventDefault();
+    var st=$("status"),bad=Object.keys(rules).filter(function(k){return !check(k)});
+    if(bad.length){st.textContent="Please fix the highlighted fields to continue.";st.className="status err";$(bad[0]).focus();return}
+    st.textContent="Details saved. Continuing to review…";st.className="status";
+  });
+})();
+</script>
+</body>
+</html>

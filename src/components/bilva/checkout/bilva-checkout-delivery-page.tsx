@@ -65,7 +65,7 @@ export function BilvaCheckoutDeliveryPage() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-[#FAF7F2] select-none pb-16">
+    <div className="flex-1 w-full bg-[#FAF7F2] select-none pb-16">
       {/* ============================================================= */}
       {/* TOP HEADER: Brand + Secure Checkout + 3-Step Stepper           */}
       {/* ============================================================= */}

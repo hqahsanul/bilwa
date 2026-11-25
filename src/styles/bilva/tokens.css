@@ -44,7 +44,7 @@
   --bilva-font-sans: "Inter", "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
 
   /* Layout */
-  --bilva-shell-max: 80rem; /* max-w-7xl */
+  --bilva-shell-max: 88rem; /* 80rem + 10% */
   --bilva-shell-pad-x: 1rem;
   --bilva-shell-pad-x-sm: 2rem;
   --bilva-shell-pad-x-lg: 3rem;

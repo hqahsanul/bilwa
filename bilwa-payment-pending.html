@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Payment not confirmed yet – Bilwa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #1f4a2c; --green-2: #2c6a3e;
+    --sage: #dfe6d6; --sage-2: #e8eddf; --sage-bar: #e4ebdb;
+    --gold: #c99a43;
+    --ink: #1c1c1c; --muted: #4b4b47;
+    --bg: #f9f5ec; --card: #fcfaf5; --border: #e6dfd0;
+    --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+    --sans: "Inter", -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--sans); color: var(--ink); font-size: 14px; background: #ece6d8; }
+  a { color: inherit; text-decoration: none; }
+  .ico { width: 1em; height: 1em; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+
+  .page {
+    position: relative; overflow: hidden;
+    max-width: 960px; margin: 0 auto; min-height: 100vh;
+    padding: 22px 54px 40px;
+    background: radial-gradient(80% 50% at 50% 0%, #fcf9f2 0%, rgba(252,249,242,0) 70%), var(--bg);
+  }
+  .wrapper { position: relative; z-index: 1; max-width: 760px; margin: 0 auto; }
+
+  /* placeholders for decorative leaf images */
+  .ph {
+    display: grid; place-items: center; text-align: center;
+    font-size: 10.5px; color: #8c8a6a; letter-spacing: .2px;
+    background: repeating-linear-gradient(45deg, #e9eddc, #e9eddc 8px, #eff2e4 8px, #eff2e4 16px);
+    border: 1px dashed #bfc6a4;
+  }
+  .leaf { position: absolute; z-index: 0; width: 120px; height: 210px; opacity: .75; }
+  .leaf.l { left: 0; top: 40px; border-radius: 0 100px 100px 0; border-left: 0; }
+  .leaf.r { right: 0; top: 270px; height: 150px; border-radius: 100px 0 0 100px; border-right: 0; }
+
+  /* heading */
+  .title { text-align: center; }
+  .title h1 { font-family: var(--serif); font-weight: 600; font-size: 34px; line-height: 1.15; color: var(--green); letter-spacing: -.2px; }
+  .title p { font-size: 14px; color: #4e4e49; margin-top: 3px; }
+  .title .rule { width: 76px; height: 2px; background: var(--gold); margin: 16px auto 0; opacity: .8; }
+
+  .top { display: grid; grid-template-columns: 1.1fr 1fr; gap: 16px; margin-top: 16px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; box-shadow: 0 1px 4px rgba(90,70,30,.05); }
+
+  /* status card */
+  .status { background: linear-gradient(180deg, #e5ebdb, #dce5d1); border-color: #d3dcc7; padding: 22px 28px 20px; text-align: center; display: flex; flex-direction: column; align-items: center; }
+  .clock {
+    width: 46px; height: 46px; border-radius: 50%; background: #fbf7ec;
+    border: 2px solid var(--gold); box-shadow: 0 0 0 3px rgba(201,154,67,.22);
+    display: grid; place-items: center; color: var(--green);
+  }
+  .clock .ico { font-size: 28px; stroke-width: 1.6; }
+  .status h2 { font-family: var(--serif); font-size: 22px; font-weight: 600; margin-top: 10px; color: #1d1d1d; }
+  .bar { width: 100%; height: 10px; border-radius: 999px; background: #f4f1e6; margin: 14px 0 12px; overflow: hidden; }
+  .bar i { display: block; height: 100%; width: 66%; border-radius: 999px; background: var(--green); animation: pulse 2.4s ease-in-out infinite; }
+  @keyframes pulse { 50% { width: 72%; } }
+  .status .sub { font-size: 12.5px; color: #3e3e3a; }
+  .pill { margin-top: 14px; display: inline-flex; align-items: center; gap: 8px; background: #f6e9c9; color: #5a4313; font-size: 10.5px; font-weight: 600; letter-spacing: .8px; padding: 6px 14px; border-radius: 999px; border: 1px solid #ecd9a8; }
+  .pill .ico { font-size: 14px; animation: spin 3s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* help card */
+  .trouble { padding: 20px 18px 18px; }
+  .trouble h3 { font-family: var(--serif); font-size: 19px; font-weight: 600; color: #1d1d1d; margin: 0 0 14px 0; }
+  .act { display: flex; align-items: center; gap: 12px; height: 38px; padding: 0 14px; margin-bottom: 10px; border-radius: 6px; font-size: 13px; font-weight: 500; background: #f3efe3; border: 1px solid #e0d9c7; color: #2a2a2a; }
+  .act .ico { font-size: 17px; }
+  .act .chev { margin-left: auto; font-size: 15px; }
+  .act.primary { background: var(--green); border-color: var(--green); color: #fff; font-weight: 600; }
+  .act:hover { filter: brightness(.97); }
+  .act.primary:hover { filter: brightness(1.15); }
+
+  /* order summary */
+  .order { margin-top: 16px; overflow: hidden; }
+  .ref { display: flex; align-items: center; gap: 14px; padding: 14px 18px 10px; font-size: 13.5px; color: #333; }
+  .ref .sep { width: 1px; height: 16px; background: #888; }
+  .ref b { font-size: 14px; font-weight: 700; color: #111; letter-spacing: .2px; }
+  .line { display: flex; align-items: center; gap: 26px; margin: 0 14px; padding: 6px 4px; border-top: 1px solid #e5decd; }
+  .line .ph { width: 46px; height: 46px; border-radius: 6px; margin-left: 10px; background: repeating-linear-gradient(45deg, #f1e8d5, #f1e8d5 6px, #f6efe0 6px, #f6efe0 12px); border-color: #cdbd98; color: #8c8266; font-size: 9px; }
+  .line .name { font-family: var(--serif); font-size: 14px; font-weight: 500; flex: 1; }
+  .line .amt { font-family: var(--serif); font-size: 14.5px; font-weight: 600; padding-right: 6px; }
+  .foot { display: flex; align-items: stretch; justify-content: space-between; margin: 0 14px; border-top: 1px solid #e5decd; }
+  .insured { display: flex; align-items: center; gap: 10px; padding: 12px 4px 12px 10px; font-size: 12px; color: #3c3c38; }
+  .insured .ico { font-size: 16px; color: var(--green-2); }
+  .total { display: flex; align-items: center; gap: 16px; padding: 8px 20px 8px 28px; background: #e6ecdc; border-radius: 10px 0 0 0; font-family: var(--serif); min-width: 230px; justify-content: center; }
+  .total span { font-size: 14px; font-weight: 600; }
+  .total i { width: 1px; height: 18px; background: #8a977c; }
+  .total b { font-size: 19px; font-weight: 700; letter-spacing: .1px; }
+  .order .tail { height: 6px; }
+
+  .notice { margin-top: 12px; display: flex; align-items: center; justify-content: center; gap: 12px; background: var(--sage-bar); border: 1px solid #d9e1cc; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #2d2d2a; text-align: center; }
+  .notice .ico { font-size: 17px; }
+
+  @media (max-width: 720px) {
+    .page { padding: 20px 16px 30px; }
+    .top { grid-template-columns: 1fr; }
+    .title h1 { font-size: 27px; }
+    .leaf { display: none; }
+    .line { gap: 14px; }
+    .foot { flex-direction: column; }
+    .total { border-radius: 8px; margin-bottom: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.500"/><path d="M12 6.500V12l3.500 2"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 0 0-14.500-4M4 5v3.500h3.500"/><path d="M4 13a8 8 0 0 0 14.500 4M20 19v-3.500h-3.500"/></symbol>
+    <symbol id="i-card" viewBox="0 0 24 24"><rect x="2.500" y="5" width="19" height="14" rx="2.500"/><path d="M2.500 10h19M6 15h4"/></symbol>
+    <symbol id="i-headset" viewBox="0 0 24 24"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="14" width="4" height="6" rx="1.500"/><rect x="17" y="14" width="4" height="6" rx="1.500"/><path d="M19 20c0 1.500-2 2-5 2"/></symbol>
+    <symbol id="i-chev" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 2.500 20 5.500v6c0 5-3.400 8.800-8 10.500-4.600-1.700-8-5.500-8-10.500v-6l8-3z"/><path d="m8.500 12 2.500 2.500 4.500-5"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+    <symbol id="i-spinner" viewBox="0 0 24 24"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.600 5.600l2.100 2.100M16.300 16.300l2.100 2.100M18.400 5.600l-2.100 2.100M7.700 16.300l-2.100 2.100"/></symbol>
+  </defs>
+</svg>
+
+<div class="page">
+  <div class="ph leaf l">Leaf image</div>
+  <div class="ph leaf r">Leaf image</div>
+
+  <div class="wrapper">
+    <header class="title">
+      <h1>Payment not confirmed yet</h1>
+      <p>Your bag is saved. We have not marked this order as paid.</p>
+      <div class="rule"></div>
+    </header>
+
+    <section class="top">
+      <div class="card status">
+        <div class="clock"><svg class="ico"><use href="#i-clock"/></svg></div>
+        <h2>Checking payment status</h2>
+        <div class="bar" role="progressbar" aria-label="Checking payment status"><i></i></div>
+        <p class="sub">Verifying with your payment provider...</p>
+        <span class="pill"><svg class="ico"><use href="#i-spinner"/></svg>PENDING</span>
+      </div>
+
+      <div class="card trouble">
+        <h3>Still having trouble?</h3>
+        <a class="act primary" href="#"><svg class="ico"><use href="#i-refresh"/></svg>Check payment again<svg class="ico chev"><use href="#i-chev"/></svg></a>
+        <a class="act" href="#"><svg class="ico"><use href="#i-card"/></svg>Try another payment method<svg class="ico chev"><use href="#i-chev"/></svg></a>
+        <a class="act" href="#" style="margin-bottom:0"><svg class="ico"><use href="#i-headset"/></svg>Contact Bilwa support<svg class="ico chev"><use href="#i-chev"/></svg></a>
+      </div>
+    </section>
+
+    <section class="card order">
+      <div class="ref"><span>Order reference</span><span class="sep"></span><b>BLW-2026-00428</b></div>
+
+      <div class="line">
+        <div class="ph">Image</div>
+        <span class="name">Lakshmi Gold Coin · 10 g</span>
+        <span class="amt">₹1,58,900</span>
+      </div>
+      <div class="line">
+        <div class="ph">Image</div>
+        <span class="name">Bilwa Gold Bar · 5 g</span>
+        <span class="amt">₹79,450</span>
+      </div>
+
+      <div class="foot">
+        <div class="insured"><svg class="ico"><use href="#i-shield"/></svg>Insured delivery covered by Bilwa · ₹0</div>
+        <div class="total"><span>Total</span><i></i><b>₹2,38,350</b></div>
+      </div>
+      <div class="tail"></div>
+    </section>
+
+    <div class="notice"><svg class="ico"><use href="#i-info"/></svg>Do not retry payment if your bank has debited you; first check the status.</div>
+  </div>
+</div>
+</body>
+</html>

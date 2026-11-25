@@ -60,7 +60,7 @@ export const CHECKOUT_DATA = {
         title: "Bilwa Gold Bar · 5 g",
         price: 79450,
         formattedPrice: "₹79,450",
-        imageSrc: "/images/bilva/checkout/lakshmi-gold-coin-10g.png",
+        imageSrc: "/images/bilva/lakshmi-gold/related-bar.png",
         imageAlt: "Bilwa Gold Bar 5 g",
       },
     ] as CheckoutBagItem[],

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Make it personal · Bilwa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8f5ef; --card:#fcfaf6; --field:#f4f6ef; --line:#e0ddd0; --ink:#173326; --muted:#657067;
+  --green:#12452f; --green-2:#0e3825; --tint:#e4eadc; --sel:#e9efe0; --gold:#b98a3e; --onbtn:#fff; --ph:#e6e1d4; --ph-ink:#8a8672;
+  --prev:linear-gradient(160deg,#fbf8ee,#f1ead6); --leaf:#7f9a76;
+  --gutter:clamp(16px,calc((100vw - 1000px)/2),280px);
+  --serif:Newsreader,Georgia,"Times New Roman",serif; --sans:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0f1713; --card:#16201a; --field:#1f2d24; --line:#2b3a31; --ink:#e8efe6; --muted:#9db0a2;
+  --green:#3f8a63; --green-2:#357853; --tint:#223428; --sel:#1f3327; --gold:#d3a85a; --onbtn:#0b130e; --ph:#222d26; --ph-ink:#7d9285;
+  --prev:linear-gradient(160deg,#222a1f,#1b2218); --leaf:#8fb08a;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0f1713; --card:#16201a; --field:#1f2d24; --line:#2b3a31; --ink:#e8efe6; --muted:#9db0a2;
+  --green:#3f8a63; --green-2:#357853; --tint:#223428; --sel:#1f3327; --gold:#d3a85a; --onbtn:#0b130e; --ph:#222d26; --ph-ink:#7d9285;
+  --prev:linear-gradient(160deg,#222a1f,#1b2218); --leaf:#8fb08a;color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 var(--sans);-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:30}
+button,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+svg{width:1em;height:1em;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.page{margin:0 var(--gutter);padding:30px 0 40px}
+
+.ph{background:repeating-linear-gradient(135deg,var(--ph) 0 10px,color-mix(in srgb,var(--ph) 88%,var(--ink)) 10px 11px);color:var(--ph-ink);display:grid;place-items:center}
+.ph svg{font-size:34px;opacity:.6}
+
+/* heading */
+.head{text-align:center;margin-bottom:22px}
+.head h1{display:flex;align-items:center;justify-content:center;gap:28px;font:500 42px/1.1 var(--serif);margin:0 0 8px;color:var(--ink)}
+.head h1::before,.head h1::after{content:"";width:72px;height:1px;background:var(--gold)}
+.head p{margin:0;color:var(--muted);font-size:14px}
+
+.layout{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.6fr);gap:6px;align-items:stretch}
+.hero{min-height:560px;border-radius:6px 0 0 6px}
+.hero.ph svg{font-size:48px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;display:grid;grid-template-columns:minmax(0,1fr) 280px;box-shadow:0 2px 10px rgba(23,51,38,.05);align-self:start;margin-top:0}
+.main{padding:22px 22px 8px 22px;border-right:1px solid var(--line)}
+.side{padding:22px 20px 20px}
+
+/* sections */
+.sec{padding-bottom:16px}
+.sec+.sec{border-top:1px solid var(--line);padding-top:16px}
+.sec h2{font:500 21px var(--serif);margin:0 0 3px}
+.sec .sub{margin:0 0 14px;font-size:12.5px;color:var(--muted)}
+.sec-h{display:flex;align-items:flex-start;justify-content:space-between}
+.sec-h>svg{font-size:16px;margin-top:6px;color:var(--ink)}
+
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.opt{position:relative;display:flex;gap:10px;padding:14px 12px;border:1px solid var(--line);border-radius:10px;background:var(--card);cursor:pointer;align-items:flex-start}
+.opt input{appearance:none;-webkit-appearance:none;width:16px;height:16px;margin:3px 0 0;border:1.5px solid var(--muted);border-radius:50%;background:var(--field);flex:none;display:grid;place-items:center;cursor:pointer}
+.opt input:checked{border-color:var(--ink);background:var(--card)}
+.opt input:checked::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--ink)}
+.opt:has(input:checked){border-color:var(--green);background:var(--sel);box-shadow:inset 0 0 0 1px var(--green)}
+.opt:has(input:focus-visible){outline:2px solid var(--green);outline-offset:2px}
+.opt b{display:block;font:500 15px var(--serif);margin-bottom:2px}
+.opt span{display:block;font-size:11px;line-height:1.4;color:var(--muted)}
+
+.ta{display:block;width:100%;min-height:96px;resize:vertical;padding:12px 14px;border:1px solid var(--line);border-radius:8px;background:var(--field);font:400 14px/1.5 var(--sans);outline:0}
+.ta:focus{border-color:var(--green);box-shadow:0 0 0 3px color-mix(in srgb,var(--green) 18%,transparent)}
+.cnt{text-align:right;font-size:11.5px;color:var(--muted);margin-top:4px}
+
+.eng{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.eng h2{margin:0}
+.pill{padding:2px 12px;border-radius:999px;background:var(--tint);border:1px solid var(--line);font-size:11px;color:var(--muted)}
+.sw{margin-left:auto;width:40px;height:22px;border-radius:999px;border:0;background:color-mix(in srgb,var(--muted) 45%,var(--line));position:relative;opacity:.85;cursor:not-allowed}
+.sw::after{content:"";position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:var(--card);box-shadow:0 1px 2px rgba(0,0,0,.25)}
+.note{display:flex;align-items:center;gap:8px;margin:10px 0 0;font-size:12px;color:var(--muted)}
+.note svg{font-size:14px}
+
+details.acc{border-top:1px solid var(--line)}
+details.acc summary{list-style:none;display:flex;align-items:center;gap:12px;padding:13px 2px;font:500 15px var(--serif);cursor:pointer}
+details.acc summary::-webkit-details-marker{display:none}
+details.acc summary>svg:first-child{font-size:18px}
+details.acc summary .ch{margin-left:auto;font-size:15px;transition:transform .15s}
+details.acc[open] summary .ch{transform:rotate(180deg)}
+details.acc p{margin:0 0 14px 32px;font-size:12.5px;color:var(--muted)}
+
+/* side */
+.side h2{font:500 20px var(--serif);margin:0 0 2px}
+.side .sub{margin:0 0 14px;font-size:12px;color:var(--muted)}
+.prev{position:relative;aspect-ratio:1.55/1;border:1px solid color-mix(in srgb,var(--gold) 55%,var(--line));border-radius:8px;background:var(--prev);display:grid;place-items:center;text-align:center;padding:14px 38px;overflow:hidden;box-shadow:0 4px 12px rgba(23,51,38,.10)}
+.prev .lf{position:absolute;width:64px;height:64px;color:var(--leaf);opacity:.8;stroke-width:1.1}
+.prev .lf.a{top:-6px;left:-6px}
+.prev .lf.b{bottom:-6px;right:-6px;transform:rotate(180deg)}
+.brand{font:500 12px var(--serif);letter-spacing:.2em;color:var(--green);display:flex;flex-direction:column;align-items:center;gap:2px}
+.brand svg{font-size:14px;color:var(--gold)}
+.msg{margin:6px 0 4px;font:italic 400 14px/1.45 var(--serif);white-space:pre-wrap;overflow-wrap:anywhere;max-height:88px;overflow:hidden}
+.msg.empty{opacity:.55}
+.orn{display:flex;align-items:center;justify-content:center;gap:8px;color:var(--gold);width:100px;margin:0 auto}
+.orn::before,.orn::after{content:"";flex:1;height:1px;background:currentColor;opacity:.6}
+.orn i{width:5px;height:5px;transform:rotate(45deg);border:1px solid currentColor}
+.cost{margin-top:18px;padding-top:14px;border-top:1px solid var(--line)}
+.cost h3{font:500 17px var(--serif);margin:0 0 10px}
+.row{display:flex;justify-content:space-between;font-size:13px;margin-bottom:10px;padding:0 2px}
+.total{display:flex;justify-content:space-between;align-items:center;background:var(--tint);border:1px solid var(--line);border-radius:8px;padding:10px 12px;font:500 15px var(--serif)}
+.total b{font-weight:600;font-size:18px}
+.add{display:block;width:100%;height:46px;margin-top:18px;border:0;border-radius:999px;background:var(--green);color:var(--onbtn);font:500 18px var(--serif)}
+.add:hover{background:var(--green-2)}
+.skip{display:block;margin:12px auto 0;background:none;border:0;padding:0;font:400 14px var(--serif);text-decoration:underline;text-underline-offset:4px}
+.status{min-height:18px;margin:10px 0 0;text-align:center;font-size:12px;color:var(--green)}
+
+@media (max-width:1100px){
+  .panel{grid-template-columns:1fr}
+  .main{border-right:0;border-bottom:1px solid var(--line)}
+}
+@media (max-width:860px){
+  .layout{grid-template-columns:1fr}
+  .hero{min-height:260px;border-radius:12px}
+}
+@media (max-width:600px){
+  .head h1{font-size:30px;gap:14px}
+  .head h1::before,.head h1::after{width:28px}
+  .opts{grid-template-columns:1fr}
+  .main{padding:18px 16px 4px}.side{padding:18px 16px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-img" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="m21 16-5-5-9 9"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+  <symbol id="i-gift" viewBox="0 0 24 24"><rect x="3.5" y="9" width="17" height="11" rx="1.5"/><path d="M3 9h18v3H3zM12 9v11M12 9c-2-4-6-3.5-5 0M12 9c2-4 6-3.5 5 0"/></symbol>
+  <symbol id="i-truck" viewBox="0 0 24 24"><path d="M3 6h11v10H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+  <symbol id="i-lotus" viewBox="0 0 24 24"><path d="M12 4c2 2.5 2 6 0 9-2-3-2-6.500 0-9zM12 13c-1-3.500-4-5-7.500-4.500C5 12 8 14 12 13zM12 13c1-3.500 4-5 7.500-4.500C19 12 16 14 12 13zM12 13v6"/></symbol>
+  <symbol id="i-leaf" viewBox="0 0 64 64"><path d="M2 30c10-4 22-2 30 6M6 18c8-2 16 0 22 6M12 8c6 0 12 3 16 8M2 44c10-4 20-2 28 4M10 54c6-1 12 0 18 4"/></symbol>
+</svg>
+
+<main class="page">
+  <header class="head">
+    <h1>Make it personal</h1>
+    <p>Choose a beautiful presentation, add a heartfelt message, and make your gift uniquely theirs.</p>
+  </header>
+
+  <div class="layout">
+    <div class="hero ph" role="img" aria-label="Image placeholder"><svg><use href="#i-img"/></svg></div>
+
+    <section class="panel" aria-label="Personalisation">
+      <div class="main">
+        <div class="sec">
+          <details open style="border:0">
+            <summary style="list-style:none;cursor:pointer;display:block">
+              <div class="sec-h"><div><h2>Presentation</h2><p class="sub" style="margin:0 0 14px">How would you like it presented?</p></div><svg><use href="#i-chev"/></svg></div>
+            </summary>
+            <div class="opts" role="radiogroup" aria-label="Presentation">
+              <label class="opt"><input type="radio" name="pres" value="Classic case" data-price="350" checked><div><b>Classic case</b><span>BILWA presentation case with a velvet finish</span></div></label>
+              <label class="opt"><input type="radio" name="pres" value="Gift box" data-price="450"><div><b>Gift box</b><span>Premium gift box with ribbon and gift card</span></div></label>
+            </div>
+          </details>
+        </div>
+
+        <div class="sec">
+          <h2>Gift message</h2>
+          <p class="sub">Add a personal note. We’ll include it on a gift card.</p>
+          <textarea class="ta" id="msg" maxlength="250" aria-label="Gift message">With blessings of prosperity and happiness.
+For your new beginnings. ♥</textarea>
+          <div class="cnt" id="cnt">0 / 250</div>
+        </div>
+
+        <div class="sec">
+          <div class="eng"><h2>Engraving</h2><span class="pill">Available on select products</span>
+            <button class="sw" type="button" role="switch" aria-checked="false" aria-disabled="true" aria-label="Engraving (not available)" tabindex="-1"></button></div>
+          <p class="note"><svg><use href="#i-info"/></svg>Not available for this coin.</p>
+        </div>
+
+        <div style="margin-top:6px">
+          <details class="acc"><summary><svg><use href="#i-gift"/></svg>Packaging details<svg class="ch"><use href="#i-chev"/></svg></summary>
+            <p>Presented in a velvet-finish BILWA case or a premium gift box, sealed and ready to gift.</p></details>
+          <details class="acc"><summary><svg><use href="#i-truck"/></svg>Gifting &amp; delivery<svg class="ch"><use href="#i-chev"/></svg></summary>
+            <p>Insured delivery to your recipient’s address. Prices are inclusive of presentation; no invoice is placed in the parcel.</p></details>
+        </div>
+      </div>
+
+      <aside class="side" aria-label="Preview and cost">
+        <h2>Live preview</h2>
+        <p class="sub">Your gift, as it will be prepared.</p>
+        <div class="prev" aria-live="polite">
+          <svg class="lf a"><use href="#i-leaf"/></svg><svg class="lf b"><use href="#i-leaf"/></svg>
+          <div>
+            <div class="brand"><svg><use href="#i-lotus"/></svg>BILWA</div>
+            <p class="msg" id="pmsg"></p>
+            <div class="orn"><i></i></div>
+          </div>
+        </div>
+
+        <div class="cost">
+          <h3>Cost summary</h3>
+          <div class="row"><span id="cname">Gift presentation</span><span id="cprice">₹350</span></div>
+          <div class="total"><span>Added to order</span><b id="ctotal">₹350</b></div>
+        </div>
+        <button class="add" id="add" type="button">Add personalisation</button>
+        <button class="skip" id="skip" type="button">Not now</button>
+        <p class="status" id="status" role="status"></p>
+      </aside>
+    </section>
+  </div>
+</main>
+
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id)};
+  var m=$('msg'),pm=$('pmsg');
+  function msg(){
+    var v=m.value;$('cnt').textContent=v.length+' / 250';
+    pm.textContent=v.trim()?v:'Your message will appear here.';
+    pm.classList.toggle('empty',!v.trim());
+  }
+  function cost(){
+    var r=document.querySelector('input[name="pres"]:checked'),p=+r.dataset.price;
+    var f='₹'+p.toLocaleString('en-IN');
+    $('cprice').textContent=$('ctotal').textContent=f;
+  }
+  m.addEventListener('input',msg);
+  [].slice.call(document.querySelectorAll('input[name="pres"]')).forEach(function(r){r.addEventListener('change',cost)});
+  $('add').addEventListener('click',function(){$('status').textContent='Personalisation added to your order.'});
+  $('skip').addEventListener('click',function(){$('status').textContent='No personalisation added.'});
+  msg();cost();
+})();
+</script>
+</body>
+</html>

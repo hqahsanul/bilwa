@@ -1,5 +1,6 @@
 "use client";
 
+import { BilvaRouteSwitcher } from "@/components/bilva/bilva-route-switcher";
 import { BilvaNavbar } from "@/components/bilva/bilva-navbar";
 import { BilvaHero } from "@/components/bilva/bilva-hero";
 import { BilvaMetalRates } from "@/components/bilva/bilva-metal-rates";
@@ -16,6 +17,9 @@ import { BilvaFooter } from "@/components/bilva/bilva-footer";
 export default function BilvaLandingPage() {
   return (
     <main className="bilva-page">
+      {/* Temporary Route Switcher (remove later) */}
+      <BilvaRouteSwitcher />
+
       {/* 1. Top Announcement Bar & Main Navigation Header */}
       <BilvaNavbar />
 

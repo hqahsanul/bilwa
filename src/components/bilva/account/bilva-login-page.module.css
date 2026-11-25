@@ -1,0 +1,346 @@
+.page {
+  --lg-teal: #0b7a78;
+  --lg-teal-dark: #0a6664;
+  --lg-teal-link: #0b6f6c;
+  --lg-gold: #c99a43;
+  --lg-ink: #1b1b1b;
+  --lg-muted: #4a4a4a;
+  --lg-card: #fcfaf6;
+  --lg-bg: #f7f4ee;
+  --lg-border: #e6dccb;
+  --lg-input-bg: #f8f1e5;
+  --lg-info-bg: #e2efed;
+  --lg-error: #9b2c2c;
+
+  position: relative;
+  flex: 1;
+  width: 100%;
+  background-color: var(--lg-bg);
+  color: var(--lg-ink);
+  font-family: var(--bilva-font-sans);
+  padding-block: 1.75rem 3rem;
+}
+
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--lg-border);
+  background: var(--lg-bg);
+}
+
+@media (min-width: 900px) {
+  .split {
+    grid-template-columns: 47% 53%;
+    min-height: 36rem;
+  }
+}
+
+/* Left hero panel */
+.hero {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(
+      120% 80% at 70% 10%,
+      #1f8a82 0%,
+      rgb(31 138 130 / 0) 55%
+    ),
+    linear-gradient(160deg, #0f7770 0%, #0b5f5a 55%, #0a504c 100%);
+  color: var(--bilva-white);
+  padding: 2.5rem 2.5rem 2.5rem;
+  min-height: 22rem;
+}
+
+@media (min-width: 900px) {
+  .hero {
+    padding: 2.75rem 2.75rem 0;
+    min-height: 35rem;
+  }
+}
+
+.heroImgWrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.28;
+  pointer-events: none;
+}
+
+.heroScrim {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(
+    160deg,
+    rgb(15 119 112 / 0.86) 0%,
+    rgb(11 95 90 / 0.72) 55%,
+    rgb(10 80 76 / 0.88) 100%
+  );
+  pointer-events: none;
+}
+
+.heroContent {
+  position: relative;
+  z-index: 1;
+}
+
+.heroTitle {
+  font-family: var(--bilva-font-serif);
+  font-weight: 500;
+  font-size: clamp(2rem, 3.6vw, 2.875rem);
+  line-height: 1.1;
+  max-width: 21.25rem;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.heroRule {
+  width: 3.125rem;
+  height: 2px;
+  background: var(--lg-gold);
+  margin: 1.5rem 0 1.125rem;
+}
+
+.heroSub {
+  font-size: clamp(0.9375rem, 1.4vw, 1.125rem);
+  line-height: 1.4;
+  max-width: 15rem;
+  color: #f1f5f4;
+  margin: 0;
+}
+
+/* Right sign-in panel */
+.panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.75rem 1.25rem;
+}
+
+@media (min-width: 900px) {
+  .panel {
+    padding: 2rem 1.75rem;
+  }
+}
+
+.card {
+  width: 100%;
+  max-width: 32.1875rem;
+  background: var(--lg-card);
+  border: 1px solid var(--lg-border);
+  border-radius: 14px;
+  padding: 1.75rem 2rem 1.5rem;
+  box-shadow: 0 6px 24px rgb(80 60 20 / 0.07);
+}
+
+.cardTitle {
+  font-family: var(--bilva-font-serif);
+  font-weight: 600;
+  font-size: clamp(2rem, 3vw, 2.75rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: #111111;
+  margin: 0;
+}
+
+.cardRule {
+  width: 3rem;
+  height: 2px;
+  background: var(--lg-gold);
+  margin: 0.875rem 0 1.25rem;
+}
+
+.sub {
+  font-size: 0.90625rem;
+  color: var(--lg-muted);
+  line-height: 1.45;
+  margin: 0;
+}
+
+.label {
+  display: block;
+  font-weight: 600;
+  font-size: 1rem;
+  margin: 1.25rem 0 0.5rem;
+  color: #111111;
+}
+
+.field {
+  display: flex;
+  align-items: center;
+  height: 3.25rem;
+  background: var(--lg-input-bg);
+  border: 1px solid #e2d2b3;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+
+.field:focus-within {
+  border-color: var(--lg-teal);
+  box-shadow: 0 0 0 3px rgb(11 122 120 / 0.15);
+}
+
+.countryCode {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 5.25rem;
+  height: 100%;
+  font-family: var(--bilva-font-serif);
+  font-weight: 500;
+  font-size: 1.375rem;
+  position: relative;
+  flex: none;
+}
+
+.countryCode::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 24%;
+  bottom: 24%;
+  width: 1px;
+  background: #c9bda6;
+}
+
+.input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  border: 0;
+  background: transparent;
+  outline: none;
+  padding-inline: 1.25rem;
+  font: inherit;
+  font-size: max(1rem, 1.0625rem);
+  color: var(--lg-ink);
+}
+
+.input::placeholder {
+  color: #8f8a80;
+}
+
+.errorText {
+  margin: 0.45rem 0 0;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--lg-error);
+}
+
+.submitBtn {
+  margin-top: 1.375rem;
+  width: 100%;
+  min-height: 3.25rem;
+  border: 0;
+  border-radius: 5px;
+  background: linear-gradient(180deg, #0f8582, var(--lg-teal-dark));
+  color: var(--bilva-white);
+  font-family: var(--bilva-font-sans);
+  font-size: 1.125rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  cursor: pointer;
+  transition: filter 150ms ease;
+}
+
+.submitBtn:hover {
+  filter: brightness(1.08);
+}
+
+.submitBtn:focus-visible {
+  outline: 2px solid var(--lg-teal);
+  outline-offset: 2px;
+}
+
+.orRow {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin: 1.25rem 0 1rem;
+  color: #555555;
+  font-size: 0.9375rem;
+}
+
+.orRow::before,
+.orRow::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #d9cdb6;
+}
+
+.switchBtn {
+  display: block;
+  width: 100%;
+  background: transparent;
+  border: 0;
+  padding: 0.25rem;
+  text-align: center;
+  font-family: inherit;
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: var(--lg-teal-link);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1.5px;
+  cursor: pointer;
+}
+
+.switchBtn:focus-visible {
+  outline: 2px solid var(--lg-teal);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.notice {
+  margin-top: 1.375rem;
+  display: flex;
+  align-items: center;
+  background: var(--lg-info-bg);
+  border: 1px solid #d4e6e3;
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #1c1c1c;
+}
+
+.noticeSep {
+  width: 1px;
+  align-self: stretch;
+  background: #7aa5a1;
+  margin: 0 1.25rem 0 1.125rem;
+  opacity: 0.6;
+  flex: none;
+}
+
+.legal {
+  text-align: center;
+  font-size: 0.875rem;
+  color: #333333;
+  margin: 1.375rem 0 0;
+}
+
+.inlineLink {
+  color: var(--lg-teal-link);
+  font-weight: 500;
+  border-bottom: 1.5px solid var(--lg-teal-link);
+}
+
+.helpLink {
+  display: block;
+  text-align: center;
+  margin-top: 1.125rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--lg-teal-link);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1.5px;
+}

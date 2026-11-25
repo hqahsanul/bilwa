@@ -281,17 +281,17 @@ export function BilvaBestSellers() {
                 <div className="flex flex-col flex-1 p-5 sm:p-5.5 justify-between">
                   <div>
                     {/* Title */}
-                    <h3 className="font-serif text-[19px] sm:text-[20px] text-[#0A2D23] font-semibold leading-snug group-hover:text-[#8D6B30] transition-colors">
+                    <h3 className="font-serif text-[20px] sm:text-[22px] text-[#0A2D23] font-semibold leading-snug group-hover:text-[#8D6B30] transition-colors">
                       {item.title}
                     </h3>
 
                     {/* Specifications */}
-                    <p className="font-sans text-[12.5px] sm:text-[13px] text-[#4F675D] font-normal mt-1 mb-3">
+                    <p className="font-sans text-[13.5px] sm:text-[14.5px] text-[#4F675D] font-normal mt-1 mb-3">
                       {item.subtitle}
                     </p>
 
                     {/* Price */}
-                    <div className="font-sans text-[22px] sm:text-[23px] font-bold text-[#0A2D23] tracking-tight">
+                    <div className="font-sans text-[24px] sm:text-[25px] font-bold text-[#0A2D23] tracking-tight">
                       {item.price}
                     </div>
                   </div>
@@ -301,7 +301,7 @@ export function BilvaBestSellers() {
                     {/* Add to bag Button */}
                     <button
                       onClick={() => handleAddToBag(item.id)}
-                      className={`w-full py-2.5 sm:py-3 px-4 rounded-[3px] text-[13.5px] font-sans font-medium tracking-[0.02em] transition-all duration-200 cursor-pointer flex items-center justify-center gap-2 active:scale-[0.99] shadow-xs ${
+                      className={`w-full py-2.5 sm:py-3 px-4 rounded-[6px] text-[14.5px] font-sans font-medium tracking-[0.02em] transition-all duration-200 cursor-pointer flex items-center justify-center gap-2 active:scale-[0.99] shadow-xs ${
                         isAdded
                           ? "bg-[#1E5D48] text-white"
                           : "bg-[#064E3B] hover:bg-[#033629] text-white hover:shadow-md"
@@ -309,7 +309,7 @@ export function BilvaBestSellers() {
                     >
                       {isAdded ? (
                         <>
-                          <span className="text-[14px]">✓</span>
+                          <span className="text-[15px]">✓</span>
                           <span>Added to bag</span>
                         </>
                       ) : (
@@ -321,10 +321,10 @@ export function BilvaBestSellers() {
                     <div className="text-center pt-0.5">
                       <Link
                         href={`#product-${item.id}`}
-                        className="inline-flex items-center gap-1 text-[13px] font-sans font-medium text-[#0A2D23] hover:text-[#A67C44] underline hover:no-underline transition-colors pb-0.5"
+                        className="inline-flex items-center gap-1 text-[14px] font-sans font-medium text-[#0A2D23] hover:text-[#A67C44] underline hover:no-underline transition-colors pb-0.5"
                       >
                         <span>View details</span>
-                        <span className="text-[14px] leading-none">→</span>
+                        <span className="text-[15px] leading-none">→</span>
                       </Link>
                     </div>
                   </div>
