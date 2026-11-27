@@ -11,6 +11,7 @@ import {
   Headset,
   Heart,
   Home,
+  LogOut,
   Mail,
   MapPin,
   Package,
@@ -67,6 +68,8 @@ function PreferenceIcon({ id }: { id: string }) {
       return <MapPin size={18} strokeWidth={1.6} aria-hidden="true" />;
     case "communication":
       return <Mail size={18} strokeWidth={1.6} aria-hidden="true" />;
+    case "sign-out":
+      return <LogOut size={18} strokeWidth={1.6} aria-hidden="true" />;
     default:
       return <ShieldCheck size={18} strokeWidth={1.6} aria-hidden="true" />;
   }

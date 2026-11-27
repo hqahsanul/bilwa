@@ -2,17 +2,28 @@
 
 import Image from "next/image";
 import { BILVA_SITE_FRAME_CLASS, BILVA_SITE_SHELL_CLASS } from "@/lib/bilva-site-shell";
-import { CORPORATE_GIFTING_DATA } from "@/data/bilva/corporate-gifting";
+import {
+  CORPORATE_GIFTING_DATA,
+  type CorporateGiftingPageData,
+} from "@/data/bilva/corporate-gifting";
 
-export function BilvaCorporateHero() {
-  const { hero } = CORPORATE_GIFTING_DATA;
+interface BilvaCorporateHeroProps {
+  data?: CorporateGiftingPageData;
+  sectionLabel?: string;
+}
+
+export function BilvaCorporateHero({
+  data = CORPORATE_GIFTING_DATA,
+  sectionLabel = "Corporate Signature Collection",
+}: BilvaCorporateHeroProps) {
+  const { hero } = data;
   const headlineLines = hero.headline.split("\n");
   const eyebrowLines = hero.eyebrow.split("\n");
 
   return (
     <section
       className="relative w-full select-none bg-[#FAF7F2]"
-      aria-label="Corporate Signature Collection"
+      aria-label={sectionLabel}
     >
       {/* Shell-width media frame — matches homepage hero / site column */}
       <div

@@ -1,8 +1,10 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Link from "next/link";
 import { ArrowRight, MapPin, Minus, Plus, ShoppingBag } from "lucide-react";
 import { BILVA_SITE_FRAME_CLASS, BILVA_SITE_SHELL_CLASS } from "@/lib/bilva-site-shell";
+import { BAG_PATH, CHECKOUT_PATH } from "@/lib/bilva-collection-routes";
 import { LAKSHMI_SILVER_COIN_DATA } from "@/data/bilva/lakshmi-silver-coin";
 
 function SpecIcon({ name }: { name: "purity" | "weight" | "finish" | "gift" }) {
@@ -232,19 +234,19 @@ export function BilvaLakshmiSilverPurchase() {
                 </div>
               </div>
 
-              <button
-                type="button"
+              <Link
+                href={BAG_PATH}
                 className="mt-5 flex h-[3.15rem] w-full cursor-pointer items-center justify-center gap-2 rounded-[8px] bg-[#1A3324] font-sans text-[16px] font-medium text-white hover:bg-[#12241A]"
               >
                 <ShoppingBag size={16} strokeWidth={1.75} />
                 {purchase.addToBag}
-              </button>
-              <button
-                type="button"
+              </Link>
+              <Link
+                href={CHECKOUT_PATH}
                 className="mt-2 flex h-[3.15rem] w-full cursor-pointer items-center justify-center rounded-[8px] border border-[#D7DACE] bg-white font-sans text-[16px] font-medium text-[#1A3324] hover:bg-[#F7F8F2]"
               >
                 {purchase.buyNow}
-              </button>
+              </Link>
 
               <div className="mt-4 flex items-center gap-2.5">
                 <MapPin size={16} className="shrink-0 text-[#1A3324]" />

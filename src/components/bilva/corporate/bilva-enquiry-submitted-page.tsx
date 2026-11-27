@@ -4,12 +4,20 @@ import { useId } from "react";
 import Link from "next/link";
 import { Check, Info } from "lucide-react";
 import { BILVA_SITE_SHELL_CLASS } from "@/lib/bilva-site-shell";
-import { ENQUIRY_SUBMITTED_DATA } from "@/data/bilva/enquiry-submitted";
+import {
+  ENQUIRY_SUBMITTED_DATA,
+  type EnquirySubmittedPageData,
+} from "@/data/bilva/enquiry-submitted";
 import styles from "./bilva-enquiry-submitted-page.module.css";
 
-export function BilvaEnquirySubmittedPage() {
-  const { breadcrumbs, heading, referenceLabel, lead, details, actions, note } =
-    ENQUIRY_SUBMITTED_DATA;
+interface BilvaEnquirySubmittedPageProps {
+  data?: EnquirySubmittedPageData;
+}
+
+export function BilvaEnquirySubmittedPage({
+  data = ENQUIRY_SUBMITTED_DATA,
+}: BilvaEnquirySubmittedPageProps) {
+  const { breadcrumbs, heading, referenceLabel, lead, details, actions, note } = data;
 
   const headingId = useId();
 

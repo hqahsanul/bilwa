@@ -5,46 +5,18 @@ import Link from "next/link";
 import { Search, X } from "lucide-react";
 import { useMemo, type ReactNode } from "react";
 
+import { SEARCH_PATH } from "@/lib/bilva-collection-routes";
 import {
-  GOLD_COINS_AND_BARS_PATH,
-  SILVER_COINS_AND_BARS_PATH,
-} from "@/lib/bilva-collection-routes";
+  SEARCH_CATEGORIES,
+  SEARCH_PREVIEW_PRODUCTS,
+  SEARCH_SUGGESTIONS,
+} from "@/data/bilva/search";
 
 const TEAL = "#387C71";
 
-const SUGGESTED_SEARCHES = [
-  "1 g gold coin",
-  "5 g gold coin",
-  "Silver bars",
-  "Rudraksh",
-  "Gold bars",
-  "Gemstone gifts",
-] as const;
-
-const MATCHING_CATEGORIES = [
-  { label: "Gold Coins", href: GOLD_COINS_AND_BARS_PATH },
-  { label: "Gold Bars", href: GOLD_COINS_AND_BARS_PATH },
-  { label: "Gifting", href: "#gifting-collection" },
-  { label: "Silver Coins", href: SILVER_COINS_AND_BARS_PATH },
-  { label: "Rudraksh", href: "#rudraksh-collection" },
-] as const;
-
-const PREVIEW_PRODUCTS = [
-  {
-    id: "coin",
-    label: "Illustrative product",
-    href: "#catalog",
-    image: "/images/bilva/bestseller-gold-coin-clean.webp",
-    alt: "Bilwa gold coin",
-  },
-  {
-    id: "bar",
-    label: "Illustrative product",
-    href: "#catalog",
-    image: "/images/bilva/bestseller-gold-bar.webp",
-    alt: "Bilwa gold bar",
-  },
-] as const;
+const SUGGESTED_SEARCHES = SEARCH_SUGGESTIONS;
+const MATCHING_CATEGORIES = SEARCH_CATEGORIES;
+const PREVIEW_PRODUCTS = SEARCH_PREVIEW_PRODUCTS;
 
 function matchQuery(query: string, text: string) {
   const q = query.trim().toLowerCase();
@@ -198,7 +170,7 @@ export function BilvaSearchOverlay({
 
       <div className="mt-3 border-t border-[#EFEAE2] pt-2.5 text-center">
         <Link
-          href={`#catalog?q=${encodeURIComponent(displayQuery)}`}
+          href={`${SEARCH_PATH}?q=${encodeURIComponent(displayQuery)}`}
           onClick={onClose}
           className="inline-flex items-center gap-1 font-sans text-[12px] font-semibold transition-opacity hover:opacity-85"
           style={{ color: TEAL }}

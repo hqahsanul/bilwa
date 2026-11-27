@@ -1,8 +1,9 @@
 "use client";
 
-import { useId, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
 import {
   ChevronRight,
   Clock,
@@ -14,7 +15,13 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import { BILVA_SITE_SHELL_CLASS } from "@/lib/bilva-site-shell";
+import { CHECKOUT_CONFIRMED_PATH } from "@/lib/bilva-collection-routes";
 import { PAYMENT_PENDING_DATA } from "@/data/bilva/payment-pending";
+import {
+  BilvaInsuredBanner,
+  BilvaPaymentUnsuccessfulCard,
+} from "@/components/bilva/use-cases/bilva-use-case-states";
+import { USE_CASE_PAYMENT_PENDING_CARD } from "@/data/bilva/use-cases";
 import styles from "./bilva-payment-pending-page.module.css";
 
 export function BilvaPaymentPendingPage() {
@@ -28,16 +35,30 @@ export function BilvaPaymentPendingPage() {
     leafDecor,
   } = PAYMENT_PENDING_DATA;
 
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const failedFromUrl = searchParams.get("status") === "failed";
   const headingId = useId();
   const [isRechecking, setIsRechecking] = useState(false);
   const [hasRechecked, setHasRechecked] = useState(false);
+  const [showFailed, setShowFailed] = useState(failedFromUrl);
+
+  useEffect(() => {
+    setShowFailed(failedFromUrl);
+  }, [failedFromUrl]);
 
   const handleCheckAgain = () => {
     if (isRechecking) return;
+    if (showFailed) {
+      router.replace("/checkout/payment-pending");
+      setShowFailed(false);
+      return;
+    }
     setIsRechecking(true);
     window.setTimeout(() => {
       setIsRechecking(false);
       setHasRechecked(true);
+      router.push(CHECKOUT_CONFIRMED_PATH);
     }, 900);
   };
 
@@ -75,11 +96,17 @@ export function BilvaPaymentPendingPage() {
 
         {/* Status + Troubleshooting grid */}
         <div className={styles["topGrid"]}>
+          {showFailed ? (
+            <div className="lg:col-span-2">
+              <BilvaPaymentUnsuccessfulCard onCheckStatus={handleCheckAgain} />
+            </div>
+          ) : (
+          <>
           <div className={`${styles["card"]} ${styles["statusCard"]}`}>
             <div className={styles["clockBadge"]} aria-hidden="true">
               <Clock size={26} strokeWidth={1.6} />
             </div>
-            <h2 className={styles["statusTitle"]}>{statusCard.title}</h2>
+            <h2 className={styles["statusTitle"]}>{USE_CASE_PAYMENT_PENDING_CARD.title}</h2>
             <div
               className={styles["bar"]}
               role="progressbar"
@@ -95,7 +122,7 @@ export function BilvaPaymentPendingPage() {
             <p className={styles["statusSub"]}>
               {isRechecking
                 ? statusCard.recheckingSubtitle
-                : statusCard.subtitle}
+                : USE_CASE_PAYMENT_PENDING_CARD.subtitle}
             </p>
             <span className={styles["statusPill"]}>
               <Loader2
@@ -104,7 +131,7 @@ export function BilvaPaymentPendingPage() {
                 className={styles["spinIcon"]}
                 aria-hidden="true"
               />
-              {statusCard.badge}
+              {USE_CASE_PAYMENT_PENDING_CARD.status}
             </span>
             {hasRechecked ? (
               <p
@@ -129,7 +156,7 @@ export function BilvaPaymentPendingPage() {
               <span>
                 {isRechecking
                   ? troubleCard.checkingLabel
-                  : troubleCard.checkAgainLabel}
+                  : USE_CASE_PAYMENT_PENDING_CARD.checkStatus}
               </span>
               <ChevronRight
                 size={16}
@@ -153,9 +180,12 @@ export function BilvaPaymentPendingPage() {
               />
             </Link>
 
-            <Link href={troubleCard.supportHref} className={styles["actionBtn"]}>
+            <Link
+              href={USE_CASE_PAYMENT_PENDING_CARD.contactSupportHref}
+              className={styles["actionBtn"]}
+            >
               <Headset size={17} strokeWidth={1.7} aria-hidden="true" />
-              <span>{troubleCard.supportLabel}</span>
+              <span>{USE_CASE_PAYMENT_PENDING_CARD.contactSupport}</span>
               <ChevronRight
                 size={16}
                 strokeWidth={1.8}
@@ -164,6 +194,8 @@ export function BilvaPaymentPendingPage() {
               />
             </Link>
           </div>
+          </>
+          )}
         </div>
 
         {/* Order summary card */}
@@ -222,6 +254,10 @@ export function BilvaPaymentPendingPage() {
         <div className={styles["notice"]} role="note">
           <Info size={17} strokeWidth={1.8} className="shrink-0" aria-hidden="true" />
           <span>{notice}</span>
+        </div>
+
+        <div className="mt-4">
+          <BilvaInsuredBanner />
         </div>
       </div>
     </section>

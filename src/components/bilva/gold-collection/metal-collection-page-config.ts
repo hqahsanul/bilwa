@@ -1,3 +1,7 @@
+import {
+  LAKSHMI_SILVER_COIN_PATH,
+  SILVER_COINS_AND_BARS_PATH,
+} from "@/lib/bilva-collection-routes";
 import type { GoldCollectionProduct } from "./gold-collection-products";
 import { GOLD_BROWSE_CHIPS, GOLD_COLLECTION_PRODUCTS } from "./gold-collection-products";
 
@@ -123,11 +127,11 @@ export const GOLD_METAL_PAGE_CONFIG: MetalCollectionPageConfig = {
 };
 
 const SILVER_BROWSE_CHIPS = [
-  { label: "Silver coins", href: "#collection" },
-  { label: "Silver bars", href: "#collection" },
-  { label: "Under 10 g", href: "#collection" },
-  { label: "10–50 g", href: "#collection" },
-  { label: "50 g & above", href: "#collection" },
+  { label: "Silver coins", href: `${SILVER_COINS_AND_BARS_PATH}#collection` },
+  { label: "Silver bars", href: `${SILVER_COINS_AND_BARS_PATH}#collection` },
+  { label: "Under 10 g", href: `${SILVER_COINS_AND_BARS_PATH}#collection` },
+  { label: "10–50 g", href: `${SILVER_COINS_AND_BARS_PATH}#collection` },
+  { label: "50 g & above", href: `${SILVER_COINS_AND_BARS_PATH}#collection` },
 ] as const;
 
 export const SILVER_COLLECTION_PRODUCTS: GoldCollectionProduct[] = [
@@ -138,6 +142,7 @@ export const SILVER_COLLECTION_PRODUCTS: GoldCollectionProduct[] = [
     price: "₹1,450",
     image: GOLD_IMAGES.coinA,
     alt: "Bilwa Leaf Silver Coin 10 g",
+    href: LAKSHMI_SILVER_COIN_PATH,
   },
   {
     id: "heritage-silver-coin",
@@ -146,6 +151,7 @@ export const SILVER_COLLECTION_PRODUCTS: GoldCollectionProduct[] = [
     price: "₹2,900",
     image: GOLD_IMAGES.coinB,
     alt: "Heritage Silver Coin 20 g",
+    href: LAKSHMI_SILVER_COIN_PATH,
   },
   {
     id: "classic-silver-bar",
@@ -154,6 +160,7 @@ export const SILVER_COLLECTION_PRODUCTS: GoldCollectionProduct[] = [
     price: "₹7,250",
     image: GOLD_IMAGES.barA,
     alt: "Classic Silver Bar 50 g",
+    href: SILVER_COINS_AND_BARS_PATH,
   },
   {
     id: "sacred-motif-silver-coin",
@@ -162,6 +169,7 @@ export const SILVER_COLLECTION_PRODUCTS: GoldCollectionProduct[] = [
     price: "₹3,625",
     image: GOLD_IMAGES.coinC,
     alt: "Sacred Motif Silver Coin 25 g",
+    href: LAKSHMI_SILVER_COIN_PATH,
   },
   {
     id: "small-beginnings-silver",
@@ -170,6 +178,7 @@ export const SILVER_COLLECTION_PRODUCTS: GoldCollectionProduct[] = [
     price: "₹725",
     image: GOLD_IMAGES.coinD,
     alt: "Small Beginnings Silver Coin 5 g",
+    href: LAKSHMI_SILVER_COIN_PATH,
   },
   {
     id: "artisan-silver-bar",
@@ -178,6 +187,7 @@ export const SILVER_COLLECTION_PRODUCTS: GoldCollectionProduct[] = [
     price: "₹14,500",
     image: GOLD_IMAGES.barB,
     alt: "Artisan Silver Bar 100 g",
+    href: SILVER_COINS_AND_BARS_PATH,
   },
 ];
 

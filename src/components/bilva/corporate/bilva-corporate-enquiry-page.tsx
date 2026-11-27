@@ -2,6 +2,7 @@
 
 import { useEffect, useId, useRef, useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import {
   ArrowRight,
   Check,
@@ -12,6 +13,7 @@ import {
   Phone,
 } from "lucide-react";
 import { BILVA_SITE_SHELL_CLASS } from "@/lib/bilva-site-shell";
+import { CORPORATE_ENQUIRY_SUBMITTED_PATH } from "@/lib/bilva-collection-routes";
 import { CORPORATE_ENQUIRY_DATA } from "@/data/bilva/corporate-enquiry";
 import styles from "./bilva-corporate-enquiry-page.module.css";
 
@@ -25,7 +27,11 @@ interface FormErrors {
   consent?: string;
 }
 
-export function BilvaCorporateEnquiryPage() {
+export function BilvaCorporateEnquiryPage({
+  submittedHref = CORPORATE_ENQUIRY_SUBMITTED_PATH,
+}: {
+  submittedHref?: string;
+} = {}) {
   const {
     visual,
     heading,
@@ -41,6 +47,7 @@ export function BilvaCorporateEnquiryPage() {
     done,
   } = CORPORATE_ENQUIRY_DATA;
 
+  const router = useRouter();
   const headingId = useId();
   const companyId = useId();
   const nameId = useId();
@@ -154,6 +161,9 @@ export function BilvaCorporateEnquiryPage() {
     const code = String(Math.floor(1000 + Math.random() * 9000));
     setSubmittedRef(`BLW-CG-${code}`);
     window.scrollTo({ top: 0, behavior: "smooth" });
+    window.setTimeout(() => {
+      router.push(submittedHref);
+    }, 700);
   };
 
   const handleReset = () => {

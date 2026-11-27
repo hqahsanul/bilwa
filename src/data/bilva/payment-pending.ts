@@ -27,7 +27,7 @@ export const PAYMENT_PENDING_DATA = {
     tryAnotherLabel: "Try another payment method",
     tryAnotherHref: "/checkout/review",
     supportLabel: "Contact Bilwa support",
-    supportHref: "/#contact-us",
+    supportHref: "/contact",
   },
 
   orderSummary: {

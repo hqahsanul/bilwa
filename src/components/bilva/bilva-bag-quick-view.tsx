@@ -3,6 +3,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Info, Pencil, Trash2, X } from "lucide-react";
+import {
+  BAG_PATH,
+  LAKSHMI_GOLD_COIN_PATH,
+  LAKSHMI_SILVER_COIN_PATH,
+} from "@/lib/bilva-collection-routes";
 
 const LINK_TEAL = "#0B6B5C";
 const GOLD = "#B89248";
@@ -24,7 +29,7 @@ export const MOCK_BAG_ITEMS: BagItem[] = [
     id: "bag-gold-coin-1g",
     title: "Gold Coin · 1 g",
     quantity: 1,
-    href: "#catalog",
+    href: LAKSHMI_GOLD_COIN_PATH,
     image: "/images/bilva/bestseller-gold-coin-clean.webp",
     alt: "Gold coin 1 g",
   },
@@ -32,7 +37,7 @@ export const MOCK_BAG_ITEMS: BagItem[] = [
     id: "bag-silver-coin-10g",
     title: "Silver Coin · 10 g",
     quantity: 1,
-    href: "#catalog",
+    href: LAKSHMI_SILVER_COIN_PATH,
     image: "/images/bilva/bestseller-silver-coin-clean.webp",
     alt: "Silver coin 10 g",
   },
@@ -160,7 +165,7 @@ export function BilvaBagQuickView({
             Delivery eligibility is checked on the product page / checkout.
           </p>
           <Link
-            href="/bag"
+            href={BAG_PATH}
             onClick={onClose}
             className="mt-3 flex w-full items-center justify-center gap-1.5 rounded-[6px] bg-[#0B6B5C] py-2.5 font-sans text-[13px] font-semibold text-white transition-colors hover:bg-[#095548]"
           >

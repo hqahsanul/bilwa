@@ -120,7 +120,7 @@ export const LATEST_ORDER_DATA = {
     title: "Need help?",
     description: "We’re here to help with your order, documents and more.",
     links: [
-      { id: "contact", label: "Contact support", href: "/#contact-us" },
+      { id: "contact", label: "Contact support", href: "/contact" },
       { id: "queries", label: "Order queries", href: "/checkout/payment-pending" },
     ],
   },

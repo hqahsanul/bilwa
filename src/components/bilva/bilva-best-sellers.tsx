@@ -3,60 +3,17 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { ArrowLeft, ArrowRight, Heart } from "lucide-react";
 
+import { BEST_SELLER_PRODUCTS } from "@/data/bilva/best-sellers";
+import { BAG_PATH, GOLD_COINS_AND_BARS_PATH } from "@/lib/bilva-collection-routes";
 import { BILVA_SITE_SHELL_CLASS } from "@/lib/bilva-site-shell";
 
-interface BestSellerProduct {
-  id: string;
-  title: string;
-  subtitle: string;
-  price: string;
-  numericPrice: number;
-  imageSrc: string;
-  imageAlt: string;
-}
-
-const products: BestSellerProduct[] = [
-  {
-    id: "heritage-gold-coin",
-    title: "Heritage Gold Coin",
-    subtitle: "24K (999) · 5 g",
-    price: "₹62,250",
-    numericPrice: 62250,
-    imageSrc: "/images/bilva/bestseller-gold-coin-master.webp",
-    imageAlt: "Heritage Gold Coin 24K (999) 5g on Travertine Pedestal",
-  },
-  {
-    id: "silver-keepsake-coin",
-    title: "Silver Keepsake Coin",
-    subtitle: "Silver 999 · 10 g",
-    price: "₹1,650",
-    numericPrice: 1650,
-    imageSrc: "/images/bilva/bestseller-silver-coin-master.webp",
-    imageAlt: "Silver Keepsake Coin 999 10g with Lotus Motif",
-  },
-  {
-    id: "bilwa-gold-bar",
-    title: "Bilwa Gold Bar",
-    subtitle: "24K (999) · 2 g",
-    price: "₹24,900",
-    numericPrice: 24900,
-    imageSrc: "/images/bilva/bestseller-gold-bar-master.webp",
-    imageAlt: "Bilwa Gold Bar 24K 2g Cast Ingot on Travertine Pedestal",
-  },
-  {
-    id: "rudraksh-bracelet",
-    title: "Rudraksh Bracelet",
-    subtitle: "Natural rudraksh",
-    price: "₹2,450",
-    numericPrice: 2450,
-    imageSrc: "/images/bilva/bestseller-rudraksh-bracelet-master.webp",
-    imageAlt: "Natural Rudraksh Bracelet with 24K Gold Plated Bilwa Bead",
-  },
-];
+const products = BEST_SELLER_PRODUCTS;
 
 export function BilvaBestSellers() {
+  const router = useRouter();
   const [activeSlide, setActiveSlide] = useState(0);
   const [wishlist, setWishlist] = useState<Record<string, boolean>>({});
   const [addedId, setAddedId] = useState<string | null>(null);
@@ -70,7 +27,8 @@ export function BilvaBestSellers() {
     setAddedId(id);
     setTimeout(() => {
       setAddedId(null);
-    }, 1800);
+      router.push(BAG_PATH);
+    }, 600);
   };
 
   const scrollPrev = () => {
@@ -190,7 +148,7 @@ export function BilvaBestSellers() {
               </p>
 
               <Link
-                href="#all-best-sellers"
+                href={GOLD_COINS_AND_BARS_PATH}
                 className="mt-4 inline-flex items-center gap-1.5 text-[13.5px] sm:text-[14.5px] font-sans font-medium text-[#0A2D23] hover:text-[#A67C44] transition-colors border-b border-[#0A2D23] hover:border-[#A67C44] pb-0.5 group cursor-pointer"
               >
                 <span>View all best sellers</span>
@@ -203,7 +161,7 @@ export function BilvaBestSellers() {
             {/* Tablet/desktop: view-all row + arrows */}
             <div className="hidden sm:flex items-center gap-6 shrink-0 pb-1">
               <Link
-                href="#all-best-sellers"
+                href={GOLD_COINS_AND_BARS_PATH}
                 className="text-[14.5px] font-sans font-medium text-[#0A2D23] hover:text-[#A67C44] transition-colors border-b border-[#0A2D23] hover:border-[#A67C44] pb-0.5 group cursor-pointer inline-flex items-center gap-1.5"
               >
                 <span>View all best sellers</span>
@@ -320,7 +278,7 @@ export function BilvaBestSellers() {
                     {/* View details Link */}
                     <div className="text-center pt-0.5">
                       <Link
-                        href={`#product-${item.id}`}
+                        href={item.href}
                         className="inline-flex items-center gap-1 text-[14px] font-sans font-medium text-[#0A2D23] hover:text-[#A67C44] underline hover:no-underline transition-colors pb-0.5"
                       >
                         <span>View details</span>

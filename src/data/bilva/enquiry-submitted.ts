@@ -23,7 +23,9 @@ export const ENQUIRY_SUBMITTED_DATA = {
     backLabel: "Back to gifting",
     backHref: "/corporate-gifting",
     exploreLabel: "Explore collections",
-    exploreHref: "/#explore-collections",
+    exploreHref: "/corporate-gifting",
   },
   note: "This is an enquiry, not a confirmed order.",
 };
+
+export type EnquirySubmittedPageData = typeof ENQUIRY_SUBMITTED_DATA;

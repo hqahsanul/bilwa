@@ -2,8 +2,10 @@
 
 import { useMemo, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { Minus, Plus, Truck } from "lucide-react";
 import { BILVA_SITE_FRAME_CLASS, BILVA_SITE_SHELL_CLASS } from "@/lib/bilva-site-shell";
+import { BAG_PATH, CHECKOUT_PATH } from "@/lib/bilva-collection-routes";
 import { LAKSHMI_GOLD_COIN_DATA } from "@/data/bilva/lakshmi-gold-coin";
 
 export function BilvaLakshmiGoldSelection() {
@@ -99,12 +101,18 @@ export function BilvaLakshmiGoldSelection() {
             </div>
 
             <div className="mt-5 grid grid-cols-2 gap-2">
-              <button type="button" className="h-12 cursor-pointer rounded-[8px] bg-[#1A3324] font-sans text-[15.5px] font-medium text-white">
+              <Link
+                href={BAG_PATH}
+                className="inline-flex h-12 cursor-pointer items-center justify-center rounded-[8px] bg-[#1A3324] font-sans text-[15.5px] font-medium text-white"
+              >
                 {selection.addToBag}
-              </button>
-              <button type="button" className="h-12 cursor-pointer rounded-[8px] border border-[#D5DDD0] bg-white font-sans text-[15.5px] font-medium text-[#1A3324]">
+              </Link>
+              <Link
+                href={CHECKOUT_PATH}
+                className="inline-flex h-12 cursor-pointer items-center justify-center rounded-[8px] border border-[#D5DDD0] bg-white font-sans text-[15.5px] font-medium text-[#1A3324]"
+              >
                 {selection.buyNow}
-              </button>
+              </Link>
             </div>
 
             <p className="mt-5 font-sans text-[15px] font-semibold text-[#143028]">{selection.pinTitle}</p>

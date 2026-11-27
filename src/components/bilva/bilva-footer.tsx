@@ -7,9 +7,14 @@ import Link from "next/link";
 import { Instagram, Facebook, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { BILVA_SITE_SHELL_CLASS } from "@/lib/bilva-site-shell";
-import { FOOTER_SHOP_LINKS } from "@/data/bilva/footer";
-
-const SHOP_LINKS = FOOTER_SHOP_LINKS;
+import {
+  FOOTER_ABOUT_LINKS,
+  FOOTER_ACCOUNT_LINKS,
+  FOOTER_CARE_LINKS,
+  FOOTER_LEGAL_LINKS,
+  FOOTER_PRE_CTA,
+  FOOTER_SHOP_LINKS,
+} from "@/data/bilva/footer";
 
 export function BilvaFooter({
   showPreFooterCta = true,
@@ -59,16 +64,16 @@ export function BilvaFooter({
               <div className="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-4 sm:gap-7 w-full sm:w-auto">
                 {/* Primary Emerald Button */}
                 <Link
-                  href="#explore-collections"
+                  href={FOOTER_PRE_CTA.primary.href}
                   className="inline-flex items-center justify-center gap-2 bg-[#025342] hover:bg-[#014134] active:scale-[0.98] text-[#FFFFFF] px-7 py-3.5 rounded-[3px] font-sans font-medium text-[14px] tracking-[0.02em] transition-all shadow-xs hover:shadow-md cursor-pointer w-full sm:w-auto"
                 >
-                  <span>Explore collections</span>
+                  <span>{FOOTER_PRE_CTA.primary.label}</span>
                   <span className="text-[16px] leading-none">→</span>
                 </Link>
 
                 {/* Secondary Underlined Link */}
                 <Link
-                  href="#contact-us"
+                  href={FOOTER_PRE_CTA.secondary.href}
                   className="inline-flex items-center gap-2 text-[14.5px] font-serif font-medium text-[#0A2D23] hover:text-[#A67C44] transition-colors py-1 group cursor-pointer"
                 >
                   <span className="border-b border-[#0A2D23] group-hover:border-[#A67C44] transition-colors pb-0.5">
@@ -212,7 +217,7 @@ export function BilvaFooter({
               </h4>
               <div className="w-7 h-[1px] bg-[#C5A059] mt-1 mb-4" />
               <ul className="space-y-2.5 text-[13px] text-[#B8D3C8]">
-                {SHOP_LINKS.map((link) => (
+                {FOOTER_SHOP_LINKS.map((link) => (
                   <li key={link.label}>
                     <Link href={link.href} className="hover:text-white transition-colors block">
                       {link.label}
@@ -229,13 +234,10 @@ export function BilvaFooter({
               </h4>
               <div className="w-7 h-[1px] bg-[#C5A059] mt-1 mb-4" />
               <ul className="space-y-2.5 text-[13px] text-[#B8D3C8]">
-                {["Contact support", "Track an order", "Shipping & delivery", "Returns & refunds", "FAQs"].map((link) => (
-                  <li key={link}>
-                    <Link
-                      href={`#${link.toLowerCase().replace(/[\s&]+/g, "-")}`}
-                      className="hover:text-white transition-colors block"
-                    >
-                      {link}
+                {FOOTER_CARE_LINKS.map((link) => (
+                  <li key={link.label}>
+                    <Link href={link.href} className="hover:text-white transition-colors block">
+                      {link.label}
                     </Link>
                   </li>
                 ))}
@@ -249,13 +251,10 @@ export function BilvaFooter({
               </h4>
               <div className="w-7 h-[1px] bg-[#C5A059] mt-1 mb-4" />
               <ul className="space-y-2.5 text-[13px] text-[#B8D3C8]">
-                {["Sign in", "My orders", "Wishlist", "Addresses", "Documents"].map((link) => (
-                  <li key={link}>
-                    <Link
-                      href={`#${link.toLowerCase().replace(/[\s&]+/g, "-")}`}
-                      className="hover:text-white transition-colors block"
-                    >
-                      {link}
+                {FOOTER_ACCOUNT_LINKS.map((link) => (
+                  <li key={link.label}>
+                    <Link href={link.href} className="hover:text-white transition-colors block">
+                      {link.label}
                     </Link>
                   </li>
                 ))}
@@ -269,13 +268,10 @@ export function BilvaFooter({
               </h4>
               <div className="w-7 h-[1px] bg-[#C5A059] mt-1 mb-4" />
               <ul className="space-y-2.5 text-[13px] text-[#B8D3C8]">
-                {["Our story", "Our approach", "Why Bilwa", "Corporate enquiries"].map((link) => (
-                  <li key={link}>
-                    <Link
-                      href={`#${link.toLowerCase().replace(/[\s&]+/g, "-")}`}
-                      className="hover:text-white transition-colors block"
-                    >
-                      {link}
+                {FOOTER_ABOUT_LINKS.map((link) => (
+                  <li key={link.label}>
+                    <Link href={link.href} className="hover:text-white transition-colors block">
+                      {link.label}
                     </Link>
                   </li>
                 ))}
@@ -289,13 +285,10 @@ export function BilvaFooter({
               </h4>
               <div className="w-7 h-[1px] bg-[#C5A059] mt-1 mb-4" />
               <ul className="space-y-2.5 text-[13px] text-[#B8D3C8]">
-                {["Pricing explained", "Product authenticity", "Privacy policy", "Terms & conditions"].map((link) => (
-                  <li key={link}>
-                    <Link
-                      href={`#${link.toLowerCase().replace(/[\s&]+/g, "-")}`}
-                      className="hover:text-white transition-colors block"
-                    >
-                      {link}
+                {FOOTER_LEGAL_LINKS.map((link) => (
+                  <li key={link.label}>
+                    <Link href={link.href} className="hover:text-white transition-colors block">
+                      {link.label}
                     </Link>
                   </li>
                 ))}

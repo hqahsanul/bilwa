@@ -1,5 +1,9 @@
 import {
+  CORPORATE_GIFTING_PATH,
+  GEMSTONES_PATH,
+  GIFTING_PATH,
   GOLD_COINS_AND_BARS_PATH,
+  RUDRAKSH_COLLECTION_PATH,
   SILVER_COINS_AND_BARS_PATH,
 } from "@/lib/bilva-collection-routes";
 
@@ -38,7 +42,7 @@ export const HOME_COLLECTIONS: readonly CollectionTile[] = [
   {
     id: "rudraksh",
     title: "Rudraksh",
-    href: "#rudraksh",
+    href: RUDRAKSH_COLLECTION_PATH,
     image: "/images/bilva/collection-rudraksh-raw.webp",
     alt: "Sacred Rudraksh Beads Bracelet with 24K Gold Spheres",
     desktopCol: "lg:col-start-4 lg:col-end-5",
@@ -48,7 +52,7 @@ export const HOME_COLLECTIONS: readonly CollectionTile[] = [
   {
     id: "gemstones",
     title: "Gemstones",
-    href: "#gemstones",
+    href: GEMSTONES_PATH,
     image: "/images/bilva/collection-gemstones-raw.webp",
     alt: "Faceted Emerald, Ruby, and Sapphire Vedic Gemstones",
     desktopCol: "lg:col-start-2 lg:col-end-3",
@@ -58,7 +62,7 @@ export const HOME_COLLECTIONS: readonly CollectionTile[] = [
   {
     id: "premium-gifting",
     title: "Premium gifting",
-    href: "#premium-gifting",
+    href: GIFTING_PATH,
     image: "/images/bilva/collection-premium-gifting-raw.webp",
     alt: "Bilwa Luxury Velvet Gift Set with 24K Gold Coin and Bar",
     desktopCol: "lg:col-start-3 lg:col-end-5",
@@ -68,7 +72,7 @@ export const HOME_COLLECTIONS: readonly CollectionTile[] = [
   {
     id: "corporate-gifting",
     title: "Corporate gifting",
-    href: "#corporate-gifting",
+    href: CORPORATE_GIFTING_PATH,
     image: "/images/bilva/collection-corporate-gifting-raw.webp",
     alt: "Custom Engraved Bilwa Corporate Presentation Set",
     desktopCol: "lg:col-start-1 lg:col-end-3",

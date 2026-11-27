@@ -145,6 +145,10 @@
   border-radius: 10px;
 }
 
+.ratesBannerWrap {
+  margin-block: 1rem 1.25rem;
+}
+
 /* Delivery card */
 .deliver {
   display: flex;

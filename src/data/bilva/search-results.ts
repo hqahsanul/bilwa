@@ -44,7 +44,7 @@ export const SEARCH_RESULTS_DATA = {
       label: "Silver coins",
       href: SILVER_COINS_AND_BARS_PATH,
     },
-    { id: "gifting", label: "Gifting", href: "/corporate-gifting" },
+    { id: "gifting", label: "Gifting", href: "/make-it-personal" },
   ] as SearchCategoryPill[],
 
   products: [
@@ -140,7 +140,7 @@ export const SEARCH_RESULTS_DATA = {
     description:
       "Our experts can help you find the right gold coin, size or option for your need, including custom and bulk requirements.",
     ctaLabel: "Ask Bilwa",
-    ctaHref: "/#contact-us",
+    ctaHref: "/contact",
     imageSrc: "/images/bilva/legacy-story-workshop.png",
     imageAlt: "Bilwa master craftsperson workshop",
   },

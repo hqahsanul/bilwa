@@ -3,81 +3,11 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { HOME_COLLECTIONS } from "@/data/bilva/collections";
+import { GOLD_COINS_AND_BARS_PATH } from "@/lib/bilva-collection-routes";
 import { BILVA_SITE_SHELL_CLASS } from "@/lib/bilva-site-shell";
 
-interface CollectionItem {
-  id: string;
-  title: string;
-  href: string;
-  image: string;
-  alt: string;
-  desktopCol: string;
-  desktopRow: string;
-  titleSize: string;
-}
-
-const COLLECTIONS: CollectionItem[] = [
-  {
-    id: "gold-coins-and-bars",
-    title: "Gold coins & bars",
-    href: "/gold-silver/gold-coins-and-bars",
-    image: "/images/bilva/collection-gold-coins-and-bars-raw.webp",
-    alt: "Bilwa 24K Gold Lotus Coin and Gold Bar on Travertine",
-    desktopCol: "lg:col-start-1 lg:col-end-2",
-    desktopRow: "lg:row-start-1 lg:row-end-3",
-    titleSize: "text-[22px] sm:text-[26px] lg:text-[28px]",
-  },
-  {
-    id: "silver-coins-and-bars",
-    title: "Silver coins & bars",
-    href: "/gold-silver/silver-coins-and-bars",
-    image: "/images/bilva/collection-silver-coins-and-bars-raw.webp",
-    alt: "Bilwa 999 Ganesha Silver Coin and Bilwa Silver Coin on Silk",
-    desktopCol: "lg:col-start-2 lg:col-end-4",
-    desktopRow: "lg:row-start-1 lg:row-end-2",
-    titleSize: "text-[18px] sm:text-[21px] lg:text-[23px]",
-  },
-  {
-    id: "rudraksh",
-    title: "Rudraksh",
-    href: "#rudraksh",
-    image: "/images/bilva/collection-rudraksh-raw.webp",
-    alt: "Sacred Rudraksh Beads Bracelet with 24K Gold Spheres",
-    desktopCol: "lg:col-start-4 lg:col-end-5",
-    desktopRow: "lg:row-start-1 lg:row-end-2",
-    titleSize: "text-[18px] sm:text-[21px] lg:text-[23px]",
-  },
-  {
-    id: "gemstones",
-    title: "Gemstones",
-    href: "#gemstones",
-    image: "/images/bilva/collection-gemstones-raw.webp",
-    alt: "Faceted Emerald, Ruby, and Sapphire Vedic Gemstones",
-    desktopCol: "lg:col-start-2 lg:col-end-3",
-    desktopRow: "lg:row-start-2 lg:row-end-3",
-    titleSize: "text-[18px] sm:text-[21px] lg:text-[22px]",
-  },
-  {
-    id: "premium-gifting",
-    title: "Premium gifting",
-    href: "#premium-gifting",
-    image: "/images/bilva/collection-premium-gifting-raw.webp",
-    alt: "Bilwa Luxury Velvet Gift Set with 24K Gold Coin and Bar",
-    desktopCol: "lg:col-start-3 lg:col-end-5",
-    desktopRow: "lg:row-start-2 lg:row-end-4",
-    titleSize: "text-[20px] sm:text-[24px] lg:text-[26px]",
-  },
-  {
-    id: "corporate-gifting",
-    title: "Corporate gifting",
-    href: "#corporate-gifting",
-    image: "/images/bilva/collection-corporate-gifting-raw.webp",
-    alt: "Custom Engraved Bilwa Corporate Presentation Set",
-    desktopCol: "lg:col-start-1 lg:col-end-3",
-    desktopRow: "lg:row-start-3 lg:row-end-4",
-    titleSize: "text-[20px] sm:text-[24px] lg:text-[26px]",
-  },
-];
+const COLLECTIONS = HOME_COLLECTIONS;
 
 export function BilvaCollectionsSection() {
   return (
@@ -110,7 +40,7 @@ export function BilvaCollectionsSection() {
           {/* Right Action: View all collections */}
           <div className="shrink-0 pb-1 w-full sm:w-auto">
             <Link
-              href="#all-collections"
+              href={GOLD_COINS_AND_BARS_PATH}
               className="inline-flex items-center gap-1.5 text-[14px] sm:text-[15px] font-sans font-medium text-[#0A2D23] hover:text-[#A67C44] transition-colors border-b border-[#0A2D23] hover:border-[#A67C44] pb-0.5 group cursor-pointer max-sm:w-full max-sm:justify-between"
             >
               <span>View all collections</span>

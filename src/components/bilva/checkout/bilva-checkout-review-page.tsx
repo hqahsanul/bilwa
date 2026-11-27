@@ -17,11 +17,18 @@ import {
   Smartphone,
 } from "lucide-react";
 import { BILVA_SITE_SHELL_CLASS } from "@/lib/bilva-site-shell";
+import { CHECKOUT_PAYMENT_PENDING_PATH } from "@/lib/bilva-collection-routes";
 import {
   CHECKOUT_REVIEW_DATA,
   type CheckoutPaymentMethod,
 } from "@/data/bilva/checkout-review";
 import styles from "./bilva-checkout-review-page.module.css";
+import { USE_CASE_PAN_REVIEW } from "@/data/bilva/use-cases";
+import {
+  BilvaPanReviewBlock,
+  BilvaRatesBanner,
+} from "@/components/bilva/use-cases/bilva-use-case-states";
+import { isValidPan } from "@/data/bilva/use-cases";
 
 function PaymentMethodIcon({ id }: { id: CheckoutPaymentMethod["id"] }) {
   switch (id) {
@@ -65,9 +72,25 @@ export function BilvaCheckoutReviewPage() {
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [showTermsError, setShowTermsError] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [panValue, setPanValue] = useState("ABCDE1234");
+  const [panError, setPanError] = useState<string | null>(USE_CASE_PAN_REVIEW.error);
+  const [panMasked, setPanMasked] = useState(false);
+
+  const handlePanContinue = () => {
+    if (!isValidPan(panValue)) {
+      setPanError(USE_CASE_PAN_REVIEW.error);
+      return;
+    }
+    setPanError(null);
+  };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!isValidPan(panValue)) {
+      setPanError(USE_CASE_PAN_REVIEW.error);
+      return;
+    }
+    setPanError(null);
     if (!termsAccepted) {
       setShowTermsError(true);
       termsInputRef.current?.focus();
@@ -75,7 +98,7 @@ export function BilvaCheckoutReviewPage() {
     }
     setShowTermsError(false);
     setIsSubmitting(true);
-    router.push("/checkout/confirmed");
+    router.push(CHECKOUT_PAYMENT_PENDING_PATH);
   };
 
   return (
@@ -189,6 +212,24 @@ export function BilvaCheckoutReviewPage() {
                 </div>
               ))}
             </section>
+
+            <BilvaPanReviewBlock
+              panValue={panValue}
+              error={panError}
+              showMasked={panMasked}
+              onChange={(value) => {
+                setPanValue(value);
+                if (panError && value.length === 10 && isValidPan(value)) {
+                  setPanError(null);
+                }
+              }}
+              onContinue={handlePanContinue}
+              onToggleMasked={() => setPanMasked((m) => !m)}
+            />
+
+            <div className={styles["ratesBannerWrap"]}>
+              <BilvaRatesBanner />
+            </div>
 
             {/* Payment method */}
             <fieldset className={styles["pmFieldset"]}>

@@ -4,6 +4,7 @@ import { BilvaNavbar } from "@/components/bilva/bilva-navbar";
 import { BilvaFooter } from "@/components/bilva/bilva-footer";
 import { BilvaMetalDiscoverSection } from "@/components/bilva/gold-collection/bilva-gold-discover-section";
 import { BILVA_SITE_SHELL_CLASS } from "@/lib/bilva-site-shell";
+import { FIVE_MUKHI_RUDRAKSHA_PATH } from "@/lib/bilva-collection-routes";
 import { RUDRAKSH_PRODUCTS } from "@/data/bilva/rudraksh";
 import { BilvaRudrakshHero } from "./bilva-rudraksh-hero";
 import { BilvaRudrakshGuideBar } from "./bilva-rudraksh-guide-bar";
@@ -20,6 +21,7 @@ const RUDRAKSH_DISCOVER_PRODUCTS = RUDRAKSH_PRODUCTS.map((product) => ({
   image: product.image,
   alt: product.alt,
   badge: product.badge,
+  href: FIVE_MUKHI_RUDRAKSHA_PATH,
 }));
 
 export function BilvaRudrakshPage() {

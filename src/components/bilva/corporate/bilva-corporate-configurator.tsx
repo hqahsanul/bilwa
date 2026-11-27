@@ -3,7 +3,10 @@
 import { useState } from "react";
 import { Headphones, Truck, ChevronDown, Check } from "lucide-react";
 import { BILVA_SITE_FRAME_CLASS, BILVA_SITE_SHELL_CLASS } from "@/lib/bilva-site-shell";
-import { CORPORATE_GIFTING_DATA } from "@/data/bilva/corporate-gifting";
+import {
+  CORPORATE_GIFTING_DATA,
+  type CorporateGiftingPageData,
+} from "@/data/bilva/corporate-gifting";
 
 // Clean bespoke SVG line icons matching the reference image exactly
 function PackagingIcon() {
@@ -83,6 +86,7 @@ function CalendarIcon() {
 }
 
 interface BilvaCorporateConfiguratorProps {
+  data?: CorporateGiftingPageData;
   onRequestQuote: (config: {
     quantity: string;
     finish: string;
@@ -93,13 +97,17 @@ interface BilvaCorporateConfiguratorProps {
 }
 
 export function BilvaCorporateConfigurator({
+  data = CORPORATE_GIFTING_DATA,
   onRequestQuote,
   onSpeakSpecialist,
 }: BilvaCorporateConfiguratorProps) {
-  const { signatureSection, configurator } = CORPORATE_GIFTING_DATA;
+  const { signatureSection, configurator } = data;
+  const titleLines = signatureSection.title.split("\n");
 
   // Interactive Configurator States
-  const [selectedQuantity, setSelectedQuantity] = useState("25");
+  const [selectedQuantity, setSelectedQuantity] = useState(
+    configurator.defaultQuantity ?? configurator.quantities[0]
+  );
   const [selectedFinish, setSelectedFinish] = useState("Gold");
   const [selectedPersonalization, setSelectedPersonalization] = useState("Yes");
   const [selectedRegion, setSelectedRegion] = useState("Select region");
@@ -148,9 +156,11 @@ export function BilvaCorporateConfigurator({
                 </span>
 
                 <h2 className="mt-2 mb-3 font-serif text-[clamp(2.65rem,4.2vw,3.5rem)] font-medium leading-[1.08] tracking-[-0.01em] text-[#13382C]">
-                  Corporate
-                  <br />
-                  Signature Collection
+                  {titleLines.map((line) => (
+                    <span key={line} className="block">
+                      {line}
+                    </span>
+                  ))}
                 </h2>
 
                 <p className="mb-4 max-w-lg font-sans text-[17.5px] leading-relaxed text-[#4A5D55] sm:text-[18px]">
@@ -193,7 +203,7 @@ export function BilvaCorporateConfigurator({
 
                 <div className="space-y-2.5">
                   <label className="block font-sans text-[15.5px] font-semibold text-[#1E3B30] sm:text-[16px]">
-                    Quantity (units)
+                    {configurator.quantityLabel ?? "Quantity (units)"}
                   </label>
                   <div className="grid grid-cols-4 gap-2.5 sm:gap-3">
                     {configurator.quantities.map((qty) => (
@@ -229,7 +239,7 @@ export function BilvaCorporateConfigurator({
 
                 <div className="mt-4 space-y-2.5 sm:mt-5">
                   <label className="block font-sans text-[15.5px] font-semibold text-[#1E3B30] sm:text-[16px]">
-                    Brand personalization
+                    {configurator.personalizationLabel ?? "Brand personalization"}
                   </label>
                   <div className="grid max-w-[240px] grid-cols-2 gap-2.5">
                     {configurator.personalizations.map((item) => (

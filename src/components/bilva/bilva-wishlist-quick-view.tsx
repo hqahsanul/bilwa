@@ -3,6 +3,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Info, X } from "lucide-react";
+import {
+  GOLD_COINS_AND_BARS_PATH,
+  LAKSHMI_GOLD_COIN_PATH,
+  LAKSHMI_SILVER_COIN_PATH,
+  WISHLIST_PATH,
+} from "@/lib/bilva-collection-routes";
 
 const LINK_TEAL = "#0B6B5C";
 const INK = "#0A2D23";
@@ -23,7 +29,7 @@ export const MOCK_WISHLIST_ITEMS: WishlistItem[] = [
     id: "gold-coin-1g",
     title: "Gold Coin · 1 g",
     subtitle: "Illustrative item",
-    href: "#catalog",
+    href: LAKSHMI_GOLD_COIN_PATH,
     image: "/images/bilva/bestseller-gold-coin-clean.webp",
     alt: "Gold coin 1 g",
   },
@@ -31,7 +37,7 @@ export const MOCK_WISHLIST_ITEMS: WishlistItem[] = [
     id: "silver-coin-1g",
     title: "Silver Coin · 1 g",
     subtitle: "Illustrative item",
-    href: "#catalog",
+    href: LAKSHMI_SILVER_COIN_PATH,
     image: "/images/bilva/bestseller-silver-coin-clean.webp",
     alt: "Silver coin 1 g",
   },
@@ -99,7 +105,7 @@ export function BilvaWishlistQuickView({
             Your wishlist is empty.
           </p>
           <Link
-            href="#explore-collections"
+            href={GOLD_COINS_AND_BARS_PATH}
             onClick={onClose}
             className="mt-3 inline-block font-sans text-[12.5px] font-medium underline underline-offset-2 decoration-[#0B6B5C]/55"
             style={{ color: LINK_TEAL }}
@@ -156,7 +162,7 @@ export function BilvaWishlistQuickView({
             </p>
           </div>
           <Link
-            href="#wishlist"
+            href={WISHLIST_PATH}
             onClick={onClose}
             className="mt-3 flex w-full items-center justify-center gap-1.5 rounded-[6px] bg-[#0B6B5C] py-2.5 font-sans text-[13px] font-semibold text-white transition-colors hover:bg-[#095548]"
           >

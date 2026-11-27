@@ -13,7 +13,9 @@ import {
   Smartphone,
 } from "lucide-react";
 import { BILVA_SITE_SHELL_CLASS } from "@/lib/bilva-site-shell";
+import { CHECKOUT_DELIVERY_PATH } from "@/lib/bilva-collection-routes";
 import { CHECKOUT_DATA } from "@/data/bilva/checkout";
+import { DEMO_VALID_OTP, USE_CASE_OTP_INVALID } from "@/data/bilva/use-cases";
 import styles from "./bilva-checkout-page.module.css";
 
 const COUNTRY_CODES = ["+91", "+1", "+44", "+971", "+65"];
@@ -32,7 +34,7 @@ export function BilvaCheckoutPage() {
   const [countryCode, setCountryCode] = useState(mobileOtp.defaultCountryCode);
   const [isCcOpen, setIsCcOpen] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [otpDigits, setOtpDigits] = useState<string[]>(["", "", "", "", ""]);
+  const [otpDigits, setOtpDigits] = useState<string[]>(["", "", "", "", "", ""]);
   const [otpMessage, setOtpMessage] = useState<{
     text: string;
     tone: "neutral" | "ok" | "err";
@@ -139,11 +141,19 @@ export function BilvaCheckoutPage() {
       otpRefs.current[firstEmpty > -1 ? firstEmpty : 0]?.focus();
       return;
     }
+    if (code !== DEMO_VALID_OTP) {
+      setOtpMessage({
+        text: USE_CASE_OTP_INVALID.message,
+        tone: "err",
+      });
+      otpRefs.current[0]?.focus();
+      return;
+    }
     setOtpMessage({
       text: "Verified. Continuing to delivery…",
       tone: "ok",
     });
-    router.push("/checkout/delivery");
+    router.push(CHECKOUT_DELIVERY_PATH);
   };
 
   const handleGuestContinue = (e: React.FormEvent<HTMLFormElement>) => {
@@ -161,7 +171,7 @@ export function BilvaCheckoutPage() {
       text: `Continuing as guest with ${trimmed}…`,
       tone: "ok",
     });
-    router.push("/checkout/delivery");
+    router.push(CHECKOUT_DELIVERY_PATH);
   };
 
   return (

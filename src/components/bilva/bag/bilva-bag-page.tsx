@@ -3,19 +3,33 @@
 import { useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { ArrowLeft, ArrowRight, Box, ChevronDown, Gift, Headphones, Info, Lock, Minus, Plus, Tag, Truck, X } from "lucide-react";
 import { BILVA_SITE_SHELL_CLASS } from "@/lib/bilva-site-shell";
 import { BAG_ALSO, BAG_EXTRAS, BAG_LINES, BAG_OFFERS, BAG_PAGE, type BagLine } from "@/data/bilva/bag";
+import {
+  BilvaBagAttentionCard,
+  BilvaEmptyBagState,
+  BilvaRatesBanner,
+} from "@/components/bilva/use-cases/bilva-use-case-states";
 
 function formatInr(value: number) {
   return `₹${value.toLocaleString("en-IN")}`;
 }
 
 export function BilvaBagPage() {
+  const searchParams = useSearchParams();
+  const attentionFromUrl = searchParams.get("attention") === "1";
+
   const [lines, setLines] = useState<BagLine[]>(BAG_LINES);
   const [code, setCode] = useState("");
   const [codeNote, setCodeNote] = useState("");
   const [offersOpen, setOffersOpen] = useState(true);
+  const [demoAttention, setDemoAttention] = useState(false);
+  const [attentionDismissed, setAttentionDismissed] = useState(false);
+
+  const showAttention =
+    !attentionDismissed && (attentionFromUrl || demoAttention) && lines.length > 0;
 
   const pieceCount = lines.reduce((sum, line) => sum + line.quantity, 0);
   const itemsTotal = useMemo(() => lines.reduce((sum, line) => sum + line.unitPrice * line.quantity, 0), [lines]);
@@ -50,6 +64,25 @@ export function BilvaBagPage() {
 
         <div className="mt-6 grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_22.5rem]">
           <div>
+            {lines.length === 0 ? (
+              <BilvaEmptyBagState />
+            ) : (
+            <>
+            {showAttention ? (
+              <h2 className="mb-4 font-serif text-[1.35rem] font-semibold text-[#143028]">
+                Updates in your bag
+              </h2>
+            ) : null}
+            {showAttention ? (
+              <div className="mb-4">
+                <BilvaBagAttentionCard
+                  onReviewTotal={() => {
+                    setAttentionDismissed(true);
+                    setDemoAttention(false);
+                  }}
+                />
+              </div>
+            ) : null}
             <div className="flex flex-col gap-4">
               {lines.map((line) => (
                 <article key={line.id} className="grid grid-cols-[92px_minmax(0,1fr)] gap-4 rounded-[16px] border border-[#E7E1D6] bg-white p-3 sm:grid-cols-[112px_minmax(0,1fr)_auto] sm:items-center sm:p-4">
@@ -89,8 +122,13 @@ export function BilvaBagPage() {
                   </div>
                 </article>
               ))}
-              {lines.length === 0 ? <p className="rounded-[16px] border border-[#E7E1D6] bg-white px-5 py-8 font-sans text-[15px] font-medium text-[#5C6B62]">Your bag is empty.</p> : null}
             </div>
+
+            <BagDemoAttentionToggle
+              demoAttention={demoAttention}
+              attentionFromUrl={attentionFromUrl}
+              onToggle={() => setDemoAttention((on) => !on)}
+            />
 
             <div className="mt-4 flex flex-wrap items-center gap-3 rounded-[12px] bg-[#E7EFE4] px-4 py-3 font-sans text-[14px] font-medium text-[#143028]">
               <Info size={16} className="shrink-0" />
@@ -122,8 +160,11 @@ export function BilvaBagPage() {
                 ))}
               </div>
             </div>
+            </>
+            )}
           </div>
 
+          {lines.length > 0 ? (
           <aside className="rounded-[18px] bg-[#E7EFE4] p-5 sm:p-6 lg:sticky lg:top-6">
             <h2 className="font-serif text-[1.65rem] font-semibold text-[#143028]">{BAG_PAGE.summaryTitle}</h2>
             <div className="mt-4 space-y-2.5 font-sans text-[14.5px] font-medium text-[#3E4E46]">
@@ -141,6 +182,10 @@ export function BilvaBagPage() {
                 <span>{BAG_PAGE.taxesLabel}</span>
                 <span>{BAG_PAGE.taxesValue}</span>
               </div>
+            </div>
+
+            <div className="mt-4">
+              <BilvaRatesBanner />
             </div>
 
             <div className="mt-5 border-t border-[#D5DECE] pt-4">
@@ -195,7 +240,18 @@ export function BilvaBagPage() {
                 <p className="font-serif text-[1.7rem] font-semibold text-[#143028]">{formatInr(itemsTotal)}</p>
               </div>
               <p className="mt-1 font-sans text-[12.5px] font-medium text-[#5C6B62]">{BAG_PAGE.estimateNote}</p>
-              <Link href="/checkout" className="mt-4 flex h-12 w-full cursor-pointer items-center justify-center gap-2 rounded-[10px] bg-[#1A3324] font-sans text-[15.5px] font-semibold text-white">
+              {showAttention ? (
+                <p className="mt-4 rounded-[10px] border border-[#e8d4b0] bg-[#faf3e8] px-3 py-2 text-center font-sans text-[12.5px] font-medium text-[#4a4035]">
+                  Review updated totals before you continue to checkout.
+                </p>
+              ) : null}
+              <Link
+                href="/checkout"
+                aria-disabled={showAttention}
+                className={`mt-4 flex h-12 w-full items-center justify-center gap-2 rounded-[10px] bg-[#1A3324] font-sans text-[15.5px] font-semibold text-white ${
+                  showAttention ? "pointer-events-none opacity-45" : "cursor-pointer"
+                }`}
+              >
                 {BAG_PAGE.checkout}
                 <ArrowRight size={16} />
               </Link>
@@ -215,8 +271,10 @@ export function BilvaBagPage() {
               </span>
             </div>
           </aside>
+          ) : null}
         </div>
 
+        {lines.length > 0 ? (
         <div className="mt-12">
           <h2 className="font-serif text-[1.85rem] font-semibold text-[#143028]">{BAG_PAGE.alsoTitle}</h2>
           <p className="mt-1 font-sans text-[14.5px] font-medium text-[#5C6B62]">{BAG_PAGE.alsoIntro}</p>
@@ -237,7 +295,29 @@ export function BilvaBagPage() {
             ))}
           </div>
         </div>
+        ) : null}
       </div>
     </section>
+  );
+}
+
+function BagDemoAttentionToggle({
+  demoAttention,
+  attentionFromUrl,
+  onToggle,
+}: {
+  demoAttention: boolean;
+  attentionFromUrl: boolean;
+  onToggle: () => void;
+}) {
+  if (attentionFromUrl) return null;
+  return (
+    <button
+      type="button"
+      onClick={onToggle}
+      className="mt-4 font-sans text-[12px] font-semibold text-[#1F6B45] underline underline-offset-2"
+    >
+      {demoAttention ? "Hide demo: bag attention" : "Demo: bag needs attention"}
+    </button>
   );
 }

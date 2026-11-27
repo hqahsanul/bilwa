@@ -29,7 +29,7 @@ export const LOGIN_DATA = {
     privacyLabel: "Privacy Policy",
     privacyHref: "/privacy",
     helpLabel: "Need assistance?",
-    helpHref: "/#contact-us",
+    helpHref: "/contact",
     successRedirectHref: "/my-account",
   },
 };

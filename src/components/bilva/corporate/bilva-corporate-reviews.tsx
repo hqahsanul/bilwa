@@ -3,10 +3,19 @@
 import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { BILVA_SITE_FRAME_CLASS, BILVA_SITE_SHELL_CLASS } from "@/lib/bilva-site-shell";
-import { CORPORATE_GIFTING_DATA } from "@/data/bilva/corporate-gifting";
+import {
+  CORPORATE_GIFTING_DATA,
+  type CorporateGiftingPageData,
+} from "@/data/bilva/corporate-gifting";
 
-export function BilvaCorporateReviews() {
-  const { reviews } = CORPORATE_GIFTING_DATA;
+interface BilvaCorporateReviewsProps {
+  data?: CorporateGiftingPageData;
+}
+
+export function BilvaCorporateReviews({
+  data = CORPORATE_GIFTING_DATA,
+}: BilvaCorporateReviewsProps) {
+  const { reviews } = data;
   const [currentIndex, setCurrentIndex] = useState(0);
   const slideCount = reviews.cards.length;
 

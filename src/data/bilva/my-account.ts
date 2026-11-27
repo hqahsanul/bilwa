@@ -145,7 +145,7 @@ export const MY_ACCOUNT_DATA = {
         title: "Emerald Gemstone",
         subtitle: "Example layout",
         actionLabel: "View Wishlist",
-        href: "/#explore-collections",
+        href: "/gold-silver/gold-coins-and-bars",
         imageSrc: "/images/bilva/collection-gemstones-raw.webp",
         imageAlt: "Natural Emerald Gemstone",
       },
@@ -157,7 +157,7 @@ export const MY_ACCOUNT_DATA = {
     description:
       "Our support team is here to assist you with your purchase, documents or any order-related query.",
     ctaLabel: "Contact Support",
-    ctaHref: "/#contact-us",
+    ctaHref: "/contact",
   },
 
   preferences: {
@@ -170,6 +170,7 @@ export const MY_ACCOUNT_DATA = {
         href: "/my-bilwa",
       },
       { id: "privacy", label: "Privacy controls", href: "/privacy" },
+      { id: "sign-out", label: "Sign out", href: "/login" },
     ],
     openAriaLabel: "Open preferences",
     openHref: "/my-bilwa",

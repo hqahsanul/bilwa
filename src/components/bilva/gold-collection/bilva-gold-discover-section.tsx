@@ -988,11 +988,11 @@ export function BilvaMetalDiscoverSection({
                   <p className={PRODUCT_CARD_PRICE}>{product.price}</p>
                 </div>
                 <div className="flex shrink-0 flex-wrap items-center gap-3 px-3.5 pb-3.5 sm:px-4">
-                  <Button variant="bilwaBag" size="bilwaProduct" className="flex-1 sm:flex-none">
-                    Add to bag
+                  <Button asChild variant="bilwaBag" size="bilwaProduct" className="flex-1 sm:flex-none">
+                    <Link href="/bag">Add to bag</Link>
                   </Button>
                   <Link
-                    href="#"
+                    href={product.href}
                     className="inline-flex items-center gap-1 font-sans text-[13px] font-medium text-[#0B6B5C] hover:underline"
                   >
                     View details

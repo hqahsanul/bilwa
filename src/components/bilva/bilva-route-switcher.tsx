@@ -35,18 +35,30 @@ const BILVA_ROUTE_GROUPS: ReadonlyArray<RouteGroup> = [
     group: "Bag & Checkout",
     routes: [
       { label: "Bag", href: "/bag" },
+      { label: "Bag — Needs attention", href: "/bag?attention=1" },
       { label: "Wishlist", href: "/wishlist" },
       { label: "Checkout", href: "/checkout" },
       { label: "Checkout — Delivery", href: "/checkout/delivery" },
       { label: "Checkout — Review", href: "/checkout/review" },
       { label: "Checkout — Payment Pending", href: "/checkout/payment-pending" },
+      { label: "Checkout — Payment Failed", href: "/checkout/payment-pending?status=failed" },
       { label: "Checkout — Confirmed", href: "/checkout/confirmed" },
+    ],
+  },
+  {
+    group: "Gifting",
+    routes: [
+      { label: "Gifting Catalogue", href: "/gifting" },
+      { label: "Gifting — Signature", href: "/gifting/signature" },
+      { label: "Gifting — Enquiry", href: "/gifting/enquiry" },
+      { label: "Gifting — Enquiry Submitted", href: "/gifting/enquiry-submitted" },
     ],
   },
   {
     group: "Corporate & Support",
     routes: [
       { label: "Corporate Gifting", href: "/corporate-gifting" },
+      { label: "Corporate Gifting — Signature", href: "/corporate-gifting/signature" },
       { label: "Corporate Gifting — Enquiry", href: "/corporate-gifting/enquiry" },
       { label: "Corporate Gifting — Enquiry Submitted", href: "/corporate-gifting/enquiry-submitted" },
       { label: "Contact", href: "/contact" },

@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { BilvaLogo } from "./bilva-logo";
 import { BilvaSearchOverlay } from "./bilva-search-overlay";
 import {
@@ -22,6 +22,7 @@ import {
   Heart,
   ShoppingBag,
   ChevronDown,
+  LogOut,
   Menu,
   X,
 } from "lucide-react";
@@ -34,7 +35,16 @@ import {
   LAKSHMI_SILVER_COIN_PATH,
   LAKSHMI_GOLD_COIN_PATH,
   CORPORATE_GIFTING_PATH,
+  GEMSTONES_PATH,
+  GIFTING_PATH,
+  SEARCH_PATH,
 } from "@/lib/bilva-collection-routes";
+import {
+  NAV_ACCOUNT_MENU,
+  NAV_GUIDE_LINKS,
+  NAV_GIFTING_PERSONALISE,
+  NAV_PRIMARY_ITEMS,
+} from "@/data/bilva/navigation";
 import { BILVA_SITE_SHELL_CLASS } from "@/lib/bilva-site-shell";
 import { cn } from "@/lib/utils";
 
@@ -44,6 +54,7 @@ const RUDRAKSH_PATH = RUDRAKSH_COLLECTION_PATH;
 
 export function BilvaNavbar() {
   const pathname = usePathname();
+  const router = useRouter();
   const frameClass = BILVA_SITE_SHELL_CLASS;
   // Menu is strictly CLOSED by default on site load
   const [openMenu, setOpenMenu] = useState<string | null>(null);
@@ -55,7 +66,9 @@ export function BilvaNavbar() {
   const bagCount = bagItems.reduce((sum, item) => sum + item.quantity, 0);
   const [isWishlistOpen, setIsWishlistOpen] = useState(false);
   const [wishlistItems, setWishlistItems] = useState<WishlistItem[]>(MOCK_WISHLIST_ITEMS);
+  const [isAccountOpen, setIsAccountOpen] = useState(false);
   const navRef = useRef<HTMLDivElement>(null);
+  const accountAnchorRef = useRef<HTMLDivElement>(null);
   const wishlistAnchorRef = useRef<HTMLDivElement>(null);
   const bagAnchorRef = useRef<HTMLDivElement>(null);
   const searchDesktopTriggerRef = useRef<HTMLButtonElement>(null);
@@ -65,13 +78,15 @@ export function BilvaNavbar() {
   const megaMenuRef = useRef<HTMLDivElement>(null);
   const navMenuBarRef = useRef<HTMLElement>(null);
 
-  const isFlyoutOpen = isSearchOpen || isWishlistOpen || isBagOpen || openMenu !== null;
+  const isFlyoutOpen =
+    isSearchOpen || isWishlistOpen || isBagOpen || isAccountOpen || openMenu !== null;
 
   const closeAllFlyouts = () => {
     setOpenMenu(null);
     setIsSearchOpen(false);
     setIsWishlistOpen(false);
     setIsBagOpen(false);
+    setIsAccountOpen(false);
   };
 
   // Close flyouts when clicking outside their panels (including header chrome beside the card)
@@ -84,6 +99,9 @@ export function BilvaNavbar() {
         if (openMenu) setOpenMenu(null);
       }
 
+      if (isAccountOpen && accountAnchorRef.current && !accountAnchorRef.current.contains(target)) {
+        setIsAccountOpen(false);
+      }
       if (isWishlistOpen && wishlistAnchorRef.current && !wishlistAnchorRef.current.contains(target)) {
         setIsWishlistOpen(false);
       }
@@ -109,7 +127,7 @@ export function BilvaNavbar() {
 
     document.addEventListener("pointerdown", handlePointerDown);
     return () => document.removeEventListener("pointerdown", handlePointerDown);
-  }, [isWishlistOpen, isBagOpen, isSearchOpen, openMenu]);
+  }, [isAccountOpen, isWishlistOpen, isBagOpen, isSearchOpen, openMenu]);
 
   // Close on Escape key
   useEffect(() => {
@@ -127,6 +145,7 @@ export function BilvaNavbar() {
     setIsSearchOpen(false);
     setIsWishlistOpen(false);
     setIsBagOpen(false);
+    setIsAccountOpen(false);
     if (!hasDropdown) {
       setOpenMenu(null);
       return;
@@ -138,6 +157,7 @@ export function BilvaNavbar() {
     setOpenMenu(null);
     setIsWishlistOpen(false);
     setIsBagOpen(false);
+    setIsAccountOpen(false);
     setIsSearchOpen(true);
     setSearchQuery((prev) => (prev.trim() ? prev : "gold coin"));
   };
@@ -146,10 +166,21 @@ export function BilvaNavbar() {
     setIsSearchOpen(false);
   };
 
+  const toggleAccount = () => {
+    setOpenMenu(null);
+    closeSearch();
+    setIsWishlistOpen(false);
+    setIsBagOpen(false);
+    setIsAccountOpen((open) => !open);
+  };
+
+  const closeAccount = () => setIsAccountOpen(false);
+
   const toggleWishlist = () => {
     setOpenMenu(null);
     closeSearch();
     setIsBagOpen(false);
+    setIsAccountOpen(false);
     setIsWishlistOpen((open) => !open);
   };
 
@@ -163,6 +194,7 @@ export function BilvaNavbar() {
     setOpenMenu(null);
     closeSearch();
     setIsWishlistOpen(false);
+    setIsAccountOpen(false);
     setIsBagOpen((open) => !open);
   };
 
@@ -176,17 +208,10 @@ export function BilvaNavbar() {
     const q = searchQuery.trim() || "gold coin";
     setSearchQuery(q);
     closeSearch();
-    window.location.hash = `catalog?q=${encodeURIComponent(q)}`;
+    router.push(`${SEARCH_PATH}?q=${encodeURIComponent(q)}`);
   };
 
-  const menuList = [
-    { label: "Gold & Silver", hasDropdown: true },
-    { label: "Rudraksh", hasDropdown: true },
-    { label: "Gemstones", hasDropdown: true },
-    { label: "Gifting", hasDropdown: true },
-    { label: "Corporate Gifting", hasDropdown: false, href: CORPORATE_GIFTING_PATH },
-    { label: "Our Story", hasDropdown: false },
-  ];
+  const menuList = NAV_PRIMARY_ITEMS;
 
   return (
     <div ref={navRef} className="w-full relative z-50 select-none">
@@ -226,13 +251,72 @@ export function BilvaNavbar() {
 
             {/* Right Minimalist Luxury Icons: User, Search, Heart, Bag */}
             <div className="flex items-center gap-2 sm:gap-6 md:gap-7 text-[#0A2D23]">
-              {/* Account / User */}
-              <button
-                className="hover:text-[#B58E3F] transition-colors cursor-pointer group hidden sm:block p-1"
-                aria-label="Account login"
-              >
-                <User size={22} strokeWidth={1.5} className="group-hover:scale-105 transition-transform" />
-              </button>
+              {/* Account / User — My Bilwa menu + logout */}
+              <div ref={accountAnchorRef} className="relative">
+                <button
+                  type="button"
+                  onClick={toggleAccount}
+                  className={`flex min-h-11 min-w-11 cursor-pointer items-center justify-center rounded-full transition-colors group ${
+                    isAccountOpen
+                      ? "border-2 border-[#387C71] bg-[#E8F0EC] text-[#387C71]"
+                      : "border-2 border-transparent text-[#0A2D23] hover:text-[#B58E3F]"
+                  }`}
+                  aria-label="Account menu"
+                  aria-expanded={isAccountOpen}
+                  aria-haspopup="menu"
+                >
+                  <User
+                    size={22}
+                    strokeWidth={1.5}
+                    className={`transition-transform ${isAccountOpen ? "" : "group-hover:scale-105"}`}
+                  />
+                </button>
+                {isAccountOpen ? (
+                  <div
+                    className="absolute right-0 top-full z-[70] mt-3 w-[16.74rem] overflow-hidden rounded-[8px] border border-[#E2DDD5] bg-white shadow-[0_14px_34px_rgba(0,0,0,0.1)] animate-in fade-in slide-in-from-top-1 duration-150"
+                    role="menu"
+                    aria-label="Account"
+                  >
+                    <div
+                      className="pointer-events-none absolute -top-[7px] right-5 h-3.5 w-3.5 rotate-45 border-l border-t border-[#E2DDD5] bg-white"
+                      aria-hidden
+                    />
+                    <div className="border-b border-[#EFEAE2] px-4 py-3.5">
+                      <p className="font-sans text-[19px] font-bold uppercase tracking-[0.06em] text-[#0A2D23]">
+                        My Bilwa
+                      </p>
+                    </div>
+                    <ul className="py-1.5">
+                      {NAV_ACCOUNT_MENU.map((item) => (
+                        <li key={item.id}>
+                          {item.isLogout ? (
+                            <div className="mt-1 border-t border-[#EFEAE2] pt-1">
+                              <Link
+                                href={item.href}
+                                role="menuitem"
+                                onClick={closeAccount}
+                                className="flex items-center gap-2.5 px-4 py-3 font-sans text-[20px] font-semibold text-[#8B3A2F] transition-colors hover:bg-[#F7F3EC]"
+                              >
+                                <LogOut size={22} strokeWidth={2} aria-hidden />
+                                {item.label}
+                              </Link>
+                            </div>
+                          ) : (
+                            <Link
+                              href={item.href}
+                              role="menuitem"
+                              onClick={closeAccount}
+                              className="block px-4 py-3 font-sans text-[20px] font-semibold text-[#0A2D23] transition-colors hover:bg-[#F7F3EC] hover:text-[#387C71]"
+                            >
+                              {item.label}
+                            </Link>
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ) : null}
+              </div>
 
               {/* Search — pill on desktop, icon on small screens */}
               <button
@@ -335,49 +419,49 @@ export function BilvaNavbar() {
           <nav ref={navMenuBarRef} className="flex items-center justify-center gap-12 xl:gap-16 h-[58px] relative">
             {menuList.map((item) => {
               const isOpen = openMenu === item.label;
+              const isRouteActive =
+                item.href === "/"
+                  ? pathname === "/"
+                  : pathname === item.href || pathname.startsWith(`${item.href}/`);
 
               return (
                 <div key={item.label} className="relative h-full flex items-center">
-                  {"href" in item && item.href ? (
+                  <div
+                    className={cn(
+                      "relative inline-flex items-center gap-1.5 text-[17px] xl:text-[18px] font-sans tracking-[0.02em] h-full px-2",
+                      isOpen || isRouteActive
+                        ? "text-[#0A2D23] font-semibold"
+                        : "text-[#283832]",
+                    )}
+                  >
                     <Link
                       href={item.href}
-                      className={cn(
-                        "relative inline-flex items-center gap-2 text-[17px] xl:text-[18px] font-sans tracking-[0.02em] transition-colors cursor-pointer h-full px-2",
-                        pathname === item.href
-                          ? "text-[#0A2D23] font-semibold"
-                          : "text-[#283832] hover:text-[#0A2D23]",
-                      )}
+                      onClick={() => setOpenMenu(null)}
+                      className="hover:text-[#0A2D23] transition-colors cursor-pointer"
                     >
-                      <span>{item.label}</span>
-                      {pathname === item.href && (
-                        <span className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-[#0A2D23]" />
-                      )}
+                      {item.label}
                     </Link>
-                  ) : (
-                    <button
-                      onClick={() => handleMenuClick(item.label, item.hasDropdown)}
-                      className={`relative inline-flex items-center gap-2 text-[17px] xl:text-[18px] font-sans tracking-[0.02em] transition-colors cursor-pointer h-full px-2 ${
-                        isOpen
-                          ? "text-[#0A2D23] font-semibold"
-                          : "text-[#283832] hover:text-[#0A2D23]"
-                      }`}
-                    >
-                      <span>{item.label}</span>
-                      {item.hasDropdown && (
+                    {item.hasDropdown ? (
+                      <button
+                        type="button"
+                        onClick={() => handleMenuClick(item.label, true)}
+                        className="inline-flex items-center justify-center p-0.5 cursor-pointer hover:text-[#0A2D23]"
+                        aria-label={`${isOpen ? "Close" : "Open"} ${item.label} menu`}
+                        aria-expanded={isOpen}
+                      >
                         <ChevronDown
                           size={16}
-                          className={`text-[#556961] transition-transform duration-200 ${
-                            isOpen ? "rotate-180 text-[#B58E3F]" : ""
-                          }`}
+                          className={cn(
+                            "text-[#556961] transition-transform duration-200",
+                            isOpen && "rotate-180 text-[#B58E3F]",
+                          )}
                         />
-                      )}
-
-                      {/* Exact Active Underline Indicator */}
-                      {isOpen && (
-                        <span className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-[#0A2D23]" />
-                      )}
-                    </button>
-                  )}
+                      </button>
+                    ) : null}
+                    {(isOpen || isRouteActive) && (
+                      <span className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-[#0A2D23]" />
+                    )}
+                  </div>
                 </div>
               );
             })}
@@ -465,24 +549,28 @@ export function BilvaNavbar() {
                           <p className="text-[12px] font-medium text-[#444444] mb-1.5">Gold:</p>
                           <div className="flex flex-wrap gap-1.5">
                             {["0.5 g", "1 g", "2 g", "5 g", "10 g"].map((weight) => (
-                              <button
+                              <Link
                                 key={weight}
+                                href={`${GOLD_COLLECTION_PATH}?weight=${encodeURIComponent(weight)}`}
+                                onClick={() => setOpenMenu(null)}
                                 className="px-2.5 py-0.5 text-[11.5px] font-sans rounded-[4px] border border-[#DDD5C7] bg-[#FFFFFF] text-[#333333] hover:border-[#387C71] hover:text-[#387C71] transition-colors cursor-pointer"
                               >
                                 {weight}
-                              </button>
+                              </Link>
                             ))}
                           </div>
 
                           <p className="text-[12px] font-medium text-[#444444] mt-3 mb-1.5">Silver:</p>
                           <div className="flex flex-wrap gap-1.5">
                             {["10 g", "20 g", "50 g", "100 g"].map((weight) => (
-                              <button
+                              <Link
                                 key={weight}
+                                href={`${SILVER_COLLECTION_PATH}?weight=${encodeURIComponent(weight)}`}
+                                onClick={() => setOpenMenu(null)}
                                 className="px-2.5 py-0.5 text-[11.5px] font-sans rounded-[4px] border border-[#DDD5C7] bg-[#FFFFFF] text-[#333333] hover:border-[#387C71] hover:text-[#387C71] transition-colors cursor-pointer"
                               >
                                 {weight}
-                              </button>
+                              </Link>
                             ))}
                           </div>
                         </div>
@@ -508,9 +596,21 @@ export function BilvaNavbar() {
 
                     {/* Bottom Link Bar */}
                     <div className="mt-4 pt-2.5 border-t border-[#EFEAE2] flex items-center gap-3 text-[12.5px] text-[#387C71]">
-                      <a href="#purity" className="hover:underline font-medium">Understand Purity</a>
+                      <Link
+                        href={NAV_GUIDE_LINKS.goldSilver[0].href}
+                        className="hover:underline font-medium"
+                        onClick={() => setOpenMenu(null)}
+                      >
+                        {NAV_GUIDE_LINKS.goldSilver[0].label}
+                      </Link>
                       <span className="text-[#C7BCAB]">|</span>
-                      <a href="#pricing-works" className="hover:underline font-medium">How Metal Pricing Works</a>
+                      <Link
+                        href={NAV_GUIDE_LINKS.goldSilver[1].href}
+                        className="hover:underline font-medium"
+                        onClick={() => setOpenMenu(null)}
+                      >
+                        {NAV_GUIDE_LINKS.goldSilver[1].label}
+                      </Link>
                     </div>
                   </div>
                 )}
@@ -634,9 +734,13 @@ export function BilvaNavbar() {
                         <ul className="space-y-2 text-[13px] text-[#333333]">
                           {["Emerald (Panna)", "Ruby (Manik)", "Blue Sapphire (Neelam)", "Yellow Sapphire (Pukhraj)", "All Gemstones"].map((link) => (
                             <li key={link}>
-                              <a href={`#${link.toLowerCase().replace(/\s+/g, "-")}`} className="block hover:text-[#387C71] hover:underline transition-colors">
+                              <Link
+                                href={GEMSTONES_PATH}
+                                className="block hover:text-[#387C71] hover:underline transition-colors"
+                                onClick={() => setOpenMenu(null)}
+                              >
                                 {link}
-                              </a>
+                              </Link>
                             </li>
                           ))}
                         </ul>
@@ -651,9 +755,13 @@ export function BilvaNavbar() {
                         <ul className="space-y-2 text-[13px] text-[#333333]">
                           {["Amethyst", "Citrine", "Garnet", "Tourmaline", "All Coloured Stones"].map((link) => (
                             <li key={link}>
-                              <a href={`#${link.toLowerCase().replace(/\s+/g, "-")}`} className="block hover:text-[#387C71] hover:underline transition-colors">
+                              <Link
+                                href={GEMSTONES_PATH}
+                                className="block hover:text-[#387C71] hover:underline transition-colors"
+                                onClick={() => setOpenMenu(null)}
+                              >
                                 {link}
-                              </a>
+                              </Link>
                             </li>
                           ))}
                         </ul>
@@ -668,9 +776,13 @@ export function BilvaNavbar() {
                         <ul className="space-y-2 text-[13px] text-[#333333]">
                           {["Stone Type", "Colour", "Carat Weight", "Certification", "Budget"].map((link) => (
                             <li key={link}>
-                              <a href={`#${link.toLowerCase().replace(/\s+/g, "-")}`} className="block hover:text-[#387C71] hover:underline transition-colors">
+                              <Link
+                                href={GEMSTONES_PATH}
+                                className="block hover:text-[#387C71] hover:underline transition-colors"
+                                onClick={() => setOpenMenu(null)}
+                              >
                                 {link}
-                              </a>
+                              </Link>
                             </li>
                           ))}
                         </ul>
@@ -679,8 +791,9 @@ export function BilvaNavbar() {
                       {/* Col 4: Featured Gemstone Card */}
                       <div className="w-[36%] pl-4 flex items-center justify-end">
                         <Link
-                          href="#gemstone-collection"
+                          href={GEMSTONES_PATH}
                           className="block relative w-full aspect-[342/160] rounded-[6px] overflow-hidden shadow-xs border border-[#E8E1D5] hover:opacity-95 transition-opacity"
+                          onClick={() => setOpenMenu(null)}
                         >
                           <Image
                             src="/images/bilva/banner-exact-gemstones-2x.jpg"
@@ -695,9 +808,21 @@ export function BilvaNavbar() {
 
                     {/* Bottom Link Bar */}
                     <div className="mt-4 pt-2.5 border-t border-[#EFEAE2] flex items-center gap-3 text-[12.5px] text-[#387C71]">
-                      <a href="#gemstone-guide" className="hover:underline font-medium">Gemstone Buying Guide</a>
+                      <Link
+                        href={NAV_GUIDE_LINKS.gemstones[0].href}
+                        className="hover:underline font-medium"
+                        onClick={() => setOpenMenu(null)}
+                      >
+                        {NAV_GUIDE_LINKS.gemstones[0].label}
+                      </Link>
                       <span className="text-[#C7BCAB]">|</span>
-                      <a href="#understanding-reports" className="hover:underline font-medium">Understanding Reports</a>
+                      <Link
+                        href={NAV_GUIDE_LINKS.gemstones[1].href}
+                        className="hover:underline font-medium"
+                        onClick={() => setOpenMenu(null)}
+                      >
+                        {NAV_GUIDE_LINKS.gemstones[1].label}
+                      </Link>
                     </div>
                   </div>
                 )}
@@ -715,9 +840,13 @@ export function BilvaNavbar() {
                         <ul className="space-y-2 text-[13px] text-[#333333]">
                           {["Weddings", "Anniversaries", "Festivals", "Milestones", "Housewarming"].map((link) => (
                             <li key={link}>
-                              <a href={`#${link.toLowerCase().replace(/\s+/g, "-")}`} className="block hover:text-[#387C71] hover:underline transition-colors">
+                              <Link
+                                href={GIFTING_PATH}
+                                className="block hover:text-[#387C71] hover:underline transition-colors"
+                                onClick={() => setOpenMenu(null)}
+                              >
                                 {link}
-                              </a>
+                              </Link>
                             </li>
                           ))}
                         </ul>
@@ -732,9 +861,13 @@ export function BilvaNavbar() {
                         <ul className="space-y-2 text-[13px] text-[#333333]">
                           {["Family & Loved Ones", "Friends", "Clients & Partners", "Employees", "All Gifts"].map((link) => (
                             <li key={link}>
-                              <a href={`#${link.toLowerCase().replace(/\s+/g, "-")}`} className="block hover:text-[#387C71] hover:underline transition-colors">
+                              <Link
+                                href={GIFTING_PATH}
+                                className="block hover:text-[#387C71] hover:underline transition-colors"
+                                onClick={() => setOpenMenu(null)}
+                              >
                                 {link}
-                              </a>
+                              </Link>
                             </li>
                           ))}
                         </ul>
@@ -747,11 +880,15 @@ export function BilvaNavbar() {
                         </h4>
                         <div className="w-[125px] h-[1px] bg-[#E8DFD0] mt-1.5 mb-3" />
                         <ul className="space-y-2 text-[13px] text-[#333333]">
-                          {["Engravable Coins", "Curated Gift Boxes", "Gift Packaging", "Personal Messages", "Corporate Enquiries"].map((link) => (
-                            <li key={link}>
-                              <a href={`#${link.toLowerCase().replace(/\s+/g, "-")}`} className="block hover:text-[#387C71] hover:underline transition-colors">
-                                {link}
-                              </a>
+                          {NAV_GIFTING_PERSONALISE.map((link) => (
+                            <li key={link.label}>
+                              <Link
+                                href={link.href}
+                                className="block hover:text-[#387C71] hover:underline transition-colors"
+                                onClick={() => setOpenMenu(null)}
+                              >
+                                {link.label}
+                              </Link>
                             </li>
                           ))}
                         </ul>
@@ -760,8 +897,9 @@ export function BilvaNavbar() {
                       {/* Col 4: Featured Gifting Card */}
                       <div className="w-[36%] pl-4 flex items-center justify-end">
                         <Link
-                          href="#gifting-collection"
+                          href={GIFTING_PATH}
                           className="block relative w-full aspect-[342/160] rounded-[6px] overflow-hidden shadow-xs border border-[#E8E1D5] hover:opacity-95 transition-opacity"
+                          onClick={() => setOpenMenu(null)}
                         >
                           <Image
                             src="/images/bilva/banner-exact-gifting-2x.jpg"
@@ -776,9 +914,21 @@ export function BilvaNavbar() {
 
                     {/* Bottom Link Bar */}
                     <div className="mt-4 pt-2.5 border-t border-[#EFEAE2] flex items-center gap-3 text-[12.5px] text-[#387C71]">
-                      <a href="#gifting-guide" className="hover:underline font-medium">Gifting Guide</a>
+                      <Link
+                        href={NAV_GUIDE_LINKS.gifting[0].href}
+                        className="hover:underline font-medium"
+                        onClick={() => setOpenMenu(null)}
+                      >
+                        {NAV_GUIDE_LINKS.gifting[0].label}
+                      </Link>
                       <span className="text-[#C7BCAB]">|</span>
-                      <a href="#corporate-gifting" className="hover:underline font-medium">Corporate Gifting</a>
+                      <Link
+                        href={NAV_GUIDE_LINKS.gifting[1].href}
+                        className="hover:underline font-medium"
+                        onClick={() => setOpenMenu(null)}
+                      >
+                        {NAV_GUIDE_LINKS.gifting[1].label}
+                      </Link>
                     </div>
                   </div>
                 )}
@@ -809,30 +959,33 @@ export function BilvaNavbar() {
           <div className="space-y-4">
             {menuList.map((item) => (
               <div key={item.label} className="border-b border-[#F0ECE1] pb-3 last:border-b-0">
-                {"href" in item && item.href ? (
+                <div className="flex items-center justify-between font-serif text-[15px] text-[#0A2D23] font-medium py-1">
                   <Link
                     href={item.href}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="flex items-center justify-between font-serif text-[15px] text-[#0A2D23] font-medium py-1 cursor-pointer"
+                    onClick={() => {
+                      setIsMobileMenuOpen(false);
+                      setOpenMenu(null);
+                    }}
+                    className="cursor-pointer"
                   >
-                    <span>{item.label}</span>
+                    {item.label}
                   </Link>
-                ) : (
-                  <div
-                    onClick={() => handleMenuClick(item.label, item.hasDropdown)}
-                    className="flex items-center justify-between font-serif text-[15px] text-[#0A2D23] font-medium py-1 cursor-pointer"
-                  >
-                    <span>{item.label}</span>
-                    {item.hasDropdown && (
+                  {item.hasDropdown ? (
+                    <button
+                      type="button"
+                      onClick={() => handleMenuClick(item.label, true)}
+                      className="p-1 cursor-pointer"
+                      aria-label={`${openMenu === item.label ? "Close" : "Open"} ${item.label} menu`}
+                    >
                       <ChevronDown
                         size={15}
                         className={`text-[#B89248] transition-transform duration-200 ${
                           openMenu === item.label ? "rotate-180" : ""
                         }`}
                       />
-                    )}
-                  </div>
-                )}
+                    </button>
+                  ) : null}
+                </div>
 
                 {item.hasDropdown && openMenu === item.label && (
                   <div className="mt-2.5 pl-3 border-l-2 border-[#B89248] space-y-2 text-[13px] text-[#333333]">
@@ -845,9 +998,16 @@ export function BilvaNavbar() {
                         <Link href={GOLD_COLLECTION_PATH} className="block pl-2 py-0.5" onClick={() => setIsMobileMenuOpen(false)}>
                           Gold Bars
                         </Link>
+                        <Link
+                          href={GOLD_COLLECTION_PATH}
+                          className="block pl-2 py-0.5 font-medium text-[#387C71]"
+                          onClick={() => setIsMobileMenuOpen(false)}
+                        >
+                          All Gold →
+                        </Link>
                         <p className="font-semibold text-[#387C71] text-[11px] uppercase tracking-wider mt-2">Silver</p>
                         <Link
-                          href={SILVER_COLLECTION_PATH}
+                          href={LAKSHMI_SILVER_COIN_PATH}
                           className="block pl-2 py-0.5"
                           onClick={() => setIsMobileMenuOpen(false)}
                         >
@@ -871,6 +1031,9 @@ export function BilvaNavbar() {
                     )}
                     {item.label === "Rudraksh" && (
                       <>
+                        <Link href={FIVE_MUKHI_RUDRAKSHA_PATH} className="block py-0.5" onClick={() => setIsMobileMenuOpen(false)}>
+                          5 Mukhi
+                        </Link>
                         <Link href={RUDRAKSH_PATH} className="block py-0.5" onClick={() => setIsMobileMenuOpen(false)}>
                           Individual Beads
                         </Link>
@@ -888,21 +1051,52 @@ export function BilvaNavbar() {
                     )}
                     {item.label === "Gemstones" && (
                       <>
-                        <a href="#emerald" className="block py-0.5">Emerald (Panna)</a>
-                        <a href="#ruby" className="block py-0.5">Ruby (Manik)</a>
-                        <a href="#sapphire" className="block py-0.5">Blue Sapphire (Neelam)</a>
+                        <Link href={GEMSTONES_PATH} className="block py-0.5" onClick={() => setIsMobileMenuOpen(false)}>
+                          Emerald (Panna)
+                        </Link>
+                        <Link href={GEMSTONES_PATH} className="block py-0.5" onClick={() => setIsMobileMenuOpen(false)}>
+                          Ruby (Manik)
+                        </Link>
+                        <Link href={GEMSTONES_PATH} className="block py-0.5" onClick={() => setIsMobileMenuOpen(false)}>
+                          Blue Sapphire (Neelam)
+                        </Link>
                       </>
                     )}
                     {item.label === "Gifting" && (
                       <>
-                        <a href="#weddings" className="block py-0.5">Weddings</a>
-                        <a href="#festivals" className="block py-0.5">Festivals</a>
+                        <Link href={GIFTING_PATH} className="block py-0.5" onClick={() => setIsMobileMenuOpen(false)}>
+                          Weddings
+                        </Link>
+                        <Link href={GIFTING_PATH} className="block py-0.5" onClick={() => setIsMobileMenuOpen(false)}>
+                          Festivals
+                        </Link>
+                        <Link href={CORPORATE_GIFTING_PATH} className="block py-0.5" onClick={() => setIsMobileMenuOpen(false)}>
+                          Corporate Gifting
+                        </Link>
                       </>
                     )}
                   </div>
                 )}
               </div>
             ))}
+
+            <div className="mt-3 border-t border-[#EFEAE2] pt-3">
+              <p className="mb-1.5 font-serif text-[12px] font-semibold uppercase tracking-[0.06em] text-[#387C71]">
+                My Bilwa
+              </p>
+              {NAV_ACCOUNT_MENU.map((item) => (
+                <Link
+                  key={item.id}
+                  href={item.href}
+                  className={`block py-1.5 text-[14px] ${
+                    item.isLogout ? "font-medium text-[#8B3A2F]" : "text-[#333333]"
+                  }`}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       )}

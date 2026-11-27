@@ -64,7 +64,7 @@ export const GIFTING_OCCASIONS: readonly GiftingOccasion[] = [
     imageSrc: "/images/bilva/gifting-hero.png",
     imageAlt: "Bilwa corporate gifting sets with engraved coins and premium packaging",
     description: "Elevate professional relationships with refined presentation sets.",
-    ctaHref: "#gifting-corporate",
+    ctaHref: "/corporate-gifting",
     ctaLabel: "View corporate gifts",
     icon: "corporate",
   },

@@ -3,14 +3,21 @@
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { BILVA_SITE_SHELL_CLASS } from "@/lib/bilva-site-shell";
-import { CORPORATE_GIFTING_DATA } from "@/data/bilva/corporate-gifting";
+import {
+  CORPORATE_GIFTING_DATA,
+  type CorporateGiftingPageData,
+} from "@/data/bilva/corporate-gifting";
 
 interface BilvaCorporateCollectionsProps {
+  data?: CorporateGiftingPageData;
   onSelectSet: (setName: string) => void;
 }
 
-export function BilvaCorporateCollections({ onSelectSet }: BilvaCorporateCollectionsProps) {
-  const { collections } = CORPORATE_GIFTING_DATA;
+export function BilvaCorporateCollections({
+  data = CORPORATE_GIFTING_DATA,
+  onSelectSet,
+}: BilvaCorporateCollectionsProps) {
+  const { collections } = data;
 
   return (
     <section

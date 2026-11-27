@@ -3,10 +3,17 @@
 import { useState } from "react";
 import { Plus, Minus } from "lucide-react";
 import { BILVA_SITE_FRAME_CLASS } from "@/lib/bilva-site-shell";
-import { CORPORATE_GIFTING_DATA } from "@/data/bilva/corporate-gifting";
+import {
+  CORPORATE_GIFTING_DATA,
+  type CorporateGiftingPageData,
+} from "@/data/bilva/corporate-gifting";
 
-export function BilvaCorporateFaq() {
-  const { faq } = CORPORATE_GIFTING_DATA;
+interface BilvaCorporateFaqProps {
+  data?: CorporateGiftingPageData;
+}
+
+export function BilvaCorporateFaq({ data = CORPORATE_GIFTING_DATA }: BilvaCorporateFaqProps) {
+  const { faq } = data;
   const [openIds, setOpenIds] = useState<Record<string, boolean>>({});
 
   const toggleItem = (id: string) => {

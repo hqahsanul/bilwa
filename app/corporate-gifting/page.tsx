@@ -4,7 +4,7 @@ import CorporateGiftingPage from "@/routes/corporate-gifting";
 export const metadata: Metadata = {
   title: "Corporate Gifting | Sri Bilva Jewels",
   description:
-    "Corporate Signature Collection — A curated range of precious metal gifts for recognition, partnerships and milestone occasions. Elegant, bespoke and distinctly Bilwa.",
+    "Recognition, beautifully given — distinctive precious-metal gifts for clients, teams and milestones. Explore Bilwa corporate gifting.",
 };
 
 export default CorporateGiftingPage;

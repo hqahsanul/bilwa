@@ -2,7 +2,10 @@
 
 import Image from "next/image";
 import { BILVA_SITE_FRAME_CLASS } from "@/lib/bilva-site-shell";
-import { CORPORATE_GIFTING_DATA } from "@/data/bilva/corporate-gifting";
+import {
+  CORPORATE_GIFTING_DATA,
+  type CorporateGiftingPageData,
+} from "@/data/bilva/corporate-gifting";
 
 /** Photo-like bilva leaves — gradient-masked into the emerald band */
 function LeafSideAccent({ side }: { side: "left" | "right" }) {
@@ -60,8 +63,14 @@ function LeafSideAccent({ side }: { side: "left" | "right" }) {
   );
 }
 
-export function BilvaCorporateDocumentation() {
-  const { documentation } = CORPORATE_GIFTING_DATA;
+interface BilvaCorporateDocumentationProps {
+  data?: CorporateGiftingPageData;
+}
+
+export function BilvaCorporateDocumentation({
+  data = CORPORATE_GIFTING_DATA,
+}: BilvaCorporateDocumentationProps) {
+  const { documentation } = data;
 
   return (
     <section

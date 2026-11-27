@@ -37,7 +37,7 @@ export const CORPORATE_GIFTING_DATA = {
   },
   signatureSection: {
     eyebrow: "CORPORATE GIFTING",
-    title: "Corporate Signature Collection",
+    title: "Corporate\nSignature Collection",
     description:
       "A curated range of precious metal gifts for recognition, partnerships and milestone occasions. Elegant, bespoke and distinctly Bilwa.",
     features: [
@@ -70,6 +70,9 @@ export const CORPORATE_GIFTING_DATA = {
   configurator: {
     eyebrow: "B2B ENQUIRY CONFIGURATOR",
     subtitle: "Build your requirement and request a custom quote for your organization.",
+    defaultQuantity: "25",
+    quantityLabel: "Quantity (units)",
+    personalizationLabel: "Brand personalization",
     quantities: ["25", "50", "100", "Custom"],
     finishes: ["Gold", "Silver", "Mixed"],
     personalizations: ["Yes", "No"],
@@ -145,7 +148,7 @@ export const CORPORATE_GIFTING_DATA = {
         subtitle: "FOR AWARDS & ACHIEVEMENTS",
         imageSrc: "/images/bilva/corporate/set-milestone-recognition.png",
         imageAlt: "Milestone Recognition Set with gold coin in emerald luxury box",
-        href: "#quote",
+        href: "/corporate-gifting/signature",
       },
       {
         id: "partnership-commemorative",
@@ -153,7 +156,7 @@ export const CORPORATE_GIFTING_DATA = {
         subtitle: "FOR CLIENTS & COLLABORATORS",
         imageSrc: "/images/bilva/corporate/set-partnership-commemorative.png",
         imageAlt: "Partnership Commemorative Set with silver coin in taupe ribboned box",
-        href: "#quote",
+        href: "/corporate-gifting/signature",
       },
       {
         id: "leadership-appreciation",
@@ -161,7 +164,7 @@ export const CORPORATE_GIFTING_DATA = {
         subtitle: "FOR LEADERSHIP & CXO TEAMS",
         imageSrc: "/images/bilva/corporate/set-leadership-appreciation.png",
         imageAlt: "Leadership Appreciation Set with dual gold and silver coin collection",
-        href: "#quote",
+        href: "/corporate-gifting/signature",
       },
     ] as CorporateCollectionSet[],
   },
@@ -196,3 +199,5 @@ export const CORPORATE_GIFTING_DATA = {
     ] as CorporateFaqItem[],
   },
 };
+
+export type CorporateGiftingPageData = typeof CORPORATE_GIFTING_DATA;

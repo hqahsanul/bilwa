@@ -1,7 +1,5 @@
 import { CORPORATE_GIFTING_PATH, GOLD_COINS_AND_BARS_PATH, LAKSHMI_GOLD_COIN_PATH, LAKSHMI_SILVER_COIN_PATH } from "@/lib/bilva-collection-routes";
 
-export const BAG_PATH = "/bag";
-
 export const BAG_PAGE = {
   crumbHome: "Home",
   crumbCurrent: "Your bag",

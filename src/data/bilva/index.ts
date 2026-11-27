@@ -17,3 +17,4 @@ export * from "./legacy";
 export * from "./metal-rates";
 export * from "./signature";
 export * from "./small-denominations";
+export * from "./use-cases";

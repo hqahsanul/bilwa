@@ -1,39 +1,13 @@
-export const LAKSHMI_GOLD_COIN_PATH = "/gold-silver/lakshmi-gold-coin";
+import { LAKSHMI_GOLD_COIN_PATH } from "@/lib/bilva-collection-routes";
 
 const RATE = 15890;
 
 export const LAKSHMI_GOLD_COIN_DATA = {
   hero: {
-    eyebrow: "OBJECT NO. 005 / THE HERITAGE EDITION",
     headline: "A legacy,\nheld in gold.",
-    chip: "Lakshmi Gold Coin · 24K · 999 Purity",
-    imageSrc: "/images/bilva/lakshmi-gold/hero-coin.png",
-    imageAlt: "Lakshmi gold coin standing on a stone pedestal",
-    thumbs: [
-      { id: "face", src: "/images/bilva/lakshmi-gold/hero-coin.png", alt: "Lakshmi gold coin face" },
-      { id: "mark", src: "/images/bilva/lakshmi-gold/specs-coin.png", alt: "Lakshmi gold coin on stone" },
-      { id: "edge", src: "/images/bilva/lakshmi-gold/coin-edge.png", alt: "Bilwa gold coin hallmark and edge" },
-    ],
   },
   buyBar: {
-    title: "Lakshmi Gold Coin",
-    certified: "Certified",
-    weights: ["1 g", "2 g", "5 g", "10 g"],
-    defaultWeight: "5 g",
     ratePerGram: RATE,
-    addToBag: "Add to bag",
-    buyNow: "Buy now",
-    livePricing: "Live pricing updates at checkout",
-    packaging: "Choose packaging",
-    pin: "Check delivery PIN",
-    certificate: "Certificate included",
-    shipping: "Insured shipping",
-  },
-  detail: {
-    title: "Every detail is considered.",
-    body: "From the divine form of Lakshmi to the precision finish and 999 purity, this coin is crafted for lasting value and generational gifting.",
-    imageSrc: "/images/bilva/lakshmi-gold/detail-edge-crop.png",
-    imageAlt: "Reeded edge and lotus engraving on the Lakshmi gold coin",
   },
   product: {
     title: "Lakshmi Gold Coin",

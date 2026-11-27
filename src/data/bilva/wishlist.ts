@@ -124,7 +124,7 @@ export const WISHLIST_DATA = {
     title: "You may also like",
     subtitle: "Curated pieces that complement your wishlist",
     exploreLabel: "Explore more recommendations",
-    exploreHref: "/#explore-collections",
+    exploreHref: "/gold-silver/gold-coins-and-bars",
     items: [
       {
         id: "rec-lakshmi-gold",

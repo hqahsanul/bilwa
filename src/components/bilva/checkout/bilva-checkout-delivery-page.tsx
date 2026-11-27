@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   Lock,
   Mail,
@@ -21,7 +22,16 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { BILVA_SITE_SHELL_CLASS } from "@/lib/bilva-site-shell";
+import { BAG_PATH, CHECKOUT_REVIEW_PATH, LOGIN_PATH } from "@/lib/bilva-collection-routes";
 import { CHECKOUT_DELIVERY_DATA } from "@/data/bilva/checkout-delivery";
+import {
+  DEMO_UNSERVICEABLE_PIN,
+  USE_CASE_SAVED_ADDRESSES,
+} from "@/data/bilva/use-cases";
+import {
+  BilvaChooseAddressList,
+  BilvaDeliveryPinError,
+} from "@/components/bilva/use-cases/bilva-use-case-states";
 
 export function BilvaCheckoutDeliveryPage() {
   const {
@@ -56,12 +66,26 @@ export function BilvaCheckoutDeliveryPage() {
   const [saveAddress, setSaveAddress] = useState(false);
   const [billingSame, setBillingSame] = useState(true);
 
+  const router = useRouter();
   // Stepper state
   const [currentStep, setCurrentStep] = useState(1);
+  const [selectedAddressId, setSelectedAddressId] = useState<string | null>(
+    USE_CASE_SAVED_ADDRESSES[0]?.id ?? null,
+  );
+  const [pinServiceError, setPinServiceError] = useState(false);
+
+  const verifyPincode = (value: string) => {
+    const unserviceable =
+      value.length === 6 && value === DEMO_UNSERVICEABLE_PIN;
+    setPinServiceError(unserviceable);
+    return !unserviceable;
+  };
 
   const handleContinue = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!verifyPincode(pincode)) return;
     setCurrentStep(2);
+    router.push(CHECKOUT_REVIEW_PATH);
   };
 
   return (
@@ -165,12 +189,12 @@ export function BilvaCheckoutDeliveryPage() {
 
           <div className="font-sans text-[13.5px] text-[#556961]">
             <span>{alreadyAccount} </span>
-            <button
-              type="button"
+            <Link
+              href={LOGIN_PATH}
               className="font-medium text-[#12352A] underline underline-offset-2 hover:text-[#1F6B45] cursor-pointer"
             >
               {signIn}
-            </button>
+            </Link>
           </div>
         </div>
 
@@ -180,6 +204,14 @@ export function BilvaCheckoutDeliveryPage() {
           {/* LEFT COLUMN: Contact Card + Delivery Details Card           */}
           {/* =========================================================== */}
           <div className="flex flex-col gap-6">
+            <BilvaChooseAddressList
+              addresses={USE_CASE_SAVED_ADDRESSES}
+              selectedId={selectedAddressId}
+              onSelect={setSelectedAddressId}
+              onAddNew={() => {
+                setSelectedAddressId(null);
+              }}
+            />
             {/* --------------------------------------------------------- */}
             {/* 1. Contact Card                                           */}
             {/* --------------------------------------------------------- */}
@@ -331,11 +363,28 @@ export function BilvaCheckoutDeliveryPage() {
                         required
                         maxLength={6}
                         value={pincode}
-                        onChange={(e) => setPincode(e.target.value.replace(/\D/g, ""))}
+                        onChange={(e) => {
+                          const next = e.target.value.replace(/\D/g, "");
+                          setPincode(next);
+                          if (pinServiceError && next !== DEMO_UNSERVICEABLE_PIN) {
+                            setPinServiceError(false);
+                          }
+                        }}
+                        onBlur={() => {
+                          if (pincode.length === 6) verifyPincode(pincode);
+                        }}
                         placeholder={delivery.pincodePlaceholder}
+                        aria-invalid={pinServiceError || undefined}
                         className="flex-1 h-full bg-transparent font-sans text-[13.5px] text-[#1E3B30] placeholder-[#8A978E] outline-none"
                       />
                     </div>
+                    <BilvaDeliveryPinError
+                      visible={pinServiceError}
+                      onTryAnother={() => {
+                        setPincode("");
+                        setPinServiceError(false);
+                      }}
+                    />
                   </div>
                 </div>
 
@@ -504,7 +553,7 @@ export function BilvaCheckoutDeliveryPage() {
             {/* Bottom Form Actions */}
             <div className="mt-2 flex flex-wrap items-center justify-between gap-4">
               <Link
-                href="/checkout"
+                href={BAG_PATH}
                 className="inline-flex items-center gap-2 font-sans text-[13.5px] font-semibold text-[#1E3B30] hover:text-[#1F6B45] transition-colors"
               >
                 <ArrowLeft size={16} />
@@ -513,7 +562,8 @@ export function BilvaCheckoutDeliveryPage() {
 
               <button
                 type="submit"
-                className="inline-flex items-center justify-center gap-2 h-12 px-7 rounded-[8px] bg-[#183B2B] hover:bg-[#122F22] active:scale-[0.99] text-white font-sans text-[14.5px] font-medium transition-all cursor-pointer shadow-xs"
+                disabled={pinServiceError}
+                className="inline-flex items-center justify-center gap-2 h-12 px-7 rounded-[8px] bg-[#183B2B] hover:bg-[#122F22] active:scale-[0.99] text-white font-sans text-[14.5px] font-medium transition-all cursor-pointer shadow-xs disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <span>{continueToReview}</span>
                 <ArrowRight size={15} />

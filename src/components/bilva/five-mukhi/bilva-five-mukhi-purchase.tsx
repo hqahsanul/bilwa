@@ -1,8 +1,10 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Link from "next/link";
 import { MapPin, Minus, Plus, ShoppingBag, ArrowRight } from "lucide-react";
 import { BILVA_SITE_FRAME_CLASS, BILVA_SITE_SHELL_CLASS } from "@/lib/bilva-site-shell";
+import { BAG_PATH, CHECKOUT_PATH } from "@/lib/bilva-collection-routes";
 import { FIVE_MUKHI_DATA } from "@/data/bilva/five-mukhi-rudraksha";
 
 function chipClass(selected: boolean) {
@@ -260,20 +262,20 @@ export function BilvaFiveMukhiPurchase() {
                   </p>
                 </div>
 
-                <button
-                  type="button"
+                <Link
+                  href={BAG_PATH}
                   className="flex h-[3.25rem] w-full cursor-pointer items-center justify-center gap-2.5 rounded-[12px] bg-[#1A3324] font-sans text-[16px] font-medium text-white transition-colors hover:bg-[#12241A]"
                 >
                   <ShoppingBag size={18} strokeWidth={1.75} />
                   <span>{purchase.addToBag}</span>
-                </button>
+                </Link>
 
-                <button
-                  type="button"
+                <Link
+                  href={CHECKOUT_PATH}
                   className="flex h-[3.15rem] w-full cursor-pointer items-center justify-center rounded-[12px] border border-[#C9C6B6] bg-transparent font-sans text-[15.5px] font-medium text-[#1A3324] transition-colors hover:bg-white/40"
                 >
                   {purchase.buyNow}
-                </button>
+                </Link>
 
                 <div className="relative">
                   <MapPin
